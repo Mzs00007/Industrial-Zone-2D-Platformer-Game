@@ -1,0 +1,53 @@
+# Compiled class files
+*.class
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+
+# Build artifacts
+bin/
+out/
+dist/
+*.jar
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Backups
+backup_before_renaming/
+*.bak
+*.backup
+
+# Temp files
+*.tmp
+*.temp
+*.log
+
+# Project specific
+.gradle/
+.classpath
+.project
+.settings/
+
+# Resources (contains files with problematic long filenames)
+Resources/
+
+# Do NOT ignore
+!*.java
+!*.md
+!*.json
+!*.ps1
+!*.py
+!*.xml
