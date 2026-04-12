@@ -1,53 +1,100 @@
-# Compiled class files
+# ===== COMPILED FILES =====
 *.class
+*.jar
+*.war
+bin/
+out/
+dist/
+build/
 
-# IDE
+# ===== IDE & EDITOR =====
 .vscode/
 .idea/
 *.iml
+*.iws
+*.ipr
+*.swp
+*.swo
 
-# Python
+# ===== PYTHON (decompilation scripts) =====
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 .Python
+*.py
 .venv/
 venv/
 
-# Build artifacts
-bin/
-out/
-dist/
-*.jar
+# ===== BUILD SCRIPTS (optional) =====
+*.bat
+*.cmd
+*.ps1
+decompile*
 
-# OS
+# ===== PLANNING & DOCUMENTATION (NOT CODE) =====
+/plans/
+/batch_planner/
+/main_planning_designing/
+RECOVERY_STATUS.md
+START_HERE.md
+ARCHITECTURE_DIAGRAM.txt
+CLASS_PATHS_LIST.txt
+CLEANUP_SUMMARY.txt
+COMPILATION_REPORT.txt
+COMPLETE_CLASS_PATHS_ONLY.txt
+COMPLETION_CHECKLIST.txt
+FILE_RENAMING_DETAILED_ANALYSIS.txt
+FINAL_BUILD_COMPLETE.txt
+FINAL_SUBMISSION_READY.txt
+FINAL_SUMMARY.txt
+GAME_COMPLETION_REPORT.txt
+GAME_READY_FOR_SUBMISSION.txt
+GITHUB_PUSH_INSTRUCTIONS.md
+*.md
+
+# ===== OS FILES =====
 .DS_Store
 Thumbs.db
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 
-# Backups
+# ===== BACKUPS =====
 backup_before_renaming/
 *.bak
 *.backup
-
-# Temp files
 *.tmp
 *.temp
-*.log
 
-# Project specific
+# ===== LOGS =====
+*.log
+logs/
+
+# ===== PROJECT SPECIFIC =====
 .gradle/
 .classpath
 .project
 .settings/
+_DECOMPILATION_GUIDE.md
+_CLASS_INVENTORY.json
+_compiled_classes/
 
-# Resources (contains files with problematic long filenames)
-Resources/
+# ===== GIT CONFIG =====
+.git/
 
-# Do NOT ignore
+# ===== KEEP ONLY THESE =====
+!handout/src/
+!handout/Resources/
+!handout/lib/
 !*.java
-!*.md
 !*.json
+!build.bat
+!run.bat
+!run_game.bat
+!RunAssetTester.bat
 !*.ps1
 !*.py
 !*.xml
