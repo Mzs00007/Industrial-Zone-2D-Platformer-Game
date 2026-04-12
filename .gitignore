@@ -32,6 +32,9 @@ venv/
 *.ps1
 decompile*
 
+# ===== MARKDOWN & DOCUMENTATION (NOT CODE) =====
+*.md
+
 # ===== PLANNING & DOCUMENTATION (NOT CODE) =====
 /plans/
 /batch_planner/
