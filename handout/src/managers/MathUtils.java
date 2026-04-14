@@ -1,4 +1,4 @@
-﻿package managers;
+package managers;
 
 /**
  * STATIC UTILITIES - Shared by ALL entities

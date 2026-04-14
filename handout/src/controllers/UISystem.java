@@ -1,4 +1,4 @@
-﻿package ui;
+package ui;
 import animation.InputController;
 import animation.InputController.VerticalSpritesheetLoader;
 import physics.PhysicsSystem;

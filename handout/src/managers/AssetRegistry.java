@@ -1,4 +1,4 @@
-﻿package managers;
+package managers;
 
 /**
  * AssetRegistry - Auto-generated from assets-manifest.json

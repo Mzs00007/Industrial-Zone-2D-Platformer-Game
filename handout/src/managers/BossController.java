@@ -1,4 +1,4 @@
-﻿package managers;
+package managers;
 
 import java.awt.*;
 import java.util.List;

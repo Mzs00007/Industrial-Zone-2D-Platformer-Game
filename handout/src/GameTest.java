@@ -1,4 +1,4 @@
-﻿/*
+/*
 * COMPLETE PLAYER STATE MACHINE TEST - NO LEVEL DEPENDENCIES
 * Pure focus on PlayerBase state machine mechanics
 */

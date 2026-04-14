@@ -1,4 +1,4 @@
-﻿package framework;
+package framework;
 
 import game2D.GameCore;
 import managers.Config;

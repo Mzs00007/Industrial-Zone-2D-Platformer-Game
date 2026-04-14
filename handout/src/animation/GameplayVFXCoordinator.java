@@ -1,4 +1,4 @@
-﻿package vfx;
+package vfx;
 
 import managers.Core;
 import managers.assets.AssetManager_001_UnifiedLoader;

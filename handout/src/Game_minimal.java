@@ -1,4 +1,4 @@
-﻿/*
+/*
 * MINIMAL GAME.JAVA - PLAYER STATE MACHINE FOCUS
 * Pure focus on player mechanics without complex Level/Enemy systems
 */

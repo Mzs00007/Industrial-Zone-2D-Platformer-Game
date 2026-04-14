@@ -1,4 +1,4 @@
-﻿package managers;
+package managers;
 
 import managers.*;
 import managers.utils.MathUtils;

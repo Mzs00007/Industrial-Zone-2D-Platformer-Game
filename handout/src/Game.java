@@ -1,4 +1,4 @@
-﻿/*
+/*
  * INDUSTRIAL ZONE PLATFORMER - MAIN GAME CLASS
  * Extends GameCore with proper game loop implementation
  * Handles player movement, camera, projectiles, and UI rendering

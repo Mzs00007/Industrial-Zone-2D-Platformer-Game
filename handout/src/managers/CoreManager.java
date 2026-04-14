@@ -1,4 +1,4 @@
-﻿package managers;
+package managers;
 
 import managers.Core;
 import managers.CoreSystem;

@@ -1,4 +1,4 @@
-﻿package managers;
+package managers;
 
 import managers.assets.AssetManager_001_UnifiedLoader;
 import managers.assets.AssetMetadata;

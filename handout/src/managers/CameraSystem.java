@@ -1,4 +1,4 @@
-﻿package camera;
+package camera;
 import utilities.AudioSystem;
 
 import java.util.Random;

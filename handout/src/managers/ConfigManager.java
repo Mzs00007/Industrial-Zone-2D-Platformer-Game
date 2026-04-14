@@ -1,4 +1,4 @@
-﻿package managers;
+package managers;
 
 import managers.Config;
 import java.util.Properties;

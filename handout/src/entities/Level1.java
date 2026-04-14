@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Decompiled with CFR 0.152.
  * UPDATED: 2026-04-14 - Production asset integration
  */

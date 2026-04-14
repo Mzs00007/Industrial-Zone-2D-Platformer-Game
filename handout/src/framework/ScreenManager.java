@@ -1,4 +1,4 @@
-﻿package framework;
+package framework;
 
 import controllers.MenuInputHandler;
 import controllers.screens.Phase2CharacterIdleScreen;

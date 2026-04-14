@@ -1,4 +1,4 @@
-﻿package controllers;
+package controllers;
 
 import managers.Core;
 import managers.GameplayAnimationController;

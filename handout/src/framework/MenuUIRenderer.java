@@ -1,4 +1,4 @@
-﻿package framework;
+package framework;
 
 import controllers.GUIAssetManager;
 import controllers.screens.FrameTiler;

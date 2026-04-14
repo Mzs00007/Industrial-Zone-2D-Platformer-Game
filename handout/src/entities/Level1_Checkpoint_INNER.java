@@ -1,4 +1,4 @@
-﻿/*
+/*
  * DEPRECATED: This is a compiled inner class artifact (decompiled).
  * The actual implementation is in the parent Level class.
  * 
