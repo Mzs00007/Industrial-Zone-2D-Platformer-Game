@@ -1,4 +1,4 @@
-/*
+﻿/*
  * INDUSTRIAL ZONE PLATFORMER - MAIN GAME CLASS
  * Extends GameCore with proper game loop implementation
  * Handles player movement, camera, projectiles, and UI rendering
@@ -465,6 +465,7 @@ public class Game extends GameCore {
     public HUDPanel getHUDPanel() {
         return this.hudPanel;
     }
+}
 
     public TopBarPanel getTopBarPanel() {
         return this.topBarPanel;

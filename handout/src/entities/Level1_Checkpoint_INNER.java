@@ -11,7 +11,7 @@
 /*
  * Decompiled with CFR 0.152.
  */
-public static class Level1.CheckpointData {
+public static class  Level1.CheckpointData {
     public float x;
     public float y;
     public int checkpointID;
