@@ -73,7 +73,7 @@ public class SpatialGrid {
         int n3;
         Set set = this.entityCells.getOrDefault(n2, new HashSet());
         Set<Integer> set2 = this.getCellsForBox(boundingBox);
-        Iterator<Object> iterator = set.iterator();
+        Iterator iterator = set.iterator();
         while (iterator.hasNext()) {
             List<Integer> list;
             n3 = (Integer)iterator.next();

@@ -1,4 +1,4 @@
-﻿package physics;
+package physics;
 
 import managers.Core;
 import managers.GameplayAnimationController;
