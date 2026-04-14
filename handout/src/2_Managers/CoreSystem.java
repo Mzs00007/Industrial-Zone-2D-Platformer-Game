@@ -1,4 +1,4 @@
-package core;
+﻿package managers;
 
 import physics.PhysicsSystem;
 import ui.components.game2D.*;

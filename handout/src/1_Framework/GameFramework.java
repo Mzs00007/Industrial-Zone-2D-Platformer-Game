@@ -1,10 +1,10 @@
-package framework;
+﻿package framework;
 
 import game2D.GameCore;
-import managers.AudioManager;
+import managers.Config;
+import utilities.AudioManager;
 import managers.CameraManager;
 import managers.CombatManager;
-import managers.ConfigManager;
 import managers.CoreManager;
 import managers.EventManager;
 import managers.ObjectiveManager;

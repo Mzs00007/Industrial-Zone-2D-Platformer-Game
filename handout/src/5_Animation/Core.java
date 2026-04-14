@@ -1,9 +1,9 @@
 /*
  * Decompiled with CFR 0.152.
  */
-package core;
+package animation;
 
-import core.Core;
+import managers.Core;
 
 public static class Core.AnimationInitializer {
     private Core.AnimationPlayer animPlayer;

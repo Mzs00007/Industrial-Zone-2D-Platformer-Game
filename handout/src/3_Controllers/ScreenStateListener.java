@@ -1,9 +1,9 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui;
+package controllers;
 
-import core.GameState;
+import managers.GameState;
 
 public interface ScreenStateListener {
     public void onStateTransition(GameState var1);

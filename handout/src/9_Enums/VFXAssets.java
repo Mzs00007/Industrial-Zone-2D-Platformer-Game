@@ -1,3 +1,4 @@
+package enums;
 /**
  * VFX Assets
  * Auto-generated from assets-manifest.json

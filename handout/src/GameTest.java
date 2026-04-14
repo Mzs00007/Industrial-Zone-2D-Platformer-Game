@@ -1,11 +1,11 @@
-/*
+﻿/*
 * COMPLETE PLAYER STATE MACHINE TEST - NO LEVEL DEPENDENCIES
 * Pure focus on PlayerBase state machine mechanics
 */
 import game2D.GameCore;
-import gui.GameState;
-import gui.HUDPanel;
-import gui.TopBarPanel;
+import controllers.GameState;
+import controllers.HUDPanel;
+import controllers.TopBarPanel;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;

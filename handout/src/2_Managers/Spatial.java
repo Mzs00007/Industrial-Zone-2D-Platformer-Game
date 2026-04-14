@@ -1,7 +1,7 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package core;
+package managers;
 
 public static interface Core.Spatial {
     public float getX();

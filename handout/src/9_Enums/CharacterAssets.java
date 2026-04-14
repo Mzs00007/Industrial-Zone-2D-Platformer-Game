@@ -1,3 +1,5 @@
+package enums;
+
 /**
  * Character Assets
  * Auto-generated from assets-manifest.json

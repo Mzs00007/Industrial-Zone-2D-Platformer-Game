@@ -1,10 +1,10 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui;
+package controllers;
 
 import animation.AnimationAndSpriteLoader;
-import audio.MidiTuner;
+import utilities.MidiTuner;
 import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;

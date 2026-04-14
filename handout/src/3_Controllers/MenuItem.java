@@ -1,9 +1,9 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui.screens;
+package controllers;
 
-import gui.screens.Phase13MainMenuScreen;
+import controllers.screens.Phase13MainMenuScreen;
 
 public static class Phase13MainMenuScreen.MenuItem {
     public String label;

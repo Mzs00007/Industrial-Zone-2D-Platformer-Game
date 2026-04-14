@@ -1,8 +1,8 @@
-package core;
+﻿package managers;
 
-import core.assets.AssetManager_001_UnifiedLoader;
-import core.assets.AssetMetadata;
-import core.assets.AssetPathBridge;
+import managers.assets.AssetManager_001_UnifiedLoader;
+import managers.assets.AssetMetadata;
+import managers.assets.AssetPathBridge;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;

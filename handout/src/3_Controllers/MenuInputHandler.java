@@ -1,11 +1,11 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui;
+package controllers;
 
-import gui.screens.Phase13MainMenuScreen;
-import gui.screens.Phase14PauseMenuScreen;
-import gui.screens.Phase15SettingsScreen;
+import controllers.screens.Phase13MainMenuScreen;
+import controllers.screens.Phase14PauseMenuScreen;
+import controllers.screens.Phase15SettingsScreen;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 

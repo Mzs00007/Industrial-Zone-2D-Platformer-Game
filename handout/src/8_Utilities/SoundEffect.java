@@ -1,7 +1,7 @@
 /*
  * Decompiled with CFR 0.152.
  */
-package audio;
+package utilities;
 
 public static class AudioSystem.SoundEffect {
     private String name;

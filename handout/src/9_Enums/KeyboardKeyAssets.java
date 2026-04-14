@@ -1,3 +1,5 @@
+package enums;
+
 /**
  * Keyboard Key Assets
  * Auto-generated from assets-manifest.json

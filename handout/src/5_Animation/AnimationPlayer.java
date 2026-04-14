@@ -1,7 +1,7 @@
 /*
  * Decompiled with CFR 0.152.
  */
-package core;
+package animation;
 
 import java.awt.image.BufferedImage;
 import java.util.HashMap;

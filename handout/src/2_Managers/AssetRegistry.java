@@ -1,4 +1,4 @@
-package core;
+﻿package managers;
 
 /**
  * AssetRegistry - Auto-generated from assets-manifest.json

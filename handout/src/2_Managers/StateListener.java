@@ -1,9 +1,9 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package core;
+package managers;
 
-import core.Core;
+import managers.Core;
 
 public static interface Core.GameStateManager.StateListener {
     public void onStateChanged(Core.GameState var1, Core.GameState var2);

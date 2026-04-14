@@ -1,7 +1,7 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package core;
+package managers;
 
 private static enum GameplayEnhancementSystem.DifficultyLevel {
     EASY(0),

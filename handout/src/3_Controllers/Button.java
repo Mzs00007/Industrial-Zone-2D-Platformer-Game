@@ -1,7 +1,7 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui.screens;
+package controllers;
 
 import java.awt.Rectangle;
 

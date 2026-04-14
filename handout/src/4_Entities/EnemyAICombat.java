@@ -1,11 +1,11 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package core_game_entities.enemies;
+package entities;
 
-import core.Core;
-import core_game_entities.characters.PlayerBase;
-import core_game_entities.enemies.Enemies;
+import managers.Core;
+import entities.characters.PlayerBase;
+import entities.enemies.Enemies;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

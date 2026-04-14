@@ -1,7 +1,7 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package core;
+package managers;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

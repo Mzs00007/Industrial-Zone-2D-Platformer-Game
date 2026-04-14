@@ -1,7 +1,7 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui;
+package controllers;
 
 public static enum InteractiveButton.ButtonState {
     IDLE,

@@ -1,9 +1,9 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui.screens;
+package controllers;
 
-import gui.screens.Phase15SettingsScreen;
+import controllers.screens.Phase15SettingsScreen;
 import java.util.List;
 
 public static class Phase15SettingsScreen.Setting {

@@ -1,10 +1,10 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui;
+package controllers;
 
 import animation.AnimationAndSpriteLoader;
-import gui.GUIAssetManager;
+import controllers.GUIAssetManager;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 

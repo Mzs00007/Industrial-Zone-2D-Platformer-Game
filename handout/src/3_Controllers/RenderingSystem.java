@@ -1,4 +1,4 @@
-package rendering;
+﻿package controllers;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.imageio.ImageIO;
-import core.CoreSystem;
+import managers.CoreSystem;
 import animation.AnimationAndSpriteLoader;
 
 /**

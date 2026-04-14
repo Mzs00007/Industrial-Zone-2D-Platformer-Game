@@ -1,4 +1,4 @@
-package core.assets;
+﻿package managers;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

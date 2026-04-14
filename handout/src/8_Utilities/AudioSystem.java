@@ -1,7 +1,7 @@
 /*
  * Decompiled with CFR 0.152.
  */
-package audio;
+package utilities;
 
 import java.util.ArrayList;
 import java.util.HashMap;

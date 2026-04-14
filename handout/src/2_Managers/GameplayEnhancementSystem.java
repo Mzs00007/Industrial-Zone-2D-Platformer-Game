@@ -1,7 +1,7 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package core;
+package managers;
 
 public static class Core.GameplayEnhancementSystem {
     public static final int DIFFICULTY_EASY = 1;

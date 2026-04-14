@@ -1,9 +1,9 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package core_game_entities.enemies;
+package entities;
 
-import core_game_entities.enemies.Enemies;
+import entities.enemies.Enemies;
 import game2D.Animation;
 import java.awt.image.BufferedImage;
 import java.io.File;

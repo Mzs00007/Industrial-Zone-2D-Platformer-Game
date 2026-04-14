@@ -1,7 +1,7 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package rendering;
+package controllers;
 
 import java.awt.image.BufferedImage;
 

@@ -1,9 +1,9 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui.screens;
+package controllers;
 
-import gui.screens.Phase12QuestTrackerScreen;
+import controllers.screens.Phase12QuestTrackerScreen;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;

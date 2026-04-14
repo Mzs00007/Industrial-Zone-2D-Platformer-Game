@@ -1,8 +1,8 @@
-package core;
+﻿package managers;
 
-import core.assets.AssetManager_001_UnifiedLoader;
-import core.assets.AssetMetadata;
-import core.assets.AssetPathBridge;
+import managers.assets.AssetManager_001_UnifiedLoader;
+import managers.assets.AssetMetadata;
+import managers.assets.AssetPathBridge;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;

@@ -1,11 +1,11 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui;
+package controllers;
 
-import gui.GUIAssetManager;
-import gui.GUIComponent;
-import gui.GameState;
+import controllers.GUIAssetManager;
+import controllers.GUIComponent;
+import controllers.GameState;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;

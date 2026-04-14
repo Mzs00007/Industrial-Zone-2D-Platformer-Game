@@ -1,3 +1,5 @@
+package enums;
+
 /**
  * Audio Assets
  * Auto-generated from assets-manifest.json

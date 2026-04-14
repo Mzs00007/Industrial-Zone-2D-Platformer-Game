@@ -1,4 +1,4 @@
-package ui;
+﻿package ui;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 import levels.Level1;
-import rendering.RenderingSystem;
+import controllers.RenderingSystem;
 import ui.components.game2D.GameScreenManager;
 
 /**

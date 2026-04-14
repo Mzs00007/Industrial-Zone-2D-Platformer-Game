@@ -1,7 +1,7 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package rendering;
+package controllers;
 
 public static class ComprehensiveTileMapLoader.AnimatedObject {
     public String name;

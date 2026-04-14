@@ -1,12 +1,12 @@
 package framework;
 
-import gui.ButtonPanel;
-import gui.GUIAssetManager;
-import gui.GameState;
-import gui.HUDPanel;
-import gui.LeftSidebar;
-import gui.MouseInputHandler;
-import gui.TopBarPanel;
+import controllers.ButtonPanel;
+import controllers.GUIAssetManager;
+import managers.GameState;
+import controllers.HUDPanel;
+import controllers.LeftSidebar;
+import controllers.MouseInputHandler;
+import controllers.TopBarPanel;
 import java.awt.Graphics2D;
 import javax.swing.JFrame;
 

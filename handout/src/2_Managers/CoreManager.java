@@ -1,19 +1,19 @@
-package managers;
+﻿package managers;
 
-import core.Core;
-import core.CoreSystem;
-import core.BossCombatPhaseManager;
-import core.BossController;
-import core.EnemyController;
-import core.EnemyWaveManager;
-import core.GameEntity;
-import core.GameplayEnhancementSystem;
-import core.GameState;
-import core.GameStateManager;
-import core.LevelDesignOptimizer;
-import core.PlayerController;
-import core.SystemsContainer;
-import core.SystemEnums;
+import managers.Core;
+import managers.CoreSystem;
+import managers.BossCombatPhaseManager;
+import managers.BossController;
+import managers.EnemyController;
+import managers.EnemyWaveManager;
+import managers.GameEntity;
+import managers.GameplayEnhancementSystem;
+import managers.GameState;
+import managers.GameStateManager;
+import managers.LevelDesignOptimizer;
+import managers.PlayerController;
+import managers.SystemsContainer;
+import managers.SystemEnums;
 import java.util.HashMap;
 import java.util.Map;
 

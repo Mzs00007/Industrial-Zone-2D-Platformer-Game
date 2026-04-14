@@ -1,10 +1,10 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui;
+package controllers;
 
 import animation.AnimationAndSpriteLoader;
-import gui.ButtonPanel;
+import controllers.ButtonPanel;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;

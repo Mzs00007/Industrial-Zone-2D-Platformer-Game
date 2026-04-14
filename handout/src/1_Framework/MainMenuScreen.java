@@ -1,8 +1,8 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-import gui.FrameTiler;
-import gui.GUIAssetManager;
+import controllers.FrameTiler;
+import controllers.GUIAssetManager;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.MouseEvent;

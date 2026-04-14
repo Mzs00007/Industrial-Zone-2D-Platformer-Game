@@ -1,8 +1,8 @@
-package gui;
+﻿package controllers;
 
-import core.Core;
-import core.GameplayAnimationController;
-import audio.GameplayAudioVisualSynchronizer;
+import managers.Core;
+import managers.GameplayAnimationController;
+import utilities.GameplayAudioVisualSynchronizer;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Rectangle;

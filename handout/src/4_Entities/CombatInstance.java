@@ -1,9 +1,9 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package core_game_entities.enemies;
+package entities;
 
-import core_game_entities.enemies.EnemyAICombat;
+import entities.enemies.EnemyAICombat;
 
 public static class EnemyAICombat.CombatInstance {
     public String enemyId;

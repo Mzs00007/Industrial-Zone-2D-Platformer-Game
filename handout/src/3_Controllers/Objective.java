@@ -1,7 +1,7 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui.screens;
+package controllers;
 
 public static class Phase12QuestTrackerScreen.Objective {
     public String description;

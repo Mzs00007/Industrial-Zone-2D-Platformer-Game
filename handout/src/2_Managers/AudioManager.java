@@ -1,7 +1,7 @@
-package managers;
+﻿package managers;
 
-import audio.AudioSystem;
-import audio.MidiTuner;
+import utilities.AudioSystem;
+import utilities.MidiTuner;
 import java.util.ArrayList;
 import java.util.List;
 

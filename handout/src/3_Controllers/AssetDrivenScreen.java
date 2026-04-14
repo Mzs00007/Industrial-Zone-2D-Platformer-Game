@@ -1,10 +1,10 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui.screens;
+package controllers;
 
-import core.GameState;
-import gui.screens.Screen;
+import managers.GameState;
+import controllers.screens.Screen;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;

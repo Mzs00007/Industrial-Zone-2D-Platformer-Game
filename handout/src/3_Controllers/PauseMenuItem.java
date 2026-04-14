@@ -1,9 +1,9 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui.screens;
+package controllers;
 
-import gui.screens.Phase14PauseMenuScreen;
+import controllers.screens.Phase14PauseMenuScreen;
 
 public static class Phase14PauseMenuScreen.PauseMenuItem {
     public String label;

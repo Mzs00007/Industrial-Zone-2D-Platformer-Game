@@ -1,4 +1,4 @@
-package utils;
+package utilities;
 
 /**
  * CharacterAssetMapper - Utility class for mapping character names and states to asset paths

@@ -1,7 +1,7 @@
-package core.game;
+﻿package managers;
 
-import core.*;
-import core.utils.MathUtils;
+import managers.*;
+import managers.utils.MathUtils;
 import java.awt.*;
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package assets.enums;
+package enums;
 
 /**
  * AssetEnumIndex - Master index for all asset enums

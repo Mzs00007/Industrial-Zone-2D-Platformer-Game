@@ -1,7 +1,7 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package core_game_entities.audio;
+package entities;
 
 public static enum AudioEntities.MusicTrack {
     MENU_THEME("menu", "Resources/industrial-zone/audio/music/menu_theme.wav", true),

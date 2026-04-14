@@ -1,3 +1,4 @@
+package enums;
 /**
  * GUI Assets
  * Auto-generated from assets-manifest.json

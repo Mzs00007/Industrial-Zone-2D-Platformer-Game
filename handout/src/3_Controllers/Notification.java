@@ -1,9 +1,9 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui.screens;
+package controllers;
 
-import gui.screens.Phase11NotificationScreen;
+import controllers.screens.Phase11NotificationScreen;
 
 public static class Phase11NotificationScreen.Notification {
     public String title;

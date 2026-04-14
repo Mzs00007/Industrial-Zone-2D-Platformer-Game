@@ -1,7 +1,7 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui;
+package controllers;
 
 public class GUIAnimationManager {
     private float elapsedTime = 0.0f;

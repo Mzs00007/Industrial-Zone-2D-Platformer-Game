@@ -1,11 +1,11 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  * UPDATED: 2026-04-14 - Production asset integration
  */
 import animation.AnimationAndSpriteLoader;
 import game2D.TileMap;
 import utils.Config;
-import assets.enums.TileAssets;
+import enums.TileAssets;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -15,8 +15,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import rendering.AnimatedObjectManager;
-import rendering.ComprehensiveTileMapLoader;
+import controllers.AnimatedObjectManager;
+import controllers.ComprehensiveTileMapLoader;
 
 public class Level2
 extends AnimationAndSpriteLoader {

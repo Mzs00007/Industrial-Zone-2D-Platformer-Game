@@ -1,6 +1,6 @@
-package core.assets;
+﻿package managers;
 
-import core.AssetRegistry;
+import managers.AssetRegistry;
 
 /**
  * ════════════════════════════════════════════════════════════════════════════

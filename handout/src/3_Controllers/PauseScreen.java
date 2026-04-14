@@ -1,13 +1,13 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui;
+package controllers;
 
 import animation.AnimationAndSpriteLoader;
-import audio.MidiTuner;
-import core.GameState;
-import gui.InteractiveButton;
-import gui.Screen;
+import utilities.MidiTuner;
+import managers.GameState;
+import controllers.InteractiveButton;
+import controllers.Screen;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;

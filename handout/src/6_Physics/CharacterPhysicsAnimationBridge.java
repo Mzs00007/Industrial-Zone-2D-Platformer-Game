@@ -1,7 +1,7 @@
-package physics;
+﻿package physics;
 
-import core.Core;
-import core.GameplayAnimationController;
+import managers.Core;
+import managers.GameplayAnimationController;
 import vfx.GameplayVFXCoordinator;
 
 /**

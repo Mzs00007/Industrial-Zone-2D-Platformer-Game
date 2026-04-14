@@ -1,9 +1,9 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui.screens;
+package controllers;
 
-import core.GameState;
+import managers.GameState;
 import java.awt.image.BufferedImage;
 
 public abstract class Screen {

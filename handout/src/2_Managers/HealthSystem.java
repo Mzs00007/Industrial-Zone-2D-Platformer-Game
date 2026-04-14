@@ -1,4 +1,4 @@
-package core.utils;
+﻿package managers;
 
 /**
  * COMPOSITION PATTERN - CollisionDetector

@@ -1,9 +1,9 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
 package core_game_entities.effects;
 
-import core_game_entities.effects.VFXChainReaction;
+import entities.effects.VFXChainReaction;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

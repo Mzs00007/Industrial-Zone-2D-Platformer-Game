@@ -1,3 +1,5 @@
+package enums;
+
 /**
  * Mouse Key Assets
  * Auto-generated from assets-manifest.json

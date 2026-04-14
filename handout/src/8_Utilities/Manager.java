@@ -1,9 +1,9 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package audio;
+package utilities;
 
-import audio.AudioSystem;
+import utilities.AudioSystem;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,7 +1,7 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package core;
+package managers;
 
 public static enum Core.LevelCoordinator.Level {
     INDUSTRIAL_ZONE_L1("Level 1: Industrial Zone", "level_1"),

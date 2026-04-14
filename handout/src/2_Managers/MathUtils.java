@@ -1,4 +1,4 @@
-package core.utils;
+﻿package managers;
 
 /**
  * STATIC UTILITIES - Shared by ALL entities

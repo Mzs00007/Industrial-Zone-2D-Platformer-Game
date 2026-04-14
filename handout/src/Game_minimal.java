@@ -1,13 +1,13 @@
-/*
+﻿/*
 * MINIMAL GAME.JAVA - PLAYER STATE MACHINE FOCUS
 * Pure focus on player mechanics without complex Level/Enemy systems
 */
 import animation.AnimationAndSpriteLoader;
 import game2D.GameCore;
 import game2D.TileMap;
-import gui.GameState;
-import gui.HUDPanel;
-import gui.TopBarPanel;
+import controllers.GameState;
+import controllers.HUDPanel;
+import controllers.TopBarPanel;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;

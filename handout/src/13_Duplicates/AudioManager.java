@@ -1,9 +1,9 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
 package core_game_entities.audio;
 
-import core_game_entities.audio.AudioEntities;
+import entities.audio.AudioEntities;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

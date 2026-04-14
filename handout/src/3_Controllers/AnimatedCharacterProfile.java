@@ -1,9 +1,9 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui;
+package controllers;
 
-import gui.AnimationState;
+import controllers.AnimationState;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;

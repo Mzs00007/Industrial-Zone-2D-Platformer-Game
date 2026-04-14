@@ -1,9 +1,9 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package core;
+package managers;
 
-import core.EnemyWaveManager;
+import managers.EnemyWaveManager;
 import java.util.ArrayList;
 import java.util.List;
 

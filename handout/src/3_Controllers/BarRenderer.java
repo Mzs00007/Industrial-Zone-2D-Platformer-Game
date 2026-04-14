@@ -1,9 +1,9 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui;
+package controllers;
 
-import gui.GUIAssets;
+import controllers.GUIAssets;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;

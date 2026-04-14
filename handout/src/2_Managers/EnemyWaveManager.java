@@ -1,9 +1,9 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package core;
+package managers;
 
-import core.GameplayEnhancementSystem;
+import managers.GameplayEnhancementSystem;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

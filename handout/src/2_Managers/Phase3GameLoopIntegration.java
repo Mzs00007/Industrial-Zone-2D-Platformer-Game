@@ -1,11 +1,11 @@
-package core;
+﻿package managers;
 
-import core.GameplayAnimationController;
-import core.GameplayKeyboardController;
+import managers.GameplayAnimationController;
+import managers.GameplayKeyboardController;
 import physics.CharacterPhysicsAnimationBridge;
 import vfx.GameplayVFXCoordinator;
-import audio.GameplayAudioVisualSynchronizer;
-import gui.GameplayMouseUIController;
+import utilities.GameplayAudioVisualSynchronizer;
+import controllers.GameplayMouseUIController;
 import java.awt.Graphics2D;
 
 /**

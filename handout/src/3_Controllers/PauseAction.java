@@ -1,7 +1,7 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui.screens;
+package controllers;
 
 public static enum Phase14PauseMenuScreen.PauseAction {
     RESUME("ESC"),

@@ -1,11 +1,11 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui;
+package controllers;
 
-import gui.MenuInputHandler;
-import gui.screens.Phase13MainMenuScreen;
-import gui.screens.Phase14PauseMenuScreen;
+import controllers.MenuInputHandler;
+import controllers.screens.Phase13MainMenuScreen;
+import controllers.screens.Phase14PauseMenuScreen;
 
 public static interface MenuInputHandler.MenuActionCallback {
     public void onMainMenuAction(Phase13MainMenuScreen.MenuAction var1);

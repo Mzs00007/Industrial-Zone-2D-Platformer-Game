@@ -1,8 +1,8 @@
-package ui;
+﻿package ui;
 import animation.InputController;
 import animation.InputController.VerticalSpritesheetLoader;
 import physics.PhysicsSystem;
-import rendering.RenderingSystem;
+import controllers.RenderingSystem;
 import animation.InputController.GUIButtonSystemProperties.ButtonColorMaps;
 import animation.InputController.PixelCopyHelper;
 

@@ -1,12 +1,12 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui;
+package controllers;
 
-import gui.DigitRenderer;
-import gui.GUIAssetManager;
-import gui.GUIComponent;
-import gui.GameState;
+import controllers.DigitRenderer;
+import controllers.GUIAssetManager;
+import controllers.GUIComponent;
+import controllers.GameState;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 

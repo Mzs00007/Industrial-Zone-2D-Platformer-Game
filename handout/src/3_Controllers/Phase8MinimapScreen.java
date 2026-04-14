@@ -1,9 +1,9 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui.screens;
+package controllers;
 
-import gui.screens.Screen;
+import controllers.screens.Screen;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;

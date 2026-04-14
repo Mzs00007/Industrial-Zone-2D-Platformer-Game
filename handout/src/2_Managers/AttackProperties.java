@@ -1,7 +1,7 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package core;
+package managers;
 
 public static class BossCombatPhaseManager.AttackProperties {
     public int baseDamage;

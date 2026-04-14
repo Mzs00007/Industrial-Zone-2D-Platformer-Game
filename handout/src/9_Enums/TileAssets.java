@@ -1,3 +1,4 @@
+package enums;
 /**
  * Tile Assets
  * Auto-generated from assets-manifest.json

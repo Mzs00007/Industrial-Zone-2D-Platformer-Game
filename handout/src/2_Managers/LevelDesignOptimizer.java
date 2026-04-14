@@ -1,7 +1,7 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package core;
+package managers;
 
 public class LevelDesignOptimizer {
     private static final float EXCELLENT_THRESHOLD = 0.8f;

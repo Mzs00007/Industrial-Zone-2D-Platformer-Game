@@ -1,7 +1,7 @@
-package audio;
+package utilities;
 
-import core.Core;
-import core.assets.AssetPathBridge;
+import managers.Core;
+import managers.assetbridge.AssetPathBridge;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

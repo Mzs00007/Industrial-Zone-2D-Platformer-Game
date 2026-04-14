@@ -1,11 +1,11 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui;
+package controllers;
 
-import core.GameState;
-import core.GameStateManager;
-import gui.screens.AssetDrivenScreen;
+import managers.GameState;
+import managers.GameStateManager;
+import controllers.screens.AssetDrivenScreen;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;

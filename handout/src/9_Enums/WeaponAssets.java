@@ -1,3 +1,4 @@
+package enums;
 /**
  * Weapon Assets
  * Auto-generated from assets-manifest.json

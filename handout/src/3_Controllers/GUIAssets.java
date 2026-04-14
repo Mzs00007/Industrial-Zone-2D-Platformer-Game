@@ -1,7 +1,7 @@
-/*
+﻿/*
  * Decompiled with CFR 0.152.
  */
-package gui;
+package controllers;
 
 public class GUIAssets {
     public static final String FRAME_CORNER_TL_01 = "Resources/industrial-zone/gui/1 Frames/01_GUI_Frame_CornerTopLeft_TallLShapePiece_WindowCorner.png";

@@ -1,6 +1,6 @@
-package managers;
+﻿package managers;
 
-import config.Config;
+import managers.Config;
 import java.util.Properties;
 
 /**
