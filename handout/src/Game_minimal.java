@@ -1,4 +1,4 @@
-﻿/*
+/*
 * MINIMAL GAME.JAVA - PLAYER STATE MACHINE FOCUS
 * Pure focus on player mechanics without complex Level/Enemy systems
 */
@@ -15,7 +15,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game extends GameCore {
+public class Game_minimal extends GameCore {
     private static final int LEVEL_1 = 1;
     private static final int LEVEL_2 = 2;
     private int currentLevel = 1;
@@ -34,20 +34,20 @@ public class Game extends GameCore {
     private HUDPanel hudPanel;
 
     public static void main(String[] stringArray) {
-        Game game = new Game();
+        Game_minimal game = new Game_minimal();
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         int n = dimension.width;
         int n2 = dimension.height;
         game.run(false, n, n2);
     }
 
-    public Game() {
-        this.setTitle("Industrial Zone Platformer - CSCU9N6 Demo");
+    public Game_minimal() {
+        this.setTitle("PlayerBase State Machine Test - Minimal Game");
         this.setDefaultCloseOperation(3);
         this.setResizable(true);
         this.initializeLevels();
         this.initializeGUI();
-        System.out.println("[CHECK] Minimal Game initialized");
+        System.out.println("[\u2713] Minimal Game initialized");
     }
 
     private void initializeLevels() {
@@ -66,7 +66,7 @@ public class Game extends GameCore {
             this.gameState.maxHealth = 100;
             
             this.player = new PlayerBase(PlayerBase.CharacterType.BIKER, 200.0f, 400.0f);
-            System.out.println("[CHECK] Player initialized at (200, 400)");
+            System.out.println("[\u2713] Player initialized at (200, 400)");
             
             this.topBarPanel = new TopBarPanel(this.getWidth() > 0 ? this.getWidth() : 1080);
             this.topBarPanel.loadAssets();
@@ -80,22 +80,22 @@ public class Game extends GameCore {
                 @Override
                 public void keyPressed(java.awt.event.KeyEvent keyEvent) {
                     if (keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                        Game.this.togglePause();
+                        Game_minimal.this.togglePause();
                     }
-                    if (Game.this.player != null) {
+                    if (Game_minimal.this.player != null) {
                         PlayerBase.setKeyPressed(keyEvent.getKeyCode(), true);
                     }
                 }
                 @Override
                 public void keyReleased(java.awt.event.KeyEvent keyEvent) {
-                    if (Game.this.player != null) {
+                    if (Game_minimal.this.player != null) {
                         PlayerBase.setKeyPressed(keyEvent.getKeyCode(), false);
                     }
                 }
             });
-            System.out.println("[CHECK] GUI initialized");
+            System.out.println("[\u2713] GUI initialized");
         } catch (Exception e) {
-            System.err.println("[ERROR] Error initializing GUI: " + e.getMessage());
+            System.err.println("[\u2717] Error initializing GUI: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -172,13 +172,13 @@ public class Game extends GameCore {
                 graphics2D.drawString("PAUSED", this.getWidth() / 2 - 100, this.getHeight() / 2);
             }
         } catch (Exception e) {
-            System.err.println("[ERROR] Error in draw: " + e.getMessage());
+            System.err.println("[\u2717] Error in draw: " + e.getMessage());
         }
     }
 
     private void togglePause() {
         this.isPaused = !this.isPaused;
-        System.out.println(this.isPaused ? "[PAUSE] PAUSED" : "[PLAY] RESUMED");
+        System.out.println(this.isPaused ? "[\u23F8] PAUSED" : "[\u25B6] RESUMED");
     }
 
     public TileMap getCurrentTileMap() {

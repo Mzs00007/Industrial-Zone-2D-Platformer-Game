@@ -1,0 +1,56 @@
+# Build artifacts
+bin/
+*.class
+_compiled_classes/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+*.lnk
+
+# Scripts and configs
+*.bat
+*.ps1
+*.sh
+*.py
+
+# Documentation and logs
+*.txt
+*.log
+*.md
+
+# JSON and data files (except necessary configs)
+*.json
+
+# Images
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+
+# Archives
+*.zip
+*.rar
+*.7z
+
+# IDE specific
+.classpath
+.project
+.settings/
+out/
+dist/
+
+# Compiled Java classes (keep .java files only)
+*.class
+
+# Keep all .java files and their directories
+!src/
+!
