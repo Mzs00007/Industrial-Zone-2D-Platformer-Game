@@ -1,64 +1,25 @@
-# ── Compiled Java output ─────────────────────────────────────────
-*.class
-*.jar
-*.war
+# ── Whitelist: track only .java and .bat files ──────────────────
+# Ignore everything by default, then re-include directories plus
+# the two file types we actually want in the repo.
+*
+!*/
+!*.java
+!*.bat
+!.gitignore
+
+# ── Hard-ignore these directories even if whitelisted above ─────
+.git/
+.claude/
+.vscode/
+.idea/
+.venv/
+venv/
 bin/
 out/
 dist/
 build/
 _compiled_classes/
-
-# ── Python virtual env & cache ───────────────────────────────────
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-.venv/
-venv/
-
-# ── IDEs / editors ───────────────────────────────────────────────
-.vscode/
-.idea/
-*.iml
-*.iws
-*.ipr
-*.swp
-*.swo
-
-# ── OS noise ─────────────────────────────────────────────────────
-.DS_Store
-Thumbs.db
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-
-# ── Temp / logs ──────────────────────────────────────────────────
-*.log
-logs/
-*.bak
-*.backup
-*.tmp
-*.temp
-
-# ── IDE project files ────────────────────────────────────────────
 .gradle/
-.classpath
-.project
 .settings/
-
-# ── AI assistant settings ────────────────────────────────────────
-.claude/
-
-# ── Git internals ────────────────────────────────────────────────
-.git/
-
-# ── Stale planning / decompilation artefacts ─────────────────────
 backup_before_renaming/
-_DECOMPILATION_GUIDE.md
-_CLASS_INVENTORY.json
-
-!*.ps1
-!*.py
-!*.xml

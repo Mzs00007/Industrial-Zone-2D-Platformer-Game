@@ -18,7 +18,7 @@
  *   D / RIGHT - Move right
  *   SPACE     - Jump
  *   SHIFT     - Dash
- *   CTRL      - Shoot
+ *   CTRL/LMB  - Shoot (aims toward mouse cursor)
  *   1 / 2     - Switch level
  *   ESC       - Pause / Resume
  *
@@ -355,6 +355,14 @@ public class Game extends GameCore {
         addMouseListener(new MouseAdapter() {
             @Override public void mouseClicked(MouseEvent e) {
                 handleClick(e.getX(), e.getY(), e.getButton());
+            }
+            @Override public void mousePressed(MouseEvent e) {
+                // Left-click in gameplay: immediately trigger a shot (supports hold-fire)
+                if (e.getButton() == MouseEvent.BUTTON1
+                        && currentScreen == GameScreen.GAMEPLAY
+                        && player != null && player.isAlive()) {
+                    player.requestShot();
+                }
             }
         });
         addMouseMotionListener(new MouseMotionAdapter() {
@@ -1446,13 +1454,14 @@ public class Game extends GameCore {
                         int armX = sx + (facingRight ? 42 : 22);  // right/left arm position
                         int armY = sy + 28;                        // mid-torso height
                         double angle = Math.atan2(mouseY - armY, mouseX - armX);
+                        player.setAimAngle(angle);  // pass aim direction to player for projectile firing
                         AffineTransform saved = g.getTransform();
                         g.translate(armX, armY);
                         g.rotate(angle);
                         // Flip Y when facing left so gun doesn't appear upside-down
                         if (!facingRight) g.scale(1.0, -1.0);
-                        // Draw at 6× scale, centred vertically on the arm origin
-                        int gsc = 6;
+                        // Draw at 2× scale, centred vertically on the arm origin
+                        int gsc = 2;
                         g.drawImage(gImg, 0, -gImg.getHeight() * gsc / 2,
                                     gImg.getWidth() * gsc, gImg.getHeight() * gsc, null);
                         g.setTransform(saved);
@@ -1886,9 +1895,14 @@ public class Game extends GameCore {
             g.drawImage(logoCompact, (W - lw) / 2, 24, lw, lh, null);
         }
 
-        // Menu panel background
+        // Menu panel background — subtle dark backdrop, no heavy frame
         int panX = W / 2 - 200, panY = 170, panW = 400, panH = MENU_LABELS.length * 65 + 40;
-        drawPanel(g, panX, panY, panW, panH);
+        g.setColor(new Color(8, 10, 24, 180));
+        g.fillRoundRect(panX, panY, panW, panH, 14, 14);
+        g.setColor(new Color(0, 160, 220, 60));
+        g.setStroke(new BasicStroke(1.5f));
+        g.drawRoundRect(panX, panY, panW, panH, 14, 14);
+        g.setStroke(new BasicStroke(1f));
 
         // Menu items
         int btnW = 320, btnH = 50;
@@ -1941,7 +1955,7 @@ public class Game extends GameCore {
             { "D  /  RIGHT",  "Move Right"          },
             { "SPACE",        "Jump / Double Jump"   },
             { "SHIFT",        "Dash"                },
-            { "CTRL",         "Shoot"               },
+            { "CTRL / LMB",   "Shoot (aim w/mouse)" },
             { "H",            "Heal (+20 HP, 5s cd)" },
             { "1-4",          "Select Weapon Slot"   },
             { "Q  /  SCROLL", "Cycle Weapon"        },
@@ -1982,13 +1996,17 @@ public class Game extends GameCore {
     private void drawCharSelect(Graphics2D g, int W, int H) {
         drawMenuBG(g, W, H);
 
-        // Title panel
+        // Title — just text with a slim underline accent, no heavy frame
         int tpW = 480, tpH = 56, tpX = (W - tpW) / 2, tpY = 14;
-        drawPanel(g, tpX, tpY, tpW, tpH);
         g.setFont(hudFont.deriveFont(Font.BOLD, 24f));
         g.setColor(new Color(0, 220, 255));
         String ttl = "SELECT  CHARACTER";
         g.drawString(ttl, tpX + (tpW - g.getFontMetrics().stringWidth(ttl)) / 2, tpY + 36);
+        // Teal underline accent under title
+        g.setColor(new Color(0, 180, 220, 180));
+        g.setStroke(new BasicStroke(2f));
+        g.drawLine(tpX + 40, tpY + 44, tpX + tpW - 40, tpY + 44);
+        g.setStroke(new BasicStroke(1f));
 
         String[] names  = { "BIKER", "CYBORG", "PUNK" };
         String[] descs  = { "Fast + Agile", "Balanced", "Heavy + Strong" };
@@ -1999,19 +2017,30 @@ public class Game extends GameCore {
         int cardW    = 220, cardH    = 320;
         int selCardW = 250, selCardH = 360;
         int spacing  = 30;
-        int totalW   = cardW * 2 + selCardW + spacing * 2;
+        // Compute widths and x positions correctly based on which card is selected
+        int[] cws = new int[3];
+        int[] chs = new int[3];
+        for (int i = 0; i < 3; i++) { cws[i] = (i == charSelectIndex) ? selCardW : cardW; chs[i] = (i == charSelectIndex) ? selCardH : cardH; }
+        int totalW   = cws[0] + cws[1] + cws[2] + spacing * 2;
         int startX   = (W - totalW) / 2;
+        int[] cxs = { startX, startX + cws[0] + spacing, startX + cws[0] + spacing + cws[1] + spacing };
         int baseY    = (H - selCardH) / 2 + 20;
 
         for (int c = 0; c < 3; c++) {
             boolean sel = (c == charSelectIndex);
-            int cw = sel ? selCardW : cardW;
-            int ch = sel ? selCardH : cardH;
-            int cx = startX + (c > 0 ? cardW + spacing : 0) + (c > 1 ? selCardW - cardW + spacing : 0);
+            int cw = cws[c];
+            int ch = chs[c];
+            int cx = cxs[c];
             int cy = baseY + (sel ? 0 : (selCardH - cardH) / 2);
 
-            // Draw card panel
-            drawPanel(g, cx, cy, cw, ch);
+            // Draw card background — semi-transparent dark rect, no nine-patch frame
+            g.setColor(sel ? new Color(10, 14, 40, 200) : new Color(6, 8, 22, 140));
+            g.fillRoundRect(cx, cy, cw, ch, 12, 12);
+            // Slim teal border — brighter on selected card
+            g.setColor(sel ? new Color(0, 200, 255, 200) : new Color(60, 80, 120, 120));
+            g.setStroke(new BasicStroke(sel ? 2f : 1f));
+            g.drawRoundRect(cx, cy, cw, ch, 12, 12);
+            g.setStroke(new BasicStroke(1f));
 
             // Character sprite
             if (charIdleFrames[c] != null && charIdleFrames[c][charAnimFrame[c]] != null) {

@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(javac -d bin src/animation/AnimationAndSpriteLoader.java src/important/TileAssets.java)",
-      "Bash(sed 's/.*error: //')"
-    ]
-  }
-}

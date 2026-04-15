@@ -99,6 +99,31 @@ public class PlayerBase {
     /** Called by Game.java before creating the player. */
     public static void setPlatforms(float[][] data) { platforms = data; }
 
+    /** Sets the aim angle (radians) toward the mouse cursor — called each frame from Game.java. */
+    public void setAimAngle(double angle) { this.aimAngle = angle; }
+
+    /**
+     * Triggers a shot request from an external source (e.g. mouse click).
+     * Respects fire-rate cooldown just like the CTRL key trigger.
+     */
+    public void requestShot() {
+        long now = System.currentTimeMillis();
+        long fireRate = (activeWeaponSlot >= 0 && weaponSlots[activeWeaponSlot] != null)
+                      ? weaponSlots[activeWeaponSlot].fireRateMs : ATK_COOLDOWN_MS;
+        if (now - lastAtkMs > fireRate) {
+            boolean hasAmmo = true;
+            if (activeWeaponSlot >= 0 && weaponSlots[activeWeaponSlot] != null) {
+                if (weaponAmmo[activeWeaponSlot] <= 0) hasAmmo = false;
+                else weaponAmmo[activeWeaponSlot]--;
+            }
+            if (hasAmmo) {
+                lastAtkMs = now;
+                pendingShot = true;
+            }
+        }
+    }
+
+    /** Called by Game.java each frame. Sets the key-pressed state for all input keys. */
     public static void setKeyPressed(int code, boolean pressed) {
         if (pressed) keysDown.add(code);
         else         keysDown.remove(code);
@@ -160,6 +185,8 @@ public class PlayerBase {
 
     // Pending projectile flag
     private boolean pendingShot = false;
+    // Aim angle (radians) — set each frame from Game.java using mouse position
+    private double aimAngle = 0.0;
 
     // ---- Heal system ----
     private long  lastHealTimeMs  = -5000L;
@@ -387,31 +414,20 @@ public class PlayerBase {
             setState(AnimState.USE);
         }
 
-        // Shoot / Attack (CTRL)
+        // Shoot / Attack (CTRL or left-mouse via requestShot())
         if (key(KeyEvent.VK_CONTROL)) {
-            long now = System.currentTimeMillis();
-            long fireRate = (activeWeaponSlot >= 0 && weaponSlots[activeWeaponSlot] != null)
-                          ? weaponSlots[activeWeaponSlot].fireRateMs : ATK_COOLDOWN_MS;
-            if (now - lastAtkMs > fireRate) {
-                // Check ammo
-                boolean hasAmmo = true;
-                if (activeWeaponSlot >= 0 && weaponSlots[activeWeaponSlot] != null) {
-                    if (weaponAmmo[activeWeaponSlot] <= 0) hasAmmo = false;
-                    else weaponAmmo[activeWeaponSlot]--;
-                }
-                if (hasAmmo) {
-                    lastAtkMs = now;
-                    pendingShot = true;
-                    if (Math.abs(velX) > RUN_SPEED - 20 && grounded) {
-                        setState(AnimState.RUN_ATTACK);
-                    } else if (Math.abs(velX) > 5 && grounded) {
-                        setState(AnimState.WALK_ATTACK);
-                    } else {
-                        if (state == AnimState.ATTACK1) setState(AnimState.ATTACK2);
-                        else if (state == AnimState.ATTACK2) setState(AnimState.ATTACK3);
-                        else setState(AnimState.ATTACK1);
-                    }
-                }
+            requestShot();
+        }
+        // Update attack animation state when pendingShot was just set
+        if (pendingShot) {
+            if (Math.abs(velX) > RUN_SPEED - 20 && grounded) {
+                setState(AnimState.RUN_ATTACK);
+            } else if (Math.abs(velX) > 5 && grounded) {
+                setState(AnimState.WALK_ATTACK);
+            } else {
+                if (state == AnimState.ATTACK1) setState(AnimState.ATTACK2);
+                else if (state == AnimState.ATTACK2) setState(AnimState.ATTACK3);
+                else setState(AnimState.ATTACK1);
             }
         }
     }
@@ -640,8 +656,10 @@ public class PlayerBase {
 
         float projX = facingRight ? x + SPRITE_W : x - 10f;
         float projY = y + SPRITE_H / 2f - 3f;
-        float projVX = facingRight ? 520f : -520f;
-        float projVY = -40f;
+        // Use aim angle so bullet travels toward the mouse cursor
+        float speed = 550f;
+        float projVX = (float)(Math.cos(aimAngle) * speed);
+        float projVY = (float)(Math.sin(aimAngle) * speed);
         float dmg = 12f;
         if (activeWeaponSlot >= 0 && weaponSlots[activeWeaponSlot] != null) {
             dmg = weaponSlots[activeWeaponSlot].damage;
