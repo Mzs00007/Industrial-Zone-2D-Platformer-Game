@@ -1,573 +1,219 @@
 /*
- * Decompiled with CFR 0.152.
- * UPDATED: 2026-04-14 - Production asset integration
+ * Level 2 — Power Station
+ * All level-specific data: platforms, enemies, animated objects, backgrounds, tile maps.
+ * Game.java delegates to this class via the LevelData interface.
  */
 package entities;
 
-import animation.AnimationAndSpriteLoader;
-import game2D.TileMap;
-import important.Config;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import controllers.AnimatedObjectManager;
-import controllers.ComprehensiveTileMapLoader;
+public class Level2 implements LevelData {
 
-public class Level2 {
-    private static final boolean VERBOSE_LOGGING = true;
-    public static final int LEVEL_ID = 2;
-    public static final String LEVEL_NAME = "Power Station";
-    public static final String DIFFICULTY = "Hard";
-    public static final String STORY = "Breach the power station and confront the final guardian";
-    public static final int MAP_WIDTH = 500;
-    public static final int MAP_HEIGHT = 50;
-    public static final int TILE_SIZE = 32;
-    public static final int PIXEL_WIDTH = 16000;
-    public static final int PIXEL_HEIGHT = 1600;
-    public static final float PLAYER_START_X = 350.0f;
-    public static final float PLAYER_START_Y = 1050.0f;
-    private static final float REACTOR_END = 2528.0f;
-    private static final float CORRIDORS_END = 5728.0f;
-    private static final float CORE_END = 9568.0f;
-    private static final float CATWALKS_END = 12768.0f;
-    private static final float ANTECHAMBER_END = 14368.0f;
-    private static final float BOSS_ARENA_END = 15968.0f;
-    private static TileMap levelTileMap;
-    private static int[][] mapData;
-    private static Map<Character, String> tileMapping;
-    private static List<EnemySpawn> enemySpawns;
-    private static List<HazardZone> hazardZones;
-    private static List<CheckpointData> checkpoints;
-    private static String[] zoneNames;
-    private static ComprehensiveTileMapLoader assetLoader;
-    private static AnimatedObjectManager animatedObjectManager;
-    private static List<ComprehensiveTileMapLoader.AnimatedObject> levelAnimatedObjects;
-    private static List<ComprehensiveTileMapLoader.BackgroundLayer> levelBackgroundLayers;
-    private static AnimationAndSpriteLoader.ParallaxSystem parallaxSystem;
+    // ── metadata ──
+    public static final int    ID          = 2;
+    public static final String NAME        = "Power Station";
+    public static final String DIFF        = "Hard";
+    public static final int    WORLD_W     = 28800;
+    public static final float  START_X     = 150f;
+    public static final float  START_Y     = 456f;   // ground(520) - 64
 
-    public static void initialize(TileMap tileMap) {
-        Level2.log("\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550");
-        Level2.log("Level2: INITIALIZATION SEQUENCE STARTING (HARD MODE)");
-        Level2.log("\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550");
-        levelTileMap = tileMap;
-        enemySpawns = new ArrayList<EnemySpawn>();
-        hazardZones = new ArrayList<HazardZone>();
-        checkpoints = new ArrayList<CheckpointData>();
-        tileMapping = new HashMap<Character, String>();
-        zoneNames = new String[6];
-        levelAnimatedObjects = new ArrayList<ComprehensiveTileMapLoader.AnimatedObject>();
-        levelBackgroundLayers = new ArrayList<ComprehensiveTileMapLoader.BackgroundLayer>();
-        animatedObjectManager = new AnimatedObjectManager();
-        Level2.parseMapFile();
-        Level2.identifyZones();
-        Level2.extractEnemySpawns();
-        Level2.extractHazardZones();
-        Level2.extractCheckpoints();
-        Level2.loadComprehensiveAssets();
-        Level2.validateEnemyDefinitions();
-        Level2.validateEnemyCombatConfiguration();
-        Level2.initializeVFXChainReactionSystem();
-        Level2.initializeAudioSystem();
-        Level2.log("\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550");
-        Level2.log("Level2: INITIALIZATION COMPLETE (HARD DIFFICULTY)");
-        Level2.log("  Tiles loaded: " + Level2.countLoadedTiles());
-        Level2.log("  Enemies spawned: " + enemySpawns.size() + " (HIGH DENSITY)");
-        Level2.log("  Hazard zones: " + hazardZones.size() + " (DENSE NETWORK)");
-        Level2.log("  Checkpoints: " + checkpoints.size() + " (PROGRESSION POINTS)");
-        Level2.log("  Animated objects: " + levelAnimatedObjects.size());
-        Level2.log("  Background layers: " + levelBackgroundLayers.size());
-        Level2.log("\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550");
+    // ── platforms  [x, y, width, height] ──
+    private static final float[][] PLATFORMS = {
+        // Ground
+        {   0,  520, 28800, 800 },
+        // Section 1: Power station entrance
+        { 200,  440,  250,  20 },
+        { 500,  370,  200,  20 },
+        { 780,  300,  240,  20 },
+        {1000,  230,  180,  20 },
+        // Section 2: Reactor corridor
+        {1300,  400,  300,  20 },
+        {1650,  330,  200,  20 },
+        {1900,  260,  250,  20 },
+        {2160,  190,  200,  20 },
+        {2160,  430,  300,  20 },
+        // Section 3: Vertical shaft
+        {2500,  460,  160,  20 },
+        {2580,  380,  140,  20 },
+        {2660,  300,  120,  20 },
+        {2750,  220,  140,  20 },
+        {2850,  160,  180,  20 },
+        // Section 4: Catwalk gauntlet
+        {3100,  350,  200,  20 },
+        {3380,  280,  180,  20 },
+        {3600,  210,  220,  20 },
+        {3850,  280,  160,  20 },
+        {4050,  350,  200,  20 },
+        {4050,  160,  140,  20 },
+        // Section 5: Mini-boss arena
+        {4300,  420,  500,  20 },
+        {4500,  260,  160,  20 },
+        // Section 6: Final gauntlet
+        {4900,  380,  200,  20 },
+        {5150,  300,  220,  20 },
+        {5400,  220,  200,  20 },
+        {5400,  450,  300,  20 },
+        // Section 7: Final boss arena
+        {5750,  480,  700,  20 },
+        {5900,  300,  150,  20 },
+        {6100,  200,  120,  20 },
+    };
+
+    // ── enemies  [x, y, typeId]  0=UFO 1=JET 2=HOVER 3=LAND_TANK 4=LAND_KNIGHT 5=LAND_WARRIOR 6=BOSS_GOLF_CART 7=BOSS_GREEN_MECH 8=BOSS_RUGBY_GUY ──
+    private static final float[][] ENEMIES = {
+        // Drones
+        { 350, 340, 1}, { 740, 280, 0}, {1510, 300, 1},
+        {1870, 240, 0}, {2250, 200, 1}, {2950, 220, 0},
+        {3300, 280, 1}, {4030, 260, 0}, {4400, 230, 1},
+        {5100, 250, 1}, {5450, 270, 0},
+        // Ground drones
+        {1120, 472, 2}, {2600, 472, 2}, {3680, 472, 2}, {4750, 472, 2},
+        // Land enemies (sci-fi-antagonists)
+        {1600, 456, 3},   // CombatTank in reactor corridor
+        {3200, 456, 4},   // ArmouredKnight at catwalk gauntlet
+        {4900, 456, 5},   // WingedWarrior at final gauntlet
+        {5300, 456, 3},   // CombatTank before final arena
+        // Mid-boss: GreenMech at mini-boss arena
+        {4300, 424, 7},
+        // Final boss: RugbyGuy at final arena
+        {5800, 424, 8},
+    };
+
+    // ── animated objects  [typeId, x, y, w, h] ──
+    private static final float[][] OBJECTS = {
+        // Money
+        {1, 300,488, 32,32},{1, 650,488, 32,32},{1,1050,488, 32,32},{1,1500,488, 32,32},
+        {1,2000,488, 32,32},{1,2500,488, 32,32},{1,3000,488, 32,32},{1,3500,488, 32,32},
+        {1,4500,488, 32,32},{1,5200,488, 32,32},{1,5600,488, 32,32},{1,6000,488, 32,32},
+        // Cards
+        {0, 520,338, 32,32},{0, 810,268, 32,32},{0,1920,228, 32,32},
+        {0,2680,268, 32,32},{0,3620,178, 32,32},
+        // Chests
+        {2,1200,472, 48,48},{2,2800,472, 48,48},{2,4200,472, 48,48},{2,5500,472, 48,48},
+        // Turret hazards
+        {8,3200,472, 48,48},{8,4800,472, 48,48},
+        // Portals (checkpoints + exit)
+        {5,2400,440, 64,80},{5,4600,440, 64,80},{5,6400,440, 64,80},
+    };
+
+    // ── animated-asset directory ──
+    private static final String ANIM_DIR =
+        "Resources/industrial-zone/1 Tiles/power-station-level-2/4 Animated objects/";
+    private static final String ANIM_DIR_L1 =
+        "Resources/industrial-zone/1 Tiles/Industrial_zone_level_1/4 Animated objects/";
+
+    // ── weapon spawns  [weaponTypeId, x, y]  0=PISTOL 1=SMG 2=RIFLE 3=SHOTGUN ──
+    private static final float[][] WEAPON_SPAWNS = {
+        {0,  400, 488},   // Pistol early
+        {1, 1650, 298},   // SMG on platform
+        {2, 3100, 318},   // Rifle at catwalk
+        {1, 4300, 388},   // SMG at mini-boss arena
+        {3, 5400, 188},   // Shotgun at final gauntlet
+    };
+
+    // ── ladder zones  [x, y, width, height] ──
+    private static final float[][] LADDER_ZONES = {
+        {2480, 190, 32, 330},   // Vertical shaft area
+        {3580, 210, 32, 310},   // Catwalk gauntlet
+        {5380, 220, 32, 300},   // Final gauntlet
+    };
+
+    // ── background (day/night cycle) ──
+    private static final String BG_DIR =
+        "Resources/industrial-zone/1 Tiles/power-station-level-2/2 Background_level_2/";
+    private static final String[] BG_DAY_FILES = {
+        "Day/BG_Layer1_SkyBase_LightGreyWhiteGradient_StaticFill_DrawFirst.png",
+        "Day/BG_Layer2_FactoryLeft_LightBlueDetail_ParallaxFactor015.png",
+        "Day/BG_Layer3_FactoryTall_LightBlueChimney_ParallaxFactor025.png",
+        "Day/BG_Layer4_DistantFactory_FaintSilhouette_ParallaxFactor040.png",
+        "Day/BG_Layer5_FactoryRight_LightBlueVariant_ParallaxFactor060.png",
+    };
+    private static final String[] BG_NIGHT_FILES = {
+        "Night/BG_Layer1_SkyBase_DarkGreyGradient_StaticFill_DrawFirst.png",
+        "Night/BG_Layer2_FactoryLeft_DarkGreySilhouette_ParallaxFactor015.png",
+        "Night/BG_Layer3_FactoryTall_DarkGreyCentre_ParallaxFactor025.png",
+        "Night/BG_Layer4_DistantFactory_VeryDarkFaint_ParallaxFactor040.png",
+        "Night/BG_Layer5_FactoryRight_DarkGreyVariant_ParallaxFactor060.png",
+    };
+    private static final String BG_OVERLAY =
+        "BG_Overlay_BlueYellowDiagonalGradient_ColourAtmosphere_DrawLast.png";
+    private static final float[] SCROLL = { 0.0f, 0.08f, 0.18f, 0.30f, 0.50f };
+
+    // ── tile map ──
+    private static final String MAP_FILE = "maps/level_2/map.txt";
+    private static final String[] TILE_DIRS = {
+        "Resources/industrial-zone/1 Tiles/power-station-level-2/1 Tiles/",
+        "Resources/industrial-zone/1 Tiles/power-station-level-2/3 Objects/",
+        "Resources/industrial-zone/1 Tiles/Industrial_zone_level_1/1 Tiles/",
+    };
+    private static final int MAP_OFFSET_Y = 424;
+
+    // ======================================================================
+    //  LevelData implementation
+    // ======================================================================
+    @Override public int    getLevelId()       { return ID; }
+    @Override public String getLevelName()     { return NAME; }
+    @Override public String getDifficulty()    { return DIFF; }
+    @Override public int    getPixelWidth()    { return WORLD_W; }
+    @Override public float  getPlayerStartX()  { return START_X; }
+    @Override public float  getPlayerStartY()  { return START_Y; }
+
+    @Override public float[][] getPlatforms()       { return PLATFORMS; }
+    @Override public float[][] getEnemySpawns()     { return ENEMIES; }
+    @Override public float[][] getAnimatedObjects() { return OBJECTS; }
+
+    @Override public String   getAnimAssetDir()   { return ANIM_DIR; }
+    @Override public String   getBgDir()           { return BG_DIR; }
+    @Override public String[] getBgFiles()          { return BG_DAY_FILES; } // default to day
+    @Override public float[]  getScrollFactors()    { return SCROLL; }
+
+    @Override public String[] getBgDayFiles()   { return BG_DAY_FILES; }
+    @Override public String[] getBgNightFiles() { return BG_NIGHT_FILES; }
+    @Override public String   getBgOverlay()    { return BG_OVERLAY; }
+
+    @Override public String   getMapFilePath()     { return MAP_FILE; }
+    @Override public String[] getTileMapDirs()      { return TILE_DIRS; }
+    @Override public int      getTileMapOffsetY()   { return MAP_OFFSET_Y; }
+
+    @Override public int     getCompletionScore()  { return 1500; }
+    @Override public String  getCompletionTitle()  { return "CYBER RUNNER — VICTORIOUS!"; }
+    @Override public String  getNextLevelPrompt()  { return "PRESS ENTER FOR MAIN MENU"; }
+    @Override public boolean hasNextLevel()         { return false; }
+    @Override public String[] getStoryLines() {
+        return new String[] {
+            "POWER STATION OFFLINE.",
+            "The Mech Commander has been destroyed.",
+            "The city power grid is fully restored.",
+            "All hostile units: neutralized.",
+            "CYBER RUNNER 2067  —  MISSION COMPLETE."
+        };
     }
 
-    private static void parseMapFile() {
-        String string = "maps/level_2/map.txt";
-        try {
-            char c;
-            String string2;
-            String string3;
-            Level2.log("\ud83d\udcc2 Loading Power Station map: " + string);
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(string)));
-            String string4 = bufferedReader.readLine();
-            String[] stringArray = string4.split(" ");
-            int n = Integer.parseInt(stringArray[0]);
-            int n2 = Integer.parseInt(stringArray[1]);
-            Level2.log("  Map dimensions: " + n + "\u00d7" + n2 + " tiles (" + n * 32 + "\u00d7" + n2 * 32 + "px)");
-            mapData = new int[n2][n];
-            int n3 = 0;
-            while ((string3 = bufferedReader.readLine()) != null) {
-                String[] stringArray2;
-                if (string3.equals("#map")) {
-                    Level2.log("  Found #map marker - reading tile data");
-                    break;
-                }
-                if (!string3.contains("=") || string3.startsWith("//") || (stringArray2 = string3.split("=")).length != 2) continue;
-                string2 = stringArray2[0].trim();
-                String string5 = stringArray2[1].trim();
-                if (string2.length() <= 0) continue;
-                c = string2.charAt(0);
-                tileMapping.put(Character.valueOf(c), string5);
-                ++n3;
-            }
-            Level2.log("  Tile types loaded: " + n3 + " (COMPREHENSIVE)");
-            for (int i = 0; i < n2 && (string2 = bufferedReader.readLine()) != null; ++i) {
-                for (int j = 0; j < n && j < string2.length(); ++j) {
-                    c = string2.charAt(j);
-                    Level2.mapData[i][j] = c;
-                }
-            }
-            bufferedReader.close();
-            Level2.log("\u2713 Power Station map parsed successfully (HARD DIFFICULTY LOADED)");
-        }
-        catch (IOException iOException) {
-            Level2.logError("Failed to read map file: " + string);
-            iOException.printStackTrace();
-        }
-    }
+    @Override public float[][] getWeaponSpawns()    { return WEAPON_SPAWNS; }
+    @Override public float[][] getLadderZones()      { return LADDER_ZONES; }
 
-    private static void identifyZones() {
-        Level2.log("\ud83d\uddfa\ufe0f  Identifying Power Station zones (HARD DIFFICULTY)...");
-        Level2.zoneNames[0] = "Reactor Entrance";
-        Level2.zoneNames[1] = "Industrial Corridors";
-        Level2.zoneNames[2] = "Power Core Underground";
-        Level2.zoneNames[3] = "High Voltage Catwalks";
-        Level2.zoneNames[4] = "Boss Antechamber";
-        Level2.zoneNames[5] = "Final Boss Arena";
-        Level2.log("  Zone 0 (Reactor): Tiles 0-79 (Immediate heavy enemy presence)");
-        Level2.log("  Zone 1 (Corridors): Tiles 80-179 (Maze-like navigation + dense combat)");
-        Level2.log("  Zone 2 (Core): Tiles 180-299 (Elite enemies + hazard networks)");
-        Level2.log("  Zone 3 (Catwalks): Tiles 300-399 (Precision platforming + electricity)");
-        Level2.log("  Zone 4 (Antechamber): Tiles 400-449 (Elite guard gatekeepers)");
-        Level2.log("  Zone 5 (Boss Arena): Tiles 450-499 (FinalStandGuardian ULTIMATE battle)");
-    }
-
-    private static void extractEnemySpawns() {
-        Level2.log("\ud83d\udc7e Extracting enemy spawns (HARD MODE - HIGH DENSITY)...");
-        for (int i = 0; i < mapData.length; ++i) {
-            for (int j = 0; j < mapData[0].length; ++j) {
-                char c = (char)mapData[i][j];
-                if (c != 'R' && c != 'S' && c != 'T' && c != 'U' && c != 'D') continue;
-                float f = j * 32;
-                float f2 = i * 32;
-                String string = Level2.getZoneName(j);
-                int n = Level2.getZoneDifficulty(j);
-                String string2 = Level2.selectEnemyType(j, n);
-                if (n < 3 && !(Math.random() < 0.6)) continue;
-                enemySpawns.add(new EnemySpawn(f, f2, string2, n, string));
-            }
-        }
-        Level2.log("  Spawned: " + enemySpawns.size() + " enemies (DENSE NETWORK)");
-    }
-
-    private static void extractHazardZones() {
-        Level2.log("\u26a0\ufe0f  Extracting hazard zones (DENSE ELECTRICAL NETWORK)...");
-        for (int i = 0; i < mapData.length; ++i) {
-            for (int j = 0; j < mapData[0].length; ++j) {
-                float f;
-                float f2;
-                char c = (char)mapData[i][j];
-                String string = null;
-                int n = 0;
-                if (c == 'R' || c == 'S') {
-                    string = "ELECTRICAL";
-                    n = 30;
-                } else if (c == 'T' || c == 'U') {
-                    string = "STRUCTURAL";
-                    n = 15;
-                } else if (c == 'V' || c == 'W' || c == '^' || c == '&') {
-                    string = "PLATFORM_EDGE";
-                    n = 50;
-                } else if (c == '*' || c == '(' || c == '>' || c == ',') {
-                    string = "CEILING";
-                    n = 20;
-                }
-                if (string == null || Level2.isHazardAlreadyMapped(f2 = (float)(j * 32), f = (float)(i * 32))) continue;
-                hazardZones.add(new HazardZone(f2, f, f2 + 32.0f, f + 32.0f, string, n));
-            }
-        }
-        Level2.log("  Identified: " + hazardZones.size() + " hazard zones (EXTENSIVE)");
-    }
-
-    private static void extractCheckpoints() {
-        Level2.log("\ud83d\udea9 Extracting checkpoints (LIMITED - HARD DIFFICULTY)...");
-        int n = 0;
-        for (int i = 0; i < 500; i += 100) {
-            if (i <= 0 || i >= 450) continue;
-            float f = i * 32;
-            float f2 = 800.0f;
-            checkpoints.add(new CheckpointData(f, f2, n, Level2.getZoneName(i)));
-            ++n;
-        }
-        Level2.log("  Placed: " + checkpoints.size() + " checkpoints (SPARSE - EXPERT MODE)");
-    }
-
-    public static List<EnemySpawn> getEnemySpawns() {
-        return new ArrayList<EnemySpawn>(enemySpawns);
-    }
-
-    public static List<HazardZone> getHazardZones() {
-        return new ArrayList<HazardZone>(hazardZones);
-    }
-
-    public static List<CheckpointData> getCheckpoints() {
-        return new ArrayList<CheckpointData>(checkpoints);
-    }
-
-    public static char getTileAt(int n, int n2) {
-        if (n >= 0 && n < mapData[0].length && n2 >= 0 && n2 < mapData.length) {
-            return (char)mapData[n2][n];
-        }
-        return ' ';
-    }
-
-    public static String getZoneName(int n) {
-        if (n <= 79) {
-            return zoneNames[0];
-        }
-        if (n <= 179) {
-            return zoneNames[1];
-        }
-        if (n <= 299) {
-            return zoneNames[2];
-        }
-        if (n <= 399) {
-            return zoneNames[3];
-        }
-        if (n <= 449) {
-            return zoneNames[4];
-        }
-        return zoneNames[5];
-    }
-
-    public static int getZoneDifficulty(int n) {
-        if (n <= 79) {
-            return 3;
-        }
-        if (n <= 179) {
-            return 4;
-        }
-        if (n <= 299) {
-            return 4;
-        }
-        if (n <= 399) {
-            return 5;
-        }
-        if (n <= 449) {
-            return 5;
-        }
-        return 6;
-    }
-
-    private static String selectEnemyType(int n, int n2) {
-        if (n2 <= 2) {
-            return "DRONE";
-        }
-        if (n2 == 3) {
-            return "SCI_FI_ANTAGONIST";
-        }
-        if (n2 == 4) {
-            return "ELITE_GUARD";
-        }
-        if (n2 == 5) {
-            return "ADVANCED_ELITE";
-        }
-        return "FINAL_BOSS";
-    }
-
-    private static boolean isHazardAlreadyMapped(float f, float f2) {
-        for (HazardZone hazardZone : hazardZones) {
-            if (!(Math.abs(hazardZone.startX - f) < 32.0f) || !(Math.abs(hazardZone.startY - f2) < 32.0f)) continue;
-            return true;
-        }
-        return false;
-    }
-
-    private static int countLoadedTiles() {
-        int n = 0;
-        int[][] nArray = mapData;
-        int n2 = nArray.length;
-        for (int i = 0; i < n2; ++i) {
-            int[] nArray2;
-            for (int n3 : nArray2 = nArray[i]) {
-                if (n3 == 32 || n3 == 46) continue;
-                ++n;
-            }
-        }
-        return n;
-    }
-
-    private static void log(String string) {
-        System.out.println("[Level2] " + string);
-    }
-
-    private static void logError(String string) {
-        System.err.println("[Level2] ERROR: " + string);
-    }
-
-    public static String getLevelInfo() {
-        return String.format("Level %d: %s (%s Difficulty - EXPERT)", 2, LEVEL_NAME, DIFFICULTY);
-    }
-
-    public static TileMap getTileMap() {
-        return levelTileMap;
-    }
-
-    public static int getMapWidth() {
-        return 500;
-    }
-
-    public static int getMapHeight() {
-        return 50;
-    }
-
-    public static int getTileSize() {
-        return 32;
-    }
-
-    private static void loadComprehensiveAssets() {
-        try {
-            Level2.log("\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550");
-            Level2.log("LOADING COMPREHENSIVE ASSETS FOR LEVEL 2");
-            Level2.log("\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550");
-            String string = "maps/level_2/map.txt";
-            assetLoader = new ComprehensiveTileMapLoader(string, "Level 2 - Power Station");
-            levelAnimatedObjects = assetLoader.getAnimatedObjects();
-            levelBackgroundLayers = assetLoader.getBackgroundLayers();
-            Level2.log("\u2713 Asset loading complete");
-            Level2.log("  - Animated objects loaded: " + levelAnimatedObjects.size());
-            Level2.log("  - Background layers: " + levelBackgroundLayers.size());
-        }
-        catch (Exception exception) {
-            Level2.logError("Failed to load comprehensive assets: " + exception.getMessage());
-            exception.printStackTrace();
-        }
-    }
-
-    public static ComprehensiveTileMapLoader getAssetLoader() {
-        return assetLoader;
-    }
-
-    public static AnimatedObjectManager getAnimatedObjectManager() {
-        return animatedObjectManager;
-    }
-
-    public static List<ComprehensiveTileMapLoader.AnimatedObject> getAnimatedObjects() {
-        return new ArrayList<ComprehensiveTileMapLoader.AnimatedObject>(levelAnimatedObjects);
-    }
-
-    public static List<ComprehensiveTileMapLoader.BackgroundLayer> getBackgroundLayers() {
-        return new ArrayList<ComprehensiveTileMapLoader.BackgroundLayer>(levelBackgroundLayers);
-    }
-
-    public static boolean isLevelComplete(float playerX) {
-        return playerX >= 15968.0f;
-    }
-
-    public static float getLevelEndPosition() {
-        return 15968.0f;
-    }
-
-    public static String getLevelProgressPercentage(float playerX) {
-        float progress = (playerX / 15968.0f) * 100.0f;
-        return String.format("%.1f%% Complete", Math.min(100.0f, progress));
-    }
-
-    public static int validateEnemyCombatConfiguration() {
-        Level2.log("\ud83d\udd27 Validating HARD difficulty enemy combat system using EnemyAICombat...");
-        int n = 0;
-        try {
-            if (enemySpawns != null && enemySpawns.size() > 0) {
-                for (EnemySpawn enemySpawn : enemySpawns) {
-                    if (enemySpawn.difficultyLevel < 2) continue;
-                    Level2.log("  \u2713 Enemy '" + enemySpawn.enemyType + "' at zone '" + enemySpawn.zone + "' configured for HARD difficulty " + enemySpawn.difficultyLevel);
-                    ++n;
-                }
-            }
-            Level2.log("  Total enemies configured: " + n + " (via EnemyAICombat - Level 2 HARD MODE)");
-        }
-        catch (Exception exception) {
-            Level2.logError("EnemyAICombat validation failed: " + exception.getMessage());
-        }
-        return n;
-    }
-
-    public static boolean validateEnemyDefinitions() {
-        Level2.log("\u2713 Validating Enemies class definitions for HARD level...");
-        try {
-            HashSet<String> hashSet = new HashSet<String>();
-            for (EnemySpawn object : enemySpawns) {
-                if (object.enemyType.equals("NONE")) continue;
-                hashSet.add(object.enemyType);
-            }
-            Level2.log("  High-tier enemy types referenced in Power Station:");
-            for (String string : hashSet) {
-                Level2.log("    - " + string + " (Enemies class reference)");
-            }
-            Level2.log("  Total unique enemy types: " + hashSet.size() + " (HARD difficulty tier)");
-            return hashSet.size() > 0 || enemySpawns.size() == 0;
-        }
-        catch (Exception exception) {
-            Level2.logError("Enemies validation failed: " + exception.getMessage());
-            return false;
-        }
-    }
-
-    public static boolean initializeVFXChainReactionSystem() {
-        Level2.log("\u2728 Initializing ELECTRICAL VFX Chain Reaction system...");
-        try {
-            if (hazardZones != null && hazardZones.size() > 0) {
-                Level2.log("  \u26a1 VFXChainReaction configured for " + hazardZones.size() + " electrical hazard zones");
-                for (HazardZone hazardZone : hazardZones) {
-                    Level2.log(String.format("    - %s CHAIN at (%.0f, %.0f) - Damage: %d", hazardZone.hazardType, Float.valueOf(hazardZone.startX), Float.valueOf(hazardZone.startY), hazardZone.damagePerFrame));
-                }
-            }
-            Level2.log("  \u2713 Electrical VFX system initialized");
-            return true;
-        }
-        catch (Exception exception) {
-            Level2.logError("VFXChainReaction initialization failed: " + exception.getMessage());
-            return false;
-        }
-    }
-
-    public static String getVFXConfigForHazard(String string) {
-        switch (string) {
-            case "ELECTRICAL_MAIN": {
-                return "YELLOW_CHAIN_BURST";
-            }
-            case "ELECTRICAL_SECONDARY": {
-                return "CYAN_CHAIN_ARC";
-            }
-            case "STRUCTURAL": {
-                return "GRAY_COLLAPSE_CHAIN";
-            }
-            case "COOLANT": {
-                return "BLUE_FREEZE_CHAIN";
-            }
-        }
-        return "ELECTRICAL_CHAIN";
-    }
-
-    public static boolean initializeAudioSystem() {
-        Level2.log("\ud83c\udfb5 Initializing INTENSE AudioEntities system for Power Station...");
-        try {
-            int n;
-            Level2.log("  Background music: Level 2 - Power Station Danger Theme (HARD)");
-            for (n = 0; n < 6; ++n) {
-                String string = zoneNames[n];
-                int n2 = Level2.getZoneDifficulty(n * 70);
-                Level2.log("    Zone " + n + " (" + (String)string + "): Electrical ambience + danger audio (Difficulty: " + n2 + ")");
-            }
-            n = 0;
-            for (EnemySpawn enemySpawn : enemySpawns) {
-                if (enemySpawn.difficultyLevel <= 1) continue;
-                ++n;
-            }
-            Level2.log("  Enemy audio triggers: " + n + " (HIGH FREQUENCY - via AudioEntities)");
-            Level2.log("  Electrical hazard warnings: " + hazardZones.size() + " zones with audio cues");
-            Level2.log("  \u2713 Audio system initialized (HARD mode)");
-            return true;
-        }
-        catch (Exception exception) {
-            Level2.logError("AudioEntities initialization failed: " + exception.getMessage());
-            return false;
-        }
-    }
-
-    public static String getAudioTrackForZone(int n) {
-        String[] stringArray = new String[]{"audio/level2_zone0_arrival.ogg", "audio/level2_zone1_transformer.ogg", "audio/level2_zone2_reactor_DANGER.ogg", "audio/level2_zone3_generator_HARD.ogg", "audio/level2_zone4_command_INTENSE.ogg", "audio/level2_zone5_centrifuge_BOSS.ogg"};
-        return n >= 0 && n < stringArray.length ? stringArray[n] : stringArray[0];
-    }
-
-    public static AnimationAndSpriteLoader.ParallaxSystem initializeParallax() {
-        parallaxSystem = AnimationAndSpriteLoader.createLevel2ParallaxSystemDay();
-        return parallaxSystem;
-    }
-
-    public static AnimationAndSpriteLoader.ParallaxSystem initializeParallaxDay() {
-        parallaxSystem = AnimationAndSpriteLoader.createLevel2ParallaxSystemDay();
-        System.out.println("\u2713 Level2 switched to DAY mode parallax");
-        return parallaxSystem;
-    }
-
-    public static AnimationAndSpriteLoader.ParallaxSystem initializeParallaxNight() {
-        parallaxSystem = AnimationAndSpriteLoader.createLevel2ParallaxSystemNight();
-        System.out.println("\u2713 Level2 switched to NIGHT mode parallax");
-        return parallaxSystem;
-    }
-
-    public static AnimationAndSpriteLoader.ParallaxSystem getParallaxSystem() {
-        return parallaxSystem;
-    }
-
-    public static void updateParallaxCamera(float f) {
-        if (parallaxSystem != null) {
-            parallaxSystem.updateCamera(f);
-        }
-    }
-
-    public static void switchToNightMode() {
-        Level2.initializeParallaxNight();
-    }
-
-    public static class EnemySpawn {
-        public float x;
-        public float y;
-        public String enemyType;
-        public int difficultyLevel;
-        public String zone;
-
-        public EnemySpawn(float f, float f2, String string, int n, String string2) {
-            this.x = f;
-            this.y = f2;
-            this.enemyType = string;
-            this.difficultyLevel = n;
-            this.zone = string2;
-        }
-
-        public String toString() {
-            return String.format("[%s] %s at (%.0f, %.0f) - Difficulty: %d", this.zone, this.enemyType, Float.valueOf(this.x), Float.valueOf(this.y), this.difficultyLevel);
-        }
-    }
-
-    public static class HazardZone {
-        public float startX;
-        public float startY;
-        public float endX;
-        public float endY;
-        public String hazardType;
-        public int damagePerFrame;
-
-        public HazardZone(float f, float f2, float f3, float f4, String string, int n) {
-            this.startX = f;
-            this.startY = f2;
-            this.endX = f3;
-            this.endY = f4;
-            this.hazardType = string;
-            this.damagePerFrame = n;
-        }
-
-        public boolean contains(float f, float f2) {
-            return f >= this.startX && f <= this.endX && f2 >= this.startY && f2 <= this.endY;
-        }
-    }
-
-    public static class CheckpointData {
-        public float x;
-        public float y;
-        public int checkpointID;
-        public String zone;
-
-        public CheckpointData(float f, float f2, int n, String string) {
-            this.x = f;
-            this.y = f2;
-            this.checkpointID = n;
-            this.zone = string;
+    @Override
+    public String getAnimAssetPath(AnimatedObject.ObjType type) {
+        switch (type) {
+            case COLLECTIBLE_CARD:
+                return ANIM_DIR + "Anim_Collectible_Card_6Frames1Row_BlueSpinningFloat_PickupItem_Loop80ms.png";
+            case COLLECTIBLE_MONEY:
+                return ANIM_DIR + "Anim_Collectible_Money_6Frames1Row_GreenBanknotesSpinFlip_CurrencyPickup_Loop80ms.png";
+            case CHEST:
+                return ANIM_DIR + "Anim_Interactive_Chest_8Frames1Row_BlueTealLidOpenSequence_PlayOnce100ms.png";
+            case CONVEYOR:
+                return ANIM_DIR_L1 + "Anim_Platform_ConveyorFull_4Frames1Row_FullWidthBeltRunning_MovesPlayerRight_Loop80ms.png";
+            case CONVEYOR_REVERSE:
+                return ANIM_DIR_L1 + "Anim_Platform_ConveyorFastVariant_4Frames1Row_AltSpeedOrDirection_Loop60ms.png";
+            case PORTAL:
+                return ANIM_DIR_L1 + "Anim_Portal_LevelEntry_4Frames1Row_RedChevronGateOpening_LevelTransition_PlayOnce120ms.png";
+            case SCREEN_DECO:
+                return ANIM_DIR_L1 + "Anim_Deco_Screen1_4Frames1Row_BlueMonitorFlicker_WallPanelTechDeco_Loop150ms.png";
+            case HAZARD_HAMMER:
+                return ANIM_DIR_L1 + "Anim_Hazard_Hammer_6Frames1Row_RedOrangeSwingArc_DamageFrames3to5_Loop90ms.png";
+            case HAZARD_TURRET:
+                return ANIM_DIR + "Anim_Hazard_Turret_MultiFrame1Row_TurretFiringProjectile_DamageOnFire_Loop120ms.png";
+            case MOVING_PLATFORM:
+                return ANIM_DIR_L1 + "Anim_Platform_MovingRed_6Frames1Row_SlidingLeftRight_PlayerRideable_Loop100ms.png";
+            default: return null;
         }
     }
 }

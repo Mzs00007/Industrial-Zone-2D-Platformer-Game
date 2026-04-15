@@ -44,6 +44,9 @@ public final class HudRenderer {
     /** Game-branded OTF font (falls back to Courier New if null). */
     private final Font hudFont;
 
+    // ── optional icon images (set via setIcons after construction) ───────────
+    private BufferedImage iconHp, iconEn, iconStar, iconSkull;
+
     // ── colour constants ───────────────────────────────────────────────────────
     private static final Color CLR_BAR_BG      = new Color(6,   6,  18, 230);
     private static final Color CLR_TEAL_ACCENT = new Color(0, 200, 240);
@@ -76,9 +79,19 @@ public final class HudRenderer {
         this.hudFont    = (hudFont    != null) ? hudFont    : new Font("Courier New", Font.BOLD, 14);
     }
 
+    /** Optionally supply icon images beside HP, EN, score and enemy labels. Any may be null. */
+    public void setIcons(BufferedImage hp, BufferedImage en,
+                         BufferedImage star, BufferedImage skull) {
+        this.iconHp    = hp;
+        this.iconEn    = en;
+        this.iconStar  = star;
+        this.iconSkull = skull;
+    }
+
     // =========================================================================
     //  DRAW  — call once per frame after all gameplay content
     // =========================================================================
+
 
     /**
      * Renders the full HUD overlay.
@@ -106,86 +119,142 @@ public final class HudRenderer {
 
     private void drawTopBar(Graphics2D g, int W, int score, int level,
                             long startTime, double fps) {
-        // background strip
+        // Background strip — 52 px tall
         g.setColor(CLR_BAR_BG);
-        g.fillRect(0, 0, W, 48);
+        g.fillRect(0, 0, W, 52);
 
-        // teal accent line at very top
+        // Teal accent at very top (2 px)
         g.setColor(CLR_TEAL_ACCENT);
         g.fillRect(0, 0, W, 2);
 
-        // divider image tiled along position y=44
+        // Divider tiled at bottom of top bar (y≈46)
         if (frmDivider != null) {
-            int dw = frmDivider.getWidth();
-            int dh = Math.min(frmDivider.getHeight(), 4);
+            int dw = frmDivider.getWidth(), dh = frmDivider.getHeight();
             for (int x = 0; x < W; x += dw)
-                g.drawImage(frmDivider, x, 44, Math.min(dw, W - x), dh, null);
+                g.drawImage(frmDivider, x, 46, Math.min(dw, W - x), Math.min(dh, 6), null);
+        } else {
+            g.setColor(CLR_TEAL_ACCENT);
+            g.fillRect(0, 48, W, 2);
         }
 
-        g.setFont(hudFont);
+        FontMetrics fm;
 
-        // Score — left aligned
-        g.setColor(CLR_SCORE);
-        g.drawString(String.format("SCORE  %07d", score), 14, 30);
+        // ── SCORE (left) — star icon + styled digit PNGs ──────────────────────
+        int scoreX = 14;
+        if (iconStar != null)
+            g.drawImage(iconStar, scoreX, 4, 18, 18, null);
+        g.setFont(hudFont.deriveFont(Font.BOLD, 10f));
+        g.setColor(new Color(170, 170, 195));
+        g.drawString("SCORE", scoreX + (iconStar != null ? 22 : 0), 14);
+        drawDigits(g, scoreX + (iconStar != null ? 22 : 0), 16, score, 14, 20);
 
-        // Level indicator — centred
+        // ── LEVEL (centre) ────────────────────────────────────────────────────
+        g.setFont(hudFont.deriveFont(Font.BOLD, 16f));
         g.setColor(Color.WHITE);
-        String lvl = "LEVEL " + level + " / 2";
-        FontMetrics fm = g.getFontMetrics();
-        g.drawString(lvl, (W - fm.stringWidth(lvl)) / 2, 30);
+        String lvlStr = "LEVEL  " + level + "  /  2";
+        fm = g.getFontMetrics();
+        int lvlTxtX = (W - fm.stringWidth(lvlStr)) / 2;
+        g.drawString(lvlStr, lvlTxtX, 34);
+        // accent dots either side
+        g.setColor(CLR_TEAL_ACCENT);
+        g.fillRect(lvlTxtX - 10, 28, 4, 4);
+        g.fillRect(lvlTxtX + fm.stringWidth(lvlStr) + 6, 28, 4, 4);
 
-        // Timer — right aligned
+        // ── TIMER (right) ─────────────────────────────────────────────────────
         long secs = (System.currentTimeMillis() - startTime) / 1000;
+        int timeRX = W - 118;
+        g.setFont(hudFont.deriveFont(Font.PLAIN, 10f));
+        g.setColor(new Color(130, 130, 155));
+        g.drawString("TIME", timeRX, 14);
+        g.setFont(hudFont.deriveFont(Font.BOLD, 15f));
         g.setColor(CLR_TIMER);
-        String timeStr = String.format("TIME  %02d:%02d", secs / 60, secs % 60);
-        g.drawString(timeStr, W - 140, 30);
+        g.drawString(String.format("%02d : %02d", secs / 60, secs % 60), timeRX, 36);
 
-        // FPS — tiny text bottom-right, shown if fps > 0
+        // ── FPS (tiny, corner) ────────────────────────────────────────────────
         if (fps > 0) {
             g.setFont(new Font("Courier New", Font.PLAIN, 10));
             g.setColor(CLR_FPS);
-            g.drawString(String.format("FPS:%.0f", fps), W - 52, 62);
+            g.drawString(String.format("%.0f fps", fps), W - 46, 60);
         }
     }
 
     // ── bottom bar ────────────────────────────────────────────────────────────
 
     private void drawBottomBar(Graphics2D g, int W, int H, int hp, int maxHp, int enemyCount) {
-        // background strip
+        final int PANEL_H = 80;
+        final int barY    = H - 52;   // top of bar sprites
+        final int barH    = 26;        // height of each bar sprite
+        final int labelY  = barY - 6;  // label baseline (just above bars)
+
+        // Background strip
         g.setColor(CLR_BAR_BG);
-        g.fillRect(0, H - 68, W, 68);
+        g.fillRect(0, H - PANEL_H, W, PANEL_H);
 
-        // teal accent line at top of bottom bar
-        g.setColor(CLR_TEAL_ACCENT);
-        g.fillRect(0, H - 68, W, 2);
+        // Divider / accent image at very top of bottom panel
+        if (frmDivider != null) {
+            int dw = frmDivider.getWidth(), dh = frmDivider.getHeight();
+            for (int x = 0; x < W; x += dw)
+                g.drawImage(frmDivider, x, H - PANEL_H, Math.min(dw, W - x), Math.min(dh, 6), null);
+        } else {
+            g.setColor(CLR_TEAL_ACCENT);
+            g.fillRect(0, H - PANEL_H, W, 2);
+        }
 
-        // ── health bar ──────────────────────────────────────────────────────
-        int hpBarW = 220, hpBarH = 22;
-        int hpBarX = 14,  hpBarY = H - 52;
-        drawBarImage(g, hp, maxHp, hudBars, hpBarX, hpBarY, hpBarW, hpBarH);
+        // Critical health flash — pulsing red vignette when HP < 20%
+        if (maxHp > 0 && hp > 0 && (float) hp / maxHp < 0.20f) {
+            float pulse = (float) Math.abs(Math.sin(System.currentTimeMillis() * 0.004)) * 0.28f;
+            g.setColor(new Color(200, 0, 0, (int)(pulse * 255)));
+            g.fillRect(0, 0, W, H);
+        }
 
-        g.setFont(hudFont);
+        // ── HP bar ────────────────────────────────────────────────────────────
+        final int hpBarW = 260, hpBarX = 14;
+        if (iconHp != null)
+            g.drawImage(iconHp, hpBarX, labelY - 12, 14, 14, null);
+        g.setFont(hudFont.deriveFont(Font.BOLD, 11f));
         g.setColor(CLR_HP_LABEL);
-        g.drawString("HP", hpBarX, H - 56);
+        g.drawString("HP", hpBarX + (iconHp != null ? 18 : 0), labelY);
+        g.setFont(hudFont.deriveFont(Font.PLAIN, 10f));
+        g.setColor(new Color(255, 200, 200));
+        g.drawString(hp + " / " + maxHp,
+                     hpBarX + (iconHp != null ? 18 : 0) + 22, labelY);
+        drawBarImage(g, hp, maxHp, hudBars, hpBarX, barY, hpBarW, barH);
+        // Percent text centred on bar
+        if (maxHp > 0) {
+            int pct = (int)((float) hp / maxHp * 100);
+            g.setFont(hudFont.deriveFont(Font.BOLD, 10f));
+            g.setColor(new Color(255, 255, 255, 200));
+            String ps = pct + "%";
+            FontMetrics fm = g.getFontMetrics();
+            g.drawString(ps, hpBarX + (hpBarW - fm.stringWidth(ps)) / 2, barY + barH - 5);
+        }
 
-        // ── energy bar ──────────────────────────────────────────────────────
-        int enBarX = hpBarX + hpBarW + 12;
-        drawBarImage(g, hp, maxHp, enerBars, enBarX, hpBarY, 180, hpBarH);
-
+        // ── EN bar ────────────────────────────────────────────────────────────
+        final int enBarW = 200, enBarX = hpBarX + hpBarW + 16;
+        if (iconEn != null)
+            g.drawImage(iconEn, enBarX, labelY - 12, 14, 14, null);
+        g.setFont(hudFont.deriveFont(Font.BOLD, 11f));
         g.setColor(CLR_EN_LABEL);
-        g.drawString("EN", enBarX, H - 56);
+        g.drawString("EN", enBarX + (iconEn != null ? 18 : 0), labelY);
+        drawBarImage(g, hp, maxHp, enerBars, enBarX, barY, enBarW, barH);
 
-        // ── enemy count ─────────────────────────────────────────────────────
-        g.setFont(new Font("Courier New", Font.BOLD, 13));
+        // ── Enemy count ───────────────────────────────────────────────────────
+        final int ecX = enBarX + enBarW + 20;
+        if (iconSkull != null)
+            g.drawImage(iconSkull, ecX, labelY - 12, 14, 14, null);
+        g.setFont(hudFont.deriveFont(Font.BOLD, 14f));
         g.setColor(CLR_ENEMY);
-        g.drawString("ENEMIES: " + enemyCount, enBarX + 200, H - 38);
+        g.drawString("x" + enemyCount, ecX + (iconSkull != null ? 18 : 0), labelY + 1);
+        g.setFont(hudFont.deriveFont(Font.PLAIN, 9f));
+        g.setColor(new Color(180, 80, 80));
+        g.drawString("enemies", ecX + (iconSkull != null ? 18 : 0), barY + barH - 5);
 
-        // ── controls hint ───────────────────────────────────────────────────
+        // ── Controls hint (bottom edge) ───────────────────────────────────────
         g.setFont(new Font("Arial", Font.PLAIN, 10));
         g.setColor(CLR_HINT);
         g.drawString(
-            "A/D: Move  |  SPACE: Jump  |  SHIFT: Dash  |  CTRL: Shoot  |  ESC: Pause",
-            14, H - 8);
+            "A/D: Move  |  SPACE: Jump  |  SHIFT: Dash  |  CTRL: Shoot  |  H: Heal  |  ESC: Pause",
+            hpBarX, H - 5);
     }
 
     // =========================================================================

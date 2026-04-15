@@ -1,22 +1,167 @@
-280 30
-......................................................................................................................................................................................................................................................................................................................................
-......................................................................................................................................................................................................................................................................................................................................
-......................................................................................................................................................................................................................................................................................................................................
-..................................................................XXXXXXXXXXXXXXXX..........XXXXXXXXXXXXXXXX..................................................................................................................
-............................XXXXXXXXXXXXXXXX......XXXXXXXXXXXXXXXX................XXXXXXXXXXXXXXXX......XXXXXXXXXXXXXXXX.............................
-......................................................................................................................................................................................................................................................................................................................................
-......................................................................XXXXXXXXXXXXXXXX................XXXXXXXXXXXXXXXX..................................................................................................................
-......................................................................................................................................................................................................................................................................................................................................
-......................XXXXXXXXXXXXXXXX......XXXXXXXXXXXXXXXX......XXXXXXXXXXXXXXXX......XXXXXXXXXXXXXXXX......................................................
-......................................................................................................................................................................................................................................................................................................................................
-....XXXXXXXXXXXXXXXX................XXXXXXXXXXXXXXXX................XXXXXXXXXXXXXXXX................XXXXXXXXXXXXXXXX......................................
-......................................................................................................................................................................................................................................................................................................................................
-..............................XXXXXXXXXXXXXXXX......XXXXXXXXXXXXXXXX......XXXXXXXXXXXXXXXX......XXXXXXXXXXXXXXXX................................................
-......................................................................................................................................................................................................................................................................................................................................
-................................XXXXXXXXXXXXXXXX................XXXXXXXXXXXXXXXX................XXXXXXXXXXXXXXXX.............................................
-......................................................................................................................................................................................................................................................................................................................................
-......................................................................XXXXXXXXXXXXXXXX................XXXXXXXXXXXXXXXX..................................................................................................................
-......................................................................................................................................................................................................................................................................................................................................
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+900 6 32 32
+// ====================================================================
+// LEVEL 2 — Power Station
+// World size: 28800 x 192 px  (900 x 6 tiles @ 32x32)
+// Row 0=SKY  Row 1=HIGH-PLATFORMS  Row 2=MID-PLATFORMS
+// Row 3=GROUND-SURFACE  Row 4=SUBFILL  Row 5=BEDROCK
+// ====================================================================
+//
+// ----- FLOOR / PLATFORM TILES (01-16 horizontal-stripe brick variants) -----
+// All sixteen variants are walkable solid floor tiles — placed on row 3 or as
+// floating platform bodies on rows 1-2.  Variant A is the primary floor.
+#a=01_Panel_HorizStripeBrick_BluePurple_SolidWalkableFloor_PrimaryPlatformTile.png
+#b=02_Panel_HorizStripeBrick_BluePurple_SolidFloorVariantB.png
+#c=03_Panel_HorizStripeBrick_MidBlue_SolidFloorVariantC.png
+#d=04_Panel_HorizStripeBrick_DarkBlue_SolidFloorVariantD.png
+#e=05_Panel_HorizStripeBrick_DarkPurple_SolidFloorVariantE.png
+#f=06_Panel_HorizStripeBrick_DeepNavy_SolidFloorVariantF.png
+#g=07_Panel_HorizStripeBrick_LightBlue_SolidFloorVariantG.png
+#h=08_Panel_HorizStripeBrick_MediumBlue_SolidFloorVariantH.png
+#i=09_Panel_HorizStripeBrick_SlatePurple_SolidFloorVariantI.png
+#j=10_Panel_HorizStripeBrick_SteelBlue_SolidFloorVariantJ.png
+#k=11_Panel_HorizStripeBrick_CoolGrey_SolidFloorVariantK.png
+#l=12_Panel_HorizStripeBrick_IndigoTone_SolidFloorVariantL.png
+#m=13_Panel_HorizStripeBrick_SoftLavender_SolidFloorVariantM.png
+#n=14_Panel_HorizStripeBrick_DuskBlue_SolidFloorVariantN.png
+#o=15_Panel_HorizStripeBrick_NightBlue_SolidFloorVariantO.png
+#p=16_Panel_HorizStripeBrick_MutedTeal_SolidFloorVariantP.png
+// ----- WALL FILL TILES (17-22 small brick units) -----
+// Used on vertical wall surfaces and underground fill rows 4-5
+#q=17_Brick_SmallUnit_BluePurple_WallFillTileA.png
+#r=18_Brick_SmallUnit_DarkNavy_WallFillTileB.png
+#s=19_Brick_SmallUnit_MidBlue_WallFillTileC.png
+#t=20_Brick_SmallUnit_SlatePurple_WallFillTileD.png
+#u=21_Brick_SmallUnit_DeepIndigo_WallFillTileE.png
+#v=22_Brick_SmallUnit_CoolGrey_WallFillTileF.png
+// ----- WALL EDGE / BORDER TILES (23-28) -----
+// Used at platform edges and wall borders
+#w=23_Edge_PanelBorder_BluePurple_WallEdgeTop.png
+#x=24_Edge_PanelBorder_DarkBlue_WallEdgeBottom.png
+#y=25_Edge_PanelBorder_MidBlue_WallEdgeLeft.png
+#z=26_Edge_PanelBorder_NavyTone_WallEdgeRight.png
+#A=27_Edge_PanelBorder_SlatePurple_WallEdgeVariantA.png
+#B=28_Edge_PanelBorder_IndigoTone_WallEdgeVariantB.png
+// ----- HEAVY SOLID WALL TILES (29-32) -----
+// Used as underground bedrock fill (rows 4-5)
+#D=29_Solid_PurpleBrick_FullBlock_HeavyWallA.png
+#C=30_Solid_PurpleBrick_FullBlock_HeavyWallB.png
+#E=31_Solid_PurpleBrick_FullBlock_HeavyWallC.png
+#F=32_Solid_PurpleBrick_FullBlock_HeavyWallD.png
+// ----- SLOPE / RAMP TILES (33-34 and 41-44) -----
+// Placed on row 3 to create diagonal ramps between height levels
+#R=33_Slope_DiagonalCut_TopLeftTriangle_RampUpLeft.png
+#S=34_Slope_DiagonalCut_TopRightTriangle_RampUpRight.png
+#H=41_Slope_DarkDiagonal_CutA_SteepRampLeft.png
+#J=42_Slope_DarkDiagonal_CutB_SteepRampRight.png
+#K=43_Slope_DarkDiagonal_CutC_ShallowRampLeft.png
+#L=44_Slope_DarkDiagonal_CutD_ShallowRampRight.png
+// ----- STRUCTURAL DETAIL PANELS (35-40) -----
+// Visual variety on walls and large structural surfaces
+#G=35_Panel_MixedEdge_BlueGrey_StructuralDetailA.png
+#I=36_Panel_MixedEdge_BlueGrey_StructuralDetailB.png
+#O=37_Panel_MixedEdge_BlueGrey_StructuralDetailC.png
+#V=38_Panel_MixedEdge_BlueGrey_StructuralDetailD.png
+#W=39_Panel_MixedEdge_BlueGrey_StructuralDetailE.png
+#3=40_Panel_MixedEdge_BlueGrey_StructuralDetailF.png
+// ----- PLATFORM / CEILING TILES (45-46, 61-64) -----
+// Solid blocks for floating platform bodies and ceiling surfaces
+#M=45_Solid_FlatBlue_FullBlock_CeilingOrPlatformA.png
+#N=46_Solid_FlatBlue_FullBlock_CeilingOrPlatformB.png
+#4=61_Solid_LightGreyBlue_FlatStructural_CeilingTileA.png
+#5=62_Solid_LightGreyBlue_FlatStructural_CeilingTileB.png
+#6=63_Solid_LightGreyBlue_FlatStructural_CeilingTileC.png
+#7=64_Solid_LightGreyBlue_FlatStructural_CeilingTileD.png
+// ----- WALL INLAY DETAIL (47-48) -----
+// Decorative inlay panels — placed on wall surfaces at rows 1-2
+#8=47_Panel_InsetDetail_BlueTech_WallInlayA.png
+#9=48_Panel_InsetDetail_BlueTech_WallInlayB.png
+// ----- ACCENT STRUCTURE (49) -----
+// Magenta/purple accent block — used as boss-area highlight or structural accent
+#0=49_Solid_MagentaPurple_FullBlock_AccentStructure.png
+// ----- GREY TECH PLATFORM TILES (50-56) -----
+// Dark bevel-edged platform tiles — used for high-tech platform bodies
+// These seven variants mix together on platform rows 1-2
+#X=50_Panel_GreyTech_InsetBevel_DarkPlatformA.png
+#T=51_Panel_GreyTech_InsetBevel_DarkPlatformB.png
+#U=52_Panel_GreyTech_InsetBevel_DarkPlatformC.png
+#Z=53_Panel_GreyTech_InsetBevel_DarkPlatformD.png
+#@=54_Panel_GreyTech_InsetBevel_DarkPlatformE.png
+#!=55_Panel_GreyTech_InsetBevel_DarkPlatformF.png
+#$=56_Panel_GreyTech_InsetBevel_DarkPlatformG.png
+// ----- DOOR TILES (57-60) -----
+// Gate/door frames — placed on row 3 as impassable decorative doors
+#e=57_Door_GateFrame_PanelStyle_ClosedDoorA.png
+#f=58_Door_GateFrame_PanelStyle_ClosedDoorB.png
+// (59=ClosedDoorC and 60=ClosedDoorD defined below for completeness)
+// 59_Door_GateFrame_PanelStyle_ClosedDoorC.png  — spawned as game object
+// 60_Door_GateFrame_PanelStyle_ClosedDoorD.png  — spawned as game object
+//
+// ----- BACKGROUND LAYERS (parallax — NOT in tile grid) -----
+// Day variant:
+// BG_Layer1_SkyBase_LightGreyWhiteGradient_StaticFill_DrawFirst.png
+// BG_Layer2_FactoryLeft_LightBlueDetail_ParallaxFactor015.png
+// BG_Layer3_FactoryTall_LightBlueChimney_ParallaxFactor025.png
+// BG_Layer4_DistantFactory_FaintSilhouette_ParallaxFactor040.png
+// BG_Layer5_FactoryRight_LightBlueVariant_ParallaxFactor060.png
+// Night variant:
+// BG_Layer1_SkyBase_DarkGreyGradient_StaticFill_DrawFirst.png
+// BG_Layer2_FactoryLeft_DarkGreySilhouette_ParallaxFactor015.png
+// BG_Layer3_FactoryTall_DarkGreyCentre_ParallaxFactor025.png
+// BG_Layer4_DistantFactory_VeryDarkFaint_ParallaxFactor040.png
+// BG_Layer5_FactoryRight_DarkGreyVariant_ParallaxFactor060.png
+// Overlay:
+// BG_Overlay_BlueYellowDiagonalGradient_ColourAtmosphere_DrawLast.png
+//
+// ----- PIPE PROPS (placed on rows 0-2 as wall/ceiling deco) -----
+#P=Prop_Pipe_Horizontal_BlueWithClamp_BracketedRun_WallMount.png
+#Q=Prop_Pipe_Vertical_TallBlue_FullHeightRun_BackgroundPipe.png
+// (remaining pipes spawned as game objects)
+// Prop_Pipe_Vertical_RedMetal_StraightSegment_WallRun.png
+// Prop_Pipe_Vertical_ThinDarkBlue_StripRun_WallDetail.png
+// Prop_Pipe_ElbowBend_DarkBlueGrey_LBend_CornerJoin.png
+// Prop_Pipe_TJunction_DarkNavy_ThreeWayConnector_PipeHub.png
+// Prop_Pipe_Connector_DarkBlue_SmallJoint_PipeJoinA.png
+// Prop_Pipe_Connector_DarkBlue_SmallJointVariant_PipeJoinB.png
+// Prop_Pipe_EndCap_DarkNavy_SmallCap_PipeTerminatorA.png
+// Prop_Pipe_EndCap_DarkBlue_SmallCap_PipeTerminatorB.png
+// Prop_Pipe_ArchLoop_RedMetal_CurvedSection_WallDeco.png
+//
+// ----- DECORATION PROPS (placed on rows 0-2) -----
+// Pylon tower tiles (stack rows 0-3 to form full pylon structure)
+#T=Prop_Pylon_FullTall_WithAntennaTop_BlueMetal_PylonFullA.png
+// Power line wire (placed at row 0 between pylon columns)
+#Z=Prop_Wire_DiagonalCable_ThinSingle_PowerLineSegmentA.png
+// Screen / monitor tiles (placed on wall at row 2)
+#G=Prop_Screen_MonitorSingle_TechPanel_WallScreenA.png
+// Tank deco (placed on platform surface row 2, 2-tile wide)
+#Y=Prop_Tank_Industrial_LabelledAC3_LargeTankA.png
+// Collectible pickup deco
+#V=Deco_CircleMarker_portal
+// Portal / spawn marker
+// (remaining deco spawned as game objects — screens B/C, ControlPanel,
+//  FilingCabinet, OfficeChair, Shelf, Antenna, Building, Rivet, Tablet,
+//  WaveArch, Wire, SmallDevice, SmallItem, SignWarning x3)
+//
+// ----- ANIMATED TILES -----
+// Collectibles — placed at rows 0-2 above platforms
+// Anim_Collectible_Card_6Frames1Row_BlueSpinningFloat_PickupItem_Loop80ms.png
+// Anim_Collectible_Money_6Frames1Row_GreenBanknotesSpinFlip_CurrencyPickup_Loop80ms.png
+// Anim_Interactive_Chest_8Frames1Row_BlueTealLidOpenSequence_PlayOnce100ms.png
+// Turret hazard — placed on platforms facing the player
+// Anim_Hazard_Turret_MultiFrame1Row_TurretFiringProjectile_DamageOnFire_Loop120ms.png
+//
+// ----- HAZARD TILES (instant / contact damage) -----
+#*=Prop_Pipe_Vertical_RedMetal_StraightSegment_WallRun.png
+// Re-using energy-hazard chars from level 1 for damage tiles
+#1=31_Hazard_ContactDamage_Floor.png
+#(=54_Hazard_InstantDamage_EnergyBeam.png
+// (all hazard visuals use level-1 hazard tiles, same contact rules apply)
+//
+// ====================================================================
+#map
+U.V...................W...............W...................W................W...................W..............U.........W.....................W.................W..............W...................W...................W...........W.......W...................W...................W................V.......W.................W................W..........W...PPPPPPPPPPWPPPPPPPPPPPPPPPPPWPPPPPPPPPPPPPPPPPPPWPPPPPPPPPPPP....W....ZZZZZZZZZZZZZZZWZZZZZZZZZZZZZZZZZZZWZZZZZ.........U...........W.................W...................W...........V.......W...................W...................W.........U.........W.....................W...................W............W............W.............W...............W...........U.........W.....................W.................W...........V.......W...................W...................W.........U..............W................W...............W..............V.W....
+U.V............W................................................................XMMMMMMMMMMMMMMMMMMMX.........U................................XMMMMMMMMMMMMMMMMMMMMMMMMX.....XMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX........................................XMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX.............V.....XMMMMMMMMMMMMMMMMMMMX....................................Q.........XMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX...................T...................T...................T.........U.........XMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX......V..........XMMMMMMMMMMMMMMMMMMMMMMMMMMX...................U..............XMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX.........XMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX..U.........XMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX......V.....XMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX...................U....XMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX..V......
+U.V.......XMMMMMMMMMX.....................................XMMMMMMMMMMMX.....XMMMMMMMMMMMX.....................U....XMMMMMMMMMMMMMMX....XMMMMMMMMMMMMX..................................XMMMMMMMMMMMMMMX.XMMMMMMMMMMMMMX.........................XMMMMMMMMMMMMX...XMMMMMMMMMMMMX..XMMMMMMMMMMMMX.....V............GG...XMMMMMMMMMMMMMMMMMMMX........................Q.XMMMMMMMMMMMMX.QXMMMMMMMMMMMMMMXMMMMMMMMMMMMMMMMMMX....XMMMMMMMMMMMX.......XMMMMMMMMMMMX.......XMMMMMMMMMMMMMMX..U.XMMMMMMMMMMMMMMX.....(.XMMMMMMMMMMMMMMMMX.XMMMMMMMMMMMMMX...V.......YY.............XMMMMMMMMMMMMMMMMX.................U.......XMMMMMMMMMMMMMMMX...XMMMMMMMMMMMMMMMMX..G...................XMMMX......XMMMX.......XMMMMMMX.......XMMMMMMMMX....U.XMMMMMMMMMMMMMMMMMX....(XMMMMMMMMMMMMMMMX..XMMMMMMMMMMMMX...V.........GG...........GXMMMMMMMMMMMMMMMX.................U.........XMMMMMMMMMMMX.....XMMMMMMMMMMMX..XMMMMMMMMMMMMMMX....V......
+aaaaaaaabaaaaaaaaacaaaaaaaaaaabaaaaaaaaaaacaaaaaaaaaaaabaaaaaa000000aaaacaaaaaaa......aabaaaaaaaaaaaaaacaaaaaaaaaaabaaaa00000000aacaaaaaaaaa.......abaaaaaaaaaaaaacaaaaaaaRRSSabaaaaaaaaaaaa00000000aaaaaaaaa.......aaaaaaaaaaaaacaaaaaaaaabaaeeaaaa......caaaaffaaaaaaaa11111111aaa......acaaaaaaaaaaabaaaaaaaaaaaaaaaacaaaaaaaaaaaaaaabaaaaaaaaaaaaaaacaaaaaaaaaabaaaaaa1111111aaacaaaaaaa.......abaaaaaaa.......caaaaaaaaaaabaaaaTaaaa......acaaaaaaaTaaaa......aaaaaaaaaTaaacaaaaaaaaaabaa********aaa......aaa********aabaaa(aaa......aacaaaaaaaaaabaaaaaaaaaa1111111aaaaaaaaa.......aaaaaaaaaaaaaaacaaaaaaaaaabaaaaaa0000000aIacaaaaaaaaa.......aIaaaaaaaaa.......aaaaa......aaaaa......acaaaa......aaaabaaaa......aaaacaaaaaaaaaaaaaabaa********aaaa.......aaaaaaaaaaa(aaaaaa......aacaaaaaaaaaaabaaaaaaaaa11111111aaaaaaa.......abaaaaaaaaaaaaacaaaaaaaaaa11111111a......********a......3333333aaaaaa55555555aaaaaaaaaaaaaaaa
+DDDDDDDDNDDDDDDDDDDDDDNDDDDDDDDDDDDDNDDDDDDDDDDDDDNDDDDDDDDDDDDDNDDDDDDDDDDDDDND......DDDDDDNDDDDDDDDDDDDDNDDDDDDDDDDDDDNDDDDDDDDDDDDDNDDDDD.......DNDDDDDDDDDDDDDNDDDDDDDDDDDDDNDDDDDDDDDDDDDNDDDDDDDDDDDDDN.......DDDDDDNDDDDDDDDDDDDDNDDDDDDDDDDD......DDDDDDDDDDNDDDDDDDDDDDDDND......DDDDDDNDDDDDDDDDDDDDNDDDDDDDDDDDDDNDDDDDDDDDDDDDNDDDDDDDDDDDDDNDDDDDDDDDDDDDNDDDDDDDDDDDDDNDDDDDDD.......DDDDDDDDD.......DDDDDDDDDDDNDDDDDDDDDD......DDDDDDDDDDDNDD......DDDDDNDDDDDDDDDDDDDNDDDDDDDDDDDDDNDDDD......DDDNDDDDDDDDDDDDDNDDD......DDDDNDDDDDDDDDDDDDNDDDDDDDDDDDDDNDDDDDDD.......DDDDDDDDDDDDDNDDDDDDDDDDDDDNDDDDDDDDDDDDDNDDDDDDDDDDD.......DDDDDDDDDND.......DDDDD......DDDDD......DDDDDD......DDDDDDDDD......DDDDDDDDDDDDNDDDDDDDDDDDDDNDDDDDDD.......DDDDDDDDDDDDDNDDDD......DDDNDDDDDDDDDDDDDNDDDDDDDDDDDDDNDDDDDDD.......DDDDDDDDDDDDDNDDDDDDDDDDDDDNDDDDDDD......NDDDDDDDD......DDDDDDDDDDDDDNDDDDDDDDDDDDDNDDDDDDDDD
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD******DDDDDDDDDDDDDDDDDDDDD******DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD*******DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD

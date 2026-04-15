@@ -37,9 +37,25 @@ public final class VfxSystem {
     /** Particle type: animated smoke sprite from 18-frame sequence. */
     public static final int TYPE_SMOKE = 1;
 
+    /** Particle type: animated blood splatter (4-frame, play-once). */
+    public static final int TYPE_BLOOD = 2;
+
     /** Directory containing the 18 individual smoke-frame PNGs. */
     private static final String SMOKE_DIR =
         "Resources/industrial-zone/vfx/1 Smoke/";
+
+    /** Directory containing the 8 blood splatter spritesheets. */
+    private static final String BLOOD_DIR =
+        "Resources/industrial-zone/vfx/2 Blood/";
+
+    /** Number of blood splatter variants (8 sheets). */
+    private static final int BLOOD_SHEET_COUNT = 8;
+
+    /** Frames per blood sheet (192×48 → 4 square 48px frames). */
+    private static final int BLOOD_FRAMES = 4;
+
+    /** Time to advance one blood frame (ms). */
+    private static final int BLOOD_FRAME_MS = 80;
 
     /** Total smoke animation frames (numbered 01-18). */
     private static final int SMOKE_FRAMES = 18;
@@ -57,6 +73,16 @@ public final class VfxSystem {
     /** Set to true once smoke frames were successfully loaded from disk. */
     private boolean smokeLoaded = false;
 
+    // ── blood asset storage ───────────────────────────────────────────────────
+    /**
+     * 8 full blood spritesheet images, each 192×48 px (4 frames of 48×48).
+     * Loaded from BloodVfxAssets paths.
+     */
+    private final BufferedImage[] bloodSheets = new BufferedImage[BLOOD_SHEET_COUNT];
+
+    /** Set to true once at least one blood sheet loaded successfully. */
+    private boolean bloodLoaded = false;
+
     // ── live particle list ────────────────────────────────────────────────────
     private final List<Particle> particles = new ArrayList<>();
     private final Random rng = new Random();
@@ -72,6 +98,7 @@ public final class VfxSystem {
      */
     public VfxSystem() {
         loadSmokeFrames();
+        loadBloodSheets();
     }
 
     /** Loads VFX_Smoke_Frame01..18 PNGs from the vfx/1 Smoke/ folder. */
@@ -139,6 +166,37 @@ public final class VfxSystem {
         return null;
     }
 
+    /** Loads the 8 blood splatter spritesheets from BloodVfxAssets paths. */
+    private void loadBloodSheets() {
+        String[] filenames = {
+            "01_VFX_Blood_Splatter_4Frames1Row_SmallWideSpread_Impact_PlayOnce_80ms.png",
+            "02_VFX_Blood_Splatter_4Frames1Row_SmallLooseParticles_Impact_PlayOnce_80ms.png",
+            "03_VFX_Blood_Splatter_4Frames1Row_MediumBlobShapes_Impact_PlayOnce_80ms.png",
+            "04_VFX_Blood_Splatter_4Frames1Row_TinyFineDots_Impact_PlayOnce_80ms.png",
+            "05_VFX_Blood_Splatter_4Frames1Row_MediumChunks_Impact_PlayOnce_80ms.png",
+            "06_VFX_Blood_Splatter_4Frames1Row_LargeBoldImpact_Impact_PlayOnce_80ms.png",
+            "07_VFX_Blood_Splatter_4Frames1Row_HorizontalElongated_Impact_PlayOnce_80ms.png",
+            "08_VFX_Blood_Splatter_4Frames1Row_ArcSwipeShape_Impact_PlayOnce_80ms.png"
+        };
+        int loaded = 0;
+        for (int i = 0; i < BLOOD_SHEET_COUNT; i++) {
+            String path = BLOOD_DIR + filenames[i];
+            try {
+                File f = new File(path);
+                if (f.exists()) {
+                    bloodSheets[i] = ImageIO.read(f);
+                    loaded++;
+                } else {
+                    System.err.println("[VfxSystem] Blood sheet not found: " + path);
+                }
+            } catch (Exception ex) {
+                System.err.println("[VfxSystem] Error loading blood sheet " + path + ": " + ex.getMessage());
+            }
+        }
+        bloodLoaded = loaded > 0;
+        System.out.println("[VfxSystem] Blood sheets loaded: " + loaded + "/" + BLOOD_SHEET_COUNT);
+    }
+
     // =========================================================================
     //  PUBLIC EMIT API
     // =========================================================================
@@ -193,6 +251,24 @@ public final class VfxSystem {
     }
 
     /**
+     * Emits a 4-frame blood splatter animation at screen position (sx, sy).
+     * Picks a random variant from the 8 BloodVfxAssets sheets.
+     * Call this when a projectile hits an enemy (pass screen coordinates).
+     */
+    public void emitBlood(float sx, float sy) {
+        if (!bloodLoaded) return;
+        // Pick a non-null sheet randomly
+        int attempts = 0;
+        int idx;
+        do {
+            idx = rng.nextInt(BLOOD_SHEET_COUNT);
+            attempts++;
+        } while (bloodSheets[idx] == null && attempts < BLOOD_SHEET_COUNT);
+        if (bloodSheets[idx] == null) return;
+        particles.add(Particle.blood(sx, sy, idx));
+    }
+
+    /**
      * Fires a burst of 3 teal sparks centred above a GUI panel.
      * Used by Game.java when the "GAME OVER" typewriter completes.
      */
@@ -224,6 +300,15 @@ public final class VfxSystem {
                 p.vy += GRAVITY * dt;
                 p.life -= elapsedMs;
                 if (p.life <= 0f) particles.remove(i);
+
+            } else if (p.type == TYPE_BLOOD) {
+                // advance blood frame counter; remove after all 4 frames play
+                p.frameTimer += elapsedMs;
+                if (p.frameTimer >= BLOOD_FRAME_MS) {
+                    p.frameTimer -= BLOOD_FRAME_MS;
+                    p.frame++;
+                }
+                if (p.frame >= BLOOD_FRAMES) particles.remove(i);
 
             } else {
                 // advance smoke frame counter
@@ -257,6 +342,8 @@ public final class VfxSystem {
         for (Particle p : particles) {
             if (p.type == TYPE_SPARK) {
                 drawSpark(g, p);
+            } else if (p.type == TYPE_BLOOD) {
+                drawBlood(g, p);
             } else {
                 drawSmoke(g, p, (int) camX, (int) camY);
             }
@@ -297,6 +384,33 @@ public final class VfxSystem {
         g.drawImage(smokeFrames[fi], sx, sy, 64, 64, null);
     }
 
+    /**
+     * Draws the current frame of the blood splatter spritesheet at screen position (p.x, p.y).
+     * The 192×48px sheet has 4 frames of 48×48 each, read left-to-right.
+     * Blood is drawn at 2× scale (96×96) centred on the impact point.
+     */
+    private void drawBlood(Graphics2D g, Particle p) {
+        if (p.sheetIdx < 0 || p.sheetIdx >= BLOOD_SHEET_COUNT) return;
+        BufferedImage sheet = bloodSheets[p.sheetIdx];
+        if (sheet == null) return;
+
+        int fi  = Math.min(p.frame, BLOOD_FRAMES - 1);
+        int fw  = sheet.getWidth() / BLOOD_FRAMES;   // = 48 for a 192-wide sheet
+        int fh  = sheet.getHeight();                  // = 48
+
+        // slight fade-out on last frame
+        float alpha = (fi == BLOOD_FRAMES - 1) ? 0.5f : 1f;
+        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+
+        // draw at 2× scale, centred on impact
+        int scale = 2;
+        int dx = (int) p.x - fw * scale / 2;
+        int dy = (int) p.y - fh * scale / 2;
+        // source rect for this frame
+        int sx1 = fi * fw, sy1 = 0, sx2 = sx1 + fw, sy2 = fh;
+        g.drawImage(sheet, dx, dy, dx + fw * scale, dy + fh * scale, sx1, sy1, sx2, sy2, null);
+    }
+
     // =========================================================================
     //  INNER DATA CLASS  — Particle
     // =========================================================================
@@ -311,8 +425,9 @@ public final class VfxSystem {
         public float vx, vy;        // velocity (px/s) — sparks only
         public float life, maxLife; // remaining / total lifetime (ms) — sparks
         public int   r, gCol, b;    // spark colour (no 'g' to avoid name clash)
-        public int   frame;         // current animation frame — smoke
-        public long  frameTimer;    // ms accumulated toward next frame — smoke
+        public int   frame;         // current animation frame — smoke / blood
+        public long  frameTimer;    // ms accumulated toward next frame — smoke / blood
+        public int   sheetIdx;      // index into bloodSheets[] — blood only
 
         /** Creates a spark particle. */
         static Particle spark(float x, float y, float vx, float vy,
@@ -331,6 +446,15 @@ public final class VfxSystem {
             Particle p = new Particle();
             p.type = TYPE_SMOKE;
             p.x = x;  p.y = y;
+            return p;
+        }
+
+        /** Creates a blood splatter particle at the given screen position. */
+        static Particle blood(float x, float y, int sheetIdx) {
+            Particle p = new Particle();
+            p.type = TYPE_BLOOD;
+            p.x = x;  p.y = y;
+            p.sheetIdx = sheetIdx;
             return p;
         }
     }

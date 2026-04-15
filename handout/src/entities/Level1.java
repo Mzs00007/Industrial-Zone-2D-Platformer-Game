@@ -1,563 +1,194 @@
 /*
- * Decompiled with CFR 0.152.
- * UPDATED: 2026-04-14 - Production asset integration
+ * Level 1 — Industrial Zone Entry
+ * All level-specific data: platforms, enemies, animated objects, backgrounds, tile maps.
+ * Game.java delegates to this class via the LevelData interface.
  */
 package entities;
 
-import animation.AnimationAndSpriteLoader;
-import game2D.TileMap;
-import important.Config;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import controllers.AnimatedObjectManager;
-import controllers.ComprehensiveTileMapLoader;
+public class Level1 implements LevelData {
 
-public class Level1 {
-    private static final boolean VERBOSE_LOGGING = true;
-    public static final int LEVEL_ID = 1;
-    public static final String LEVEL_NAME = "Industrial Zone Entry";
-    public static final String DIFFICULTY = "Medium";
-    public static final String STORY = "Infiltrate the industrial zone and disable the automation systems";
-    public static final int MAP_WIDTH = 500;
-    public static final int MAP_HEIGHT = 50;
-    public static final int TILE_SIZE = 32;
-    public static final int PIXEL_WIDTH = 16000;
-    public static final int PIXEL_HEIGHT = 1600;
-    public static final float PLAYER_START_X = 300.0f;
-    public static final float PLAYER_START_Y = 1000.0f;
-    private static final float INTRO_END = 1568.0f;
-    private static final float PIT_GAUNTLET_END = 3808.0f;
-    private static final float UNDERGROUND_END = 7008.0f;
-    private static final float OVERGROUND_END = 11168.0f;
-    private static final float DESCENT_END = 14368.0f;
-    private static final float BOSS_ARENA_END = 15968.0f;
-    private static TileMap levelTileMap;
-    private static int[][] mapData;
-    private static Map<Character, String> tileMapping;
-    private static List<EnemySpawn> enemySpawns;
-    private static List<HazardZone> hazardZones;
-    private static List<CheckpointData> checkpoints;
-    private static String[] zoneNames;
-    private static ComprehensiveTileMapLoader assetLoader;
-    private static AnimatedObjectManager animatedObjectManager;
-    private static List<ComprehensiveTileMapLoader.AnimatedObject> levelAnimatedObjects;
-    private static List<ComprehensiveTileMapLoader.BackgroundLayer> levelBackgroundLayers;
-    private static AnimationAndSpriteLoader.ParallaxSystem parallaxSystem;
+    // ── metadata ──
+    public static final int    ID          = 1;
+    public static final String NAME        = "Industrial Zone Entry";
+    public static final String DIFF        = "Medium";
+    public static final int    WORLD_W     = 16000;
+    public static final float  START_X     = 150f;
+    public static final float  START_Y     = 456f;   // ground(520) - 64
 
-    public static void initialize(TileMap tileMap) {
-        Level1.log("\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550");
-        Level1.log("Level1: INITIALIZATION SEQUENCE STARTING");
-        Level1.log("\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550");
-        levelTileMap = tileMap;
-        enemySpawns = new ArrayList<EnemySpawn>();
-        hazardZones = new ArrayList<HazardZone>();
-        checkpoints = new ArrayList<CheckpointData>();
-        tileMapping = new HashMap<Character, String>();
-        zoneNames = new String[6];
-        levelAnimatedObjects = new ArrayList<ComprehensiveTileMapLoader.AnimatedObject>();
-        levelBackgroundLayers = new ArrayList<ComprehensiveTileMapLoader.BackgroundLayer>();
-        animatedObjectManager = new AnimatedObjectManager();
-        Level1.parseMapFile();
-        Level1.identifyZones();
-        Level1.extractEnemySpawns();
-        Level1.extractHazardZones();
-        Level1.extractCheckpoints();
-        Level1.loadComprehensiveAssets();
-        Level1.validateEnemyDefinitions();
-        Level1.validateEnemyCombatConfiguration();
-        Level1.initializeVFXChainReactionSystem();
-        Level1.initializeAudioSystem();
-        Level1.log("\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550");
-        Level1.log("Level1: INITIALIZATION COMPLETE");
-        Level1.log("  Tiles loaded: " + Level1.countLoadedTiles());
-        Level1.log("  Enemies spawned: " + enemySpawns.size());
-        Level1.log("  Hazard zones: " + hazardZones.size());
-        Level1.log("  Checkpoints: " + checkpoints.size());
-        Level1.log("  Animated objects: " + levelAnimatedObjects.size());
-        Level1.log("  Background layers: " + levelBackgroundLayers.size());
-        Level1.log("\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550");
+    // ── platforms  [x, y, width, height] ──
+    private static final float[][] PLATFORMS = {
+        // Ground
+        {   0,  520, 16000, 800 },
+        // Section 1: Gentle start
+        { 250,  440,  200,  20 },
+        { 520,  400,  180,  20 },
+        { 780,  350,  220,  20 },
+        // Section 2: Step-up sequence
+        {1060,  300,  160,  20 },
+        {1280,  250,  200,  20 },
+        {1520,  200,  180,  20 },
+        {1520,  440,  250,  20 },
+        {1780,  280,  220,  20 },
+        // Section 3: Gap challenge
+        {2100,  350,  150,  20 },
+        {2350,  280,  150,  20 },
+        {2600,  220,  200,  20 },
+        {2600,  420,  300,  20 },
+        // Section 4: Zigzag ascent
+        {2950,  380,  180,  20 },
+        {3200,  310,  160,  20 },
+        {3420,  240,  200,  20 },
+        {3680,  180,  180,  20 },
+        {3680,  400,  250,  20 },
+        // Section 5: Boss arena
+        {4000,  350,  400,  20 },
+        {4100,  200,  140,  20 },
+        {4500,  280,  250,  20 },
+        {4800,  480,  600,  20 },
+        {4950,  320,  120,  20 },
+    };
+
+    // ── enemies  [x, y, typeId]  0=UFO 1=JET 2=HOVER 3=LAND_TANK 4=LAND_KNIGHT 5=LAND_WARRIOR 6=BOSS_GOLF_CART 7=BOSS_GREEN_MECH 8=BOSS_RUGBY_GUY ──
+    private static final float[][] ENEMIES = {
+        // Drones
+        { 480, 360, 0}, { 850, 300, 1}, {1150, 260, 0},
+        {1780, 280, 0}, {2080, 220, 1}, {2720, 240, 0},
+        {3080, 300, 1}, {3430, 250, 0}, {4150, 280, 1},
+        // Ground enemies (hovering drones)
+        {1480, 472, 2}, {2400, 472, 2}, {3780, 472, 2},
+        // Land enemies (sci-fi-antagonists)
+        {1300, 456, 3},   // CombatTank patrolling section 2
+        {2900, 456, 4},   // ArmouredKnight guarding section 4
+        {3600, 456, 5},   // WingedWarrior at zigzag ascent
+        // BOSS: GolfCartSoldier at boss arena
+        {4800, 424, 6},
+    };
+
+    // ── animated objects  [typeId, x, y, w, h] ──
+    private static final float[][] OBJECTS = {
+        // Money
+        {1, 350,488, 32,32},{1, 700,488, 32,32},{1,1100,488, 32,32},{1,1600,488, 32,32},
+        {1,2200,488, 32,32},{1,2800,488, 32,32},{1,3300,488, 32,32},{1,3900,488, 32,32},
+        {1,4300,488, 32,32},{1,4600,488, 32,32},
+        // Cards
+        {0, 560,368, 32,32},{0,1560,168, 32,32},{0,2640,188, 32,32},{0,3460,208, 32,32},
+        // Chests
+        {2, 950,472, 48,48},{2,1900,472, 48,48},{2,2850,472, 48,48},{2,3850,472, 48,48},
+        // Conveyors
+        {3,2600,388, 160,32},{3,3680,368, 160,32},
+        // Portals (checkpoints + exit)
+        {5,3200,440, 64,80},{5,5200,440, 64,80},
+        // Screens
+        {6, 200,456, 48,64},{6,1400,456, 48,64},
+        // Hammer hazards
+        {7,2150,472, 48,48},{7,3050,472, 48,48},
+        // Moving platform
+        {9,2350,280, 96,24},
+    };
+
+    // ── animated-asset directory ──
+    private static final String ANIM_DIR =
+        "Resources/industrial-zone/1 Tiles/Industrial_zone_level_1/4 Animated objects/";
+
+    // ── weapon spawns  [weaponTypeId, x, y]  0=PISTOL 1=SMG 2=RIFLE 3=SHOTGUN ──
+    private static final float[][] WEAPON_SPAWNS = {
+        {0,  600, 488},   // Pistol near start
+        {1, 1800, 248},   // SMG on high platform
+        {2, 3200, 278},   // Rifle mid-level
+        {3, 4500, 248},   // Shotgun near boss
+    };
+
+    // ── ladder zones  [x, y, width, height] ──
+    private static final float[][] LADDER_ZONES = {
+        {1040, 300, 32, 220},   // Ladder up to section 2 platforms
+        {2580, 220, 32, 300},   // Ladder at gap challenge area
+        {3660, 180, 32, 340},   // Ladder at zigzag ascent
+    };
+
+    // ── background ──
+    private static final String BG_DIR =
+        "Resources/industrial-zone/1 Tiles/Industrial_zone_level_1/2 Background_level_1/";
+    private static final String[] BG_FILES = {
+        "BG_Layer1_SkyBase_SolidLavenderGrey_StaticFill_DrawFirstNoScroll.png",
+        "BG_Layer2_FractalTreeSilhouette_MintSkyBlackCracks_ParallaxFactor015.png",
+        "BG_Layer3_FarFactorySilhouette_LightBlueIndustrial_ParallaxFactor025.png",
+        "BG_Layer4_MidFactorySilhouette_MediumBluePipeDetail_ParallaxFactor040.png",
+        "BG_Layer5_NearFactorySilhouette_DarkNavyLargeTank_ParallaxFactor060.png",
+    };
+    private static final float[] SCROLL = { 0.0f, 0.08f, 0.18f, 0.30f, 0.50f };
+
+    // ── tile map ──
+    private static final String MAP_FILE = "maps/level_1/map.txt";
+    private static final String[] TILE_DIRS = {
+        "Resources/industrial-zone/1 Tiles/Industrial_zone_level_1/1 Tiles/",
+        "Resources/industrial-zone/1 Tiles/Industrial_zone_level_1/3 Objects/",
+    };
+    private static final int MAP_OFFSET_Y = 424;
+
+    // ======================================================================
+    //  LevelData implementation
+    // ======================================================================
+    @Override public int    getLevelId()       { return ID; }
+    @Override public String getLevelName()     { return NAME; }
+    @Override public String getDifficulty()    { return DIFF; }
+    @Override public int    getPixelWidth()    { return WORLD_W; }
+    @Override public float  getPlayerStartX()  { return START_X; }
+    @Override public float  getPlayerStartY()  { return START_Y; }
+
+    @Override public float[][] getPlatforms()       { return PLATFORMS; }
+    @Override public float[][] getEnemySpawns()     { return ENEMIES; }
+    @Override public float[][] getAnimatedObjects() { return OBJECTS; }
+
+    @Override public String   getAnimAssetDir()   { return ANIM_DIR; }
+    @Override public String   getBgDir()           { return BG_DIR; }
+    @Override public String[] getBgFiles()          { return BG_FILES; }
+    @Override public float[]  getScrollFactors()    { return SCROLL; }
+
+    @Override public String   getMapFilePath()     { return MAP_FILE; }
+    @Override public String[] getTileMapDirs()      { return TILE_DIRS; }
+    @Override public int      getTileMapOffsetY()   { return MAP_OFFSET_Y; }
+
+    @Override public int     getCompletionScore()  { return 500; }
+    @Override public String  getCompletionTitle()  { return "INDUSTRIAL ZONE — SECURED"; }
+    @Override public String  getNextLevelPrompt()  { return "PRESS ENTER FOR LEVEL 2"; }
+    @Override public boolean hasNextLevel()         { return true; }
+    @Override public String[] getStoryLines() {
+        return new String[] {
+            "MISSION COMPLETE — Zone Alpha cleared.",
+            "Enemy drone patrols have been neutralized.",
+            "Industrial data core: successfully extracted.",
+            "New objective: Infiltrate the Power Station.",
+            "The real threat still lies ahead..."
+        };
     }
 
-    private static void parseMapFile() {
-        String string = "maps/level_1/map.txt";
-        try {
-            String string2;
-            String string3;
-            Level1.log("\ud83d\udcc2 Loading map file: " + string);
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(string)));
-            String string4 = bufferedReader.readLine();
-            String[] stringArray = string4.split(" ");
-            int n = Integer.parseInt(stringArray[0]);
-            int n2 = Integer.parseInt(stringArray[1]);
-            Level1.log("  Map dimensions: " + n + "\u00d7" + n2 + " tiles (" + n * 32 + "\u00d7" + n2 * 32 + "px)");
-            mapData = new int[n2][n];
-            while ((string3 = bufferedReader.readLine()) != null) {
-                String[] stringArray2;
-                if (string3.equals("#map")) {
-                    Level1.log("  Found #map marker - reading tile data");
-                    break;
-                }
-                if (!string3.contains("=") || string3.startsWith("//") || (stringArray2 = string3.split("=")).length != 2) continue;
-                char c = stringArray2[0].trim().charAt(0);
-                String string5 = stringArray2[1].trim();
-                tileMapping.put(Character.valueOf(c), string5);
-            }
-            Level1.log("  Tile types loaded: " + tileMapping.size());
-            for (int i = 0; i < n2 && (string2 = bufferedReader.readLine()) != null; ++i) {
-                for (int j = 0; j < n && j < string2.length(); ++j) {
-                    char c = string2.charAt(j);
-                    Level1.mapData[i][j] = c;
-                }
-            }
-            bufferedReader.close();
-            Level1.log("\u2713 Map file parsed successfully");
-        }
-        catch (IOException iOException) {
-            Level1.logError("Failed to read map file: " + string);
-            iOException.printStackTrace();
-        }
-    }
+    @Override public float[][] getWeaponSpawns()    { return WEAPON_SPAWNS; }
+    @Override public float[][] getLadderZones()      { return LADDER_ZONES; }
 
-    private static void identifyZones() {
-        Level1.log("\ud83d\uddfa\ufe0f  Identifying zones...");
-        Level1.zoneNames[0] = "Intro";
-        Level1.zoneNames[1] = "Pit Gauntlet";
-        Level1.zoneNames[2] = "Underground";
-        Level1.zoneNames[3] = "Overground";
-        Level1.zoneNames[4] = "Descent+Power";
-        Level1.zoneNames[5] = "Boss Arena";
-        Level1.log("  Zone 0 (Intro): Tiles 0-49 (Safe tutorial area)");
-        Level1.log("  Zone 1 (Pit Gauntlet): Tiles 50-119 (Platforming challenges)");
-        Level1.log("  Zone 2 (Underground): Tiles 120-219 (Tight combat corridors)");
-        Level1.log("  Zone 3 (Overground): Tiles 220-349 (Open combat facility)");
-        Level1.log("  Zone 4 (Descent): Tiles 350-449 (Hazard approach to boss)");
-        Level1.log("  Zone 5 (Boss Arena): Tiles 450-499 (TitanHoverCraft battle)");
-    }
-
-    private static void extractEnemySpawns() {
-        Level1.log("\ud83d\udc7e Extracting enemy spawns...");
-        for (int i = 0; i < mapData.length; ++i) {
-            for (int j = 0; j < mapData[0].length; ++j) {
-                char c = (char)mapData[i][j];
-                if (c != 'D' && c != 'B') continue;
-                float f = j * 32;
-                float f2 = i * 32;
-                String string = Level1.getZoneName(j);
-                int n = Level1.getZoneDifficulty(j);
-                String string2 = Level1.selectEnemyType(j, n);
-                enemySpawns.add(new EnemySpawn(f, f2, string2, n, string));
-            }
-        }
-        Level1.log("  Spawned: " + enemySpawns.size() + " enemies across all zones");
-    }
-
-    private static void extractHazardZones() {
-        Level1.log("\u26a0\ufe0f  Extracting hazard zones...");
-        for (int i = 0; i < mapData.length; ++i) {
-            for (int j = 0; j < mapData[0].length; ++j) {
-                float f;
-                float f2;
-                char c = (char)mapData[i][j];
-                String string = null;
-                int n = 0;
-                if (c == 'S') {
-                    string = "ENERGY_BEAM";
-                    n = 15;
-                } else if (c == 'R') {
-                    string = "ELECTRIC";
-                    n = 20;
-                } else if (c == 'F') {
-                    string = "FIRE";
-                    n = 10;
-                } else if (c == 'x' || c == 'z') {
-                    string = "SPIKES";
-                    n = 25;
-                }
-                if (string == null || Level1.isHazardAlreadyMapped(f2 = (float)(j * 32), f = (float)(i * 32))) continue;
-                hazardZones.add(new HazardZone(f2, f, f2 + 32.0f, f + 32.0f, string, n));
-            }
-        }
-        Level1.log("  Identified: " + hazardZones.size() + " hazard zones");
-    }
-
-    private static void extractCheckpoints() {
-        Level1.log("\ud83d\udea9 Extracting checkpoints...");
-        int n = 0;
-        for (int i = 0; i < 500; i += 70) {
-            if (i <= 0 || i >= 450) continue;
-            float f = i * 32;
-            float f2 = 800.0f;
-            checkpoints.add(new CheckpointData(f, f2, n, Level1.getZoneName(i)));
-            ++n;
-        }
-        Level1.log("  Placed: " + checkpoints.size() + " checkpoints");
-    }
-
-    public static List<EnemySpawn> getEnemySpawns() {
-        return new ArrayList<EnemySpawn>(enemySpawns);
-    }
-
-    public static List<HazardZone> getHazardZones() {
-        return new ArrayList<HazardZone>(hazardZones);
-    }
-
-    public static List<CheckpointData> getCheckpoints() {
-        return new ArrayList<CheckpointData>(checkpoints);
-    }
-
-    public static char getTileAt(int n, int n2) {
-        if (n >= 0 && n < mapData[0].length && n2 >= 0 && n2 < mapData.length) {
-            return (char)mapData[n2][n];
-        }
-        return '.';
-    }
-
-    public static String getZoneName(int n) {
-        if (n <= 49) {
-            return zoneNames[0];
-        }
-        if (n <= 119) {
-            return zoneNames[1];
-        }
-        if (n <= 219) {
-            return zoneNames[2];
-        }
-        if (n <= 349) {
-            return zoneNames[3];
-        }
-        if (n <= 449) {
-            return zoneNames[4];
-        }
-        return zoneNames[5];
-    }
-
-    public static int getZoneDifficulty(int n) {
-        if (n <= 49) {
-            return 1;
-        }
-        if (n <= 119) {
-            return 2;
-        }
-        if (n <= 219) {
-            return 2;
-        }
-        if (n <= 349) {
-            return 3;
-        }
-        if (n <= 449) {
-            return 4;
-        }
-        return 5;
-    }
-
-    private static String selectEnemyType(int n, int n2) {
-        if (n2 <= 1) {
-            return "NONE";
-        }
-        if (n2 == 2) {
-            return "DRONE";
-        }
-        if (n2 == 3) {
-            return "SCI_FI_ANTAGONIST";
-        }
-        if (n2 == 4) {
-            return "ELITE_GUARD";
-        }
-        return "TITAN_BOSS";
-    }
-
-    private static boolean isHazardAlreadyMapped(float f, float f2) {
-        for (HazardZone hazardZone : hazardZones) {
-            if (!(Math.abs(hazardZone.startX - f) < 32.0f) || !(Math.abs(hazardZone.startY - f2) < 32.0f)) continue;
-            return true;
-        }
-        return false;
-    }
-
-    private static int countLoadedTiles() {
-        int n = 0;
-        int[][] nArray = mapData;
-        int n2 = nArray.length;
-        for (int i = 0; i < n2; ++i) {
-            int[] nArray2;
-            for (int n3 : nArray2 = nArray[i]) {
-                if (n3 == 46) continue;
-                ++n;
-            }
-        }
-        return n;
-    }
-
-    private static void loadComprehensiveAssets() {
-        try {
-            Level1.log("\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550");
-            Level1.log("LOADING COMPREHENSIVE ASSETS FOR LEVEL 1");
-            Level1.log("\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550");
-            
-            // Load from Config-managed tileset and backgrounds
-            String tilesetPath = Config.TILESET_LEVEL1;
-            String backgroundPath = Config.BACKGROUND_LEVEL1;
-            
-            Level1.log("  Loading tileset: " + tilesetPath);
-            Level1.log("  Loading background: " + backgroundPath);
-            
-            String mapPath = "maps/level_1/map.txt";
-            assetLoader = new ComprehensiveTileMapLoader(mapPath, "Level 1 - Industrial Zone");
-            levelAnimatedObjects = assetLoader.getAnimatedObjects();
-            levelBackgroundLayers = assetLoader.getBackgroundLayers();
-            
-            Level1.log("\u2713 Asset loading complete");
-            Level1.log("  - Tileset loaded: " + tilesetPath);
-            Level1.log("  - Background loaded: " + backgroundPath);
-            Level1.log("  - Animated objects loaded: " + levelAnimatedObjects.size());
-            Level1.log("  - Background layers: " + levelBackgroundLayers.size());
-        }
-        catch (Exception exception) {
-            Level1.logError("Failed to load comprehensive assets: " + exception.getMessage());
-            Level1.logError("  Tileset: " + Config.TILESET_LEVEL1);
-            Level1.logError("  Background: " + Config.BACKGROUND_LEVEL1);
-            exception.printStackTrace();
-        }
-    }
-
-    public static ComprehensiveTileMapLoader getAssetLoader() {
-        return assetLoader;
-    }
-
-    public static AnimatedObjectManager getAnimatedObjectManager() {
-        return animatedObjectManager;
-    }
-
-    public static List<ComprehensiveTileMapLoader.AnimatedObject> getAnimatedObjects() {
-        return new ArrayList<ComprehensiveTileMapLoader.AnimatedObject>(levelAnimatedObjects);
-    }
-
-    public static List<ComprehensiveTileMapLoader.BackgroundLayer> getBackgroundLayers() {
-        return new ArrayList<ComprehensiveTileMapLoader.BackgroundLayer>(levelBackgroundLayers);
-    }
-
-    public static boolean isLevelComplete(float playerX) {
-        return playerX >= 15968.0f;
-    }
-
-    public static float getLevelEndPosition() {
-        return 15968.0f;
-    }
-
-    public static String getLevelProgressPercentage(float playerX) {
-        float progress = (playerX / 15968.0f) * 100.0f;
-        return String.format("%.1f%% Complete", Math.min(100.0f, progress));
-    }
-
-    private static void log(String string) {
-        System.out.println("[Level1] " + string);
-    }
-
-    private static void logError(String string) {
-        System.err.println("[Level1] ERROR: " + string);
-    }
-
-    public static String getLevelInfo() {
-        return String.format("Level %d: %s (%s Difficulty)", 1, LEVEL_NAME, DIFFICULTY);
-    }
-
-    public static TileMap getTileMap() {
-        return levelTileMap;
-    }
-
-    public static int getMapWidth() {
-        return 500;
-    }
-
-    public static int getMapHeight() {
-        return 50;
-    }
-
-    public static int getTileSize() {
-        return 32;
-    }
-
-    public static int validateEnemyCombatConfiguration() {
-        Level1.log("\ud83d\udd27 Validating enemy combat system using EnemyAICombat...");
-        int n = 0;
-        try {
-            if (enemySpawns != null && enemySpawns.size() > 0) {
-                for (EnemySpawn enemySpawn : enemySpawns) {
-                    if (enemySpawn.difficultyLevel < 2) continue;
-                    Level1.log("  \u2713 Enemy '" + enemySpawn.enemyType + "' at zone '" + enemySpawn.zone + "' configured for difficulty " + enemySpawn.difficultyLevel);
-                    ++n;
-                }
-            }
-            Level1.log("  Total enemies configured:  " + n + " (via EnemyAICombat)");
-        }
-        catch (Exception exception) {
-            Level1.logError("EnemyAICombat validation failed: " + exception.getMessage());
-        }
-        return n;
-    }
-
-    public static boolean validateEnemyDefinitions() {
-        Level1.log("\u2713 Validating Enemies class definitions...");
-        try {
-            HashSet<String> hashSet = new HashSet<String>();
-            for (EnemySpawn object : enemySpawns) {
-                if (object.enemyType.equals("NONE")) continue;
-                hashSet.add(object.enemyType);
-            }
-            Level1.log("  Enemy types referenced in Industrial Zone Entry:");
-            for (String string : hashSet) {
-                Level1.log("    - " + string + " (Enemies class reference)");
-            }
-            Level1.log("  Total unique enemy types: " + hashSet.size());
-            return hashSet.size() > 0 || enemySpawns.size() == 0;
-        }
-        catch (Exception exception) {
-            Level1.logError("Enemies validation failed: " + exception.getMessage());
-            return false;
-        }
-    }
-
-    public static boolean initializeVFXChainReactionSystem() {
-        Level1.log("\u2728 Initializing VFX Chain Reaction system...");
-        try {
-            if (hazardZones != null && hazardZones.size() > 0) {
-                Level1.log("  \ud83c\udf00 VFXChainReaction configured for " + hazardZones.size() + " hazard zones");
-                for (HazardZone hazardZone : hazardZones) {
-                    Level1.log("    - " + hazardZone.hazardType + ": Chain effect at (%.0f, %.0f)".formatted(Float.valueOf(hazardZone.startX), Float.valueOf(hazardZone.startY)));
-                }
-            }
-            Level1.log("  \u2713 VFX system initialized");
-            return true;
-        }
-        catch (Exception exception) {
-            Level1.logError("VFXChainReaction initialization failed: " + exception.getMessage());
-            return false;
-        }
-    }
-
-    public static String getVFXConfigForHazard(String string) {
-        switch (string) {
-            case "ENERGY_BEAM": {
-                return "BLUE_PULSE_CHAIN";
-            }
-            case "ELECTRIC": {
-                return "CYAN_SPARK_CHAIN";
-            }
-            case "FIRE": {
-                return "RED_FLAME_CHAIN";
-            }
-            case "SPIKES": {
-                return "PURPLE_SPIKE_CHAIN";
-            }
-        }
-        return "GENERIC_CHAIN";
-    }
-
-    public static boolean initializeAudioSystem() {
-        Level1.log("\ud83c\udfb5 Initializing AudioEntities system for Industrial Zone Entry...");
-        try {
-            int n;
-            Level1.log("  Background music: Level 1 - Industrial Zone Theme");
-            for (n = 0; n < 6; ++n) {
-                String string = zoneNames[n];
-                Level1.log("    Zone " + n + " (" + (String)string + "): Ambient audio configured");
-            }
-            n = 0;
-            for (EnemySpawn enemySpawn : enemySpawns) {
-                if (enemySpawn.difficultyLevel <= 1) continue;
-                ++n;
-            }
-            Level1.log("  Enemy audio triggers: " + n + " (via AudioEntities)");
-            Level1.log("  Hazard warning sounds: " + hazardZones.size() + " zones configured");
-            Level1.log("  \u2713 Audio system initialized");
-            return true;
-        }
-        catch (Exception exception) {
-            Level1.logError("AudioEntities initialization failed: " + exception.getMessage());
-            return false;
-        }
-    }
-
-    public static String getAudioTrackForZone(int n) {
-        String[] stringArray = new String[]{"audio/level1_zone0_intro.ogg", "audio/level1_zone1_gauntlet.ogg", "audio/level1_zone2_underground.ogg", "audio/level1_zone3_overground.ogg", "audio/level1_zone4_descent.ogg", "audio/level1_zone5_boss_arena.ogg"};
-        return n >= 0 && n < stringArray.length ? stringArray[n] : stringArray[0];
-    }
-
-    public static AnimationAndSpriteLoader.ParallaxSystem initializeParallax() {
-        parallaxSystem = AnimationAndSpriteLoader.createLevel1ParallaxSystem();
-        return parallaxSystem;
-    }
-
-    public static AnimationAndSpriteLoader.ParallaxSystem getParallaxSystem() {
-        return parallaxSystem;
-    }
-
-    public static void updateParallaxCamera(float f) {
-        if (parallaxSystem != null) {
-            parallaxSystem.updateCamera(f);
-        }
-    }
-
-    public static class EnemySpawn {
-        public float x;
-        public float y;
-        public String enemyType;
-        public int difficultyLevel;
-        public String zone;
-
-        public EnemySpawn(float f, float f2, String string, int n, String string2) {
-            this.x = f;
-            this.y = f2;
-            this.enemyType = string;
-            this.difficultyLevel = n;
-            this.zone = string2;
-        }
-
-        public String toString() {
-            return String.format("[%s] %s at (%.0f, %.0f) - Difficulty: %d", this.zone, this.enemyType, Float.valueOf(this.x), Float.valueOf(this.y), this.difficultyLevel);
-        }
-    }
-
-    public static class HazardZone {
-        public float startX;
-        public float startY;
-        public float endX;
-        public float endY;
-        public String hazardType;
-        public int damagePerFrame;
-
-        public HazardZone(float f, float f2, float f3, float f4, String string, int n) {
-            this.startX = f;
-            this.startY = f2;
-            this.endX = f3;
-            this.endY = f4;
-            this.hazardType = string;
-            this.damagePerFrame = n;
-        }
-
-        public boolean contains(float f, float f2) {
-            return f >= this.startX && f <= this.endX && f2 >= this.startY && f2 <= this.endY;
-        }
-    }
-
-    public static class CheckpointData {
-        public float x;
-        public float y;
-        public int checkpointID;
-        public String zone;
-
-        public CheckpointData(float f, float f2, int n, String string) {
-            this.x = f;
-            this.y = f2;
-            this.checkpointID = n;
-            this.zone = string;
+    @Override
+    public String getAnimAssetPath(AnimatedObject.ObjType type) {
+        switch (type) {
+            case COLLECTIBLE_CARD:
+                return ANIM_DIR + "Anim_Collectible_Card_6Frames1Row_WhiteBlueSpinningFloat_PickupItem_Loop80ms.png";
+            case COLLECTIBLE_MONEY:
+                return ANIM_DIR + "Anim_Collectible_Money_6Frames1Row_GreenBanknotesSpinFlip_CurrencyPickup_Loop80ms.png";
+            case CHEST:
+                return ANIM_DIR + "Anim_Interactive_Chest_8Frames1Row_OrangeRedLidOpenSequence_PlayOnce100ms.png";
+            case CONVEYOR:
+                return ANIM_DIR + "Anim_Platform_ConveyorFull_4Frames1Row_FullWidthBeltRunning_MovesPlayerRight_Loop80ms.png";
+            case CONVEYOR_REVERSE:
+                return ANIM_DIR + "Anim_Platform_ConveyorFastVariant_4Frames1Row_AltSpeedOrDirection_Loop60ms.png";
+            case PORTAL:
+                return ANIM_DIR + "Anim_Portal_LevelEntry_4Frames1Row_RedChevronGateOpening_LevelTransition_PlayOnce120ms.png";
+            case SCREEN_DECO:
+                return ANIM_DIR + "Anim_Deco_Screen1_4Frames1Row_BlueMonitorFlicker_WallPanelTechDeco_Loop150ms.png";
+            case HAZARD_HAMMER:
+                return ANIM_DIR + "Anim_Hazard_Hammer_6Frames1Row_RedOrangeSwingArc_DamageFrames3to5_Loop90ms.png";
+            case HAZARD_TURRET:
+                return ANIM_DIR + "Anim_Hazard_Turret_MultiFrame1Row_TurretFiringProjectile_DamageOnFire_Loop120ms.png";
+            case MOVING_PLATFORM:
+                return ANIM_DIR + "Anim_Platform_MovingRed_6Frames1Row_SlidingLeftRight_PlayerRideable_Loop100ms.png";
+            default: return null;
         }
     }
 }

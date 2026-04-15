@@ -30,6 +30,7 @@ public class Projectile {
     private final long  spawnMs;
     private final float lifetimeSec;
     private boolean alive = true;
+    private boolean enemyProjectile = false;
 
     // =========================================================================
     //  Constructor
@@ -53,6 +54,13 @@ public class Projectile {
         this.lifetimeSec = lifetimeSec;
         this.spawnMs     = System.currentTimeMillis();
     }
+
+    /** Mark this as an enemy-fired projectile. */
+    public Projectile setEnemyProjectile(boolean val) {
+        this.enemyProjectile = val;
+        return this;
+    }
+    public boolean isEnemyProjectile() { return enemyProjectile; }
 
     // =========================================================================
     //  Update (delta in SECONDS)
@@ -81,15 +89,18 @@ public class Projectile {
         int sy = (int)(y - camY);
 
         // Glow: outer halo
-        g.setColor(new Color(0, 200, 255, 60));
+        Color glow = enemyProjectile ? new Color(255, 60, 0, 60) : new Color(0, 200, 255, 60);
+        g.setColor(glow);
         g.fillOval(sx - 4, sy - 4, W + 8, H + 8);
 
         // Core shot
-        g.setColor(new Color(0, 230, 255));
+        Color core = enemyProjectile ? new Color(255, 100, 20) : new Color(0, 230, 255);
+        g.setColor(core);
         g.fillRoundRect(sx, sy, W, H, 3, 3);
 
         // Bright centre highlight
-        g.setColor(new Color(180, 255, 255, 200));
+        Color hi = enemyProjectile ? new Color(255, 200, 100, 200) : new Color(180, 255, 255, 200);
+        g.setColor(hi);
         g.fillRect(sx + 2, sy + 1, W - 4, H - 2);
     }
 

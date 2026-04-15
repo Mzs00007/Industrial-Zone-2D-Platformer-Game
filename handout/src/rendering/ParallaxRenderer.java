@@ -79,12 +79,16 @@ public final class ParallaxRenderer {
      *                   0.55 for menu screens where sky fills less area)
      */
     public void draw(Graphics2D g, int W, int H, float camX, float heightFrac) {
-        // 1. Sky fill
+        // 1. Sky fill — always fills FULL screen height so no black gap appears
         g.setColor(skyColor);
-        int skyH = (int)(H * heightFrac);
-        g.fillRect(0, 0, W, skyH);
+        g.fillRect(0, 0, W, H);
 
-        // 2. Each parallax layer, tiled horizontally
+        // skyH determines where the bottom of the background imagery aligns;
+        // when heightFrac >= 1.0 this means the layers extend below the screen bottom
+        // which is correct for gameplay (tiles continue below the visible background).
+        int skyH = (int)(H * heightFrac);
+
+        // 2. Each parallax layer, tiled horizontally and scaled to fill screen height
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                            RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
@@ -95,27 +99,33 @@ public final class ParallaxRenderer {
             float factor  = (i < scrollFactors.length) ? scrollFactors[i] : 0f;
             int   scrollX = (int)(camX * factor);
             int   imgW    = img.getWidth();
-            if (imgW <= 0) continue;
+            int   imgH    = img.getHeight();
+            if (imgW <= 0 || imgH <= 0) continue;
+
+            // Scale the layer so it fills from y=0 to the bottom of skyH.
+            // This means every layer covers the full visible screen height.
+            int drawH = skyH;
+            // Scale width proportionally to maintain aspect ratio
+            int drawW = (int)((float)imgW / imgH * drawH);
+            if (drawW <= 0) drawW = imgW;
 
             // tile so the layer covers [0, W] regardless of scroll offset
-            int startX = -(scrollX % imgW);
-            if (startX > 0) startX -= imgW;
+            int startX = -(scrollX % drawW);
+            if (startX > 0) startX -= drawW;
 
-            // draw layer at the bottom of the sky region
-            int layerH = Math.min(img.getHeight(), skyH);
-            int drawY  = skyH - layerH;
-
-            for (int tx = startX; tx < W; tx += imgW) {
-                g.drawImage(img, tx, drawY, imgW, layerH, null);
+            // Draw from top of screen (y=0) to skyH
+            for (int tx = startX; tx < W; tx += drawW) {
+                g.drawImage(img, tx, 0, drawW, drawH, null);
             }
         }
 
-        // 3. Subtle bottom gradient fade (sky → transparent) to blend into the ground
+        // 3. Subtle bottom gradient fade (background → dark) to blend into the ground tiles
+        int fadeH = (int)(H * FADE_FRACTION);
         GradientPaint fade = new GradientPaint(
-                0, skyH - (int)(H * FADE_FRACTION), new Color(0, 0, 0, 0),
-                0, skyH,                             new Color(0, 0, 0, 100));
+                0, skyH - fadeH, new Color(0, 0, 0, 0),
+                0, skyH,        new Color(0, 0, 0, 100));
         g.setPaint(fade);
-        g.fillRect(0, skyH - (int)(H * FADE_FRACTION), W, (int)(H * FADE_FRACTION) + 1);
+        g.fillRect(0, skyH - fadeH, W, fadeH + 1);
 
         // restore default paint so caller is not affected
         g.setPaint(Color.WHITE);
