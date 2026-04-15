@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.LevelBackgroundProperties.IndustrialZoneLevel1Background {
+public class IndustrialZoneLevel1Background {
     public static final String LEVEL_NAME = "Industrial Zone Level 1";
     public static final String LEVEL_TYPE = "industrial_zone_level_1";
     public static final String DIRECTORY = "Resources/industrial-zone/1 Tiles/Industrial_zone_level_1/2 Background_level_1";

@@ -4,8 +4,7 @@
 package ai;
 
 import ai.AI;
-
-public static interface AI.AIBehavior.AIAction {
+public interface AIAction {
     public void execute(AI.AIAgent var1);
 
     public boolean isComplete();

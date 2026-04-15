@@ -4,10 +4,9 @@
 package controllers;
 
 import controllers.MenuInputHandler;
-import controllers.screens.Phase13MainMenuScreen;
-import controllers.screens.Phase14PauseMenuScreen;
-
-public static interface MenuInputHandler.MenuActionCallback {
+import controllers.Phase13MainMenuScreen;
+import controllers.Phase14PauseMenuScreen;
+public interface MenuActionCallback {
     public void onMainMenuAction(Phase13MainMenuScreen.MenuAction var1);
 
     public void onPauseMenuAction(Phase14PauseMenuScreen.PauseAction var1);

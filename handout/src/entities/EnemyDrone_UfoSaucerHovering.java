@@ -3,14 +3,13 @@
  */
 package entities;
 
-import entities.enemies.Enemies;
-
-public static class Enemies.EnemyEntities.EnemyDrone_UfoSaucerHovering {
+import entities.Enemies;
+public class EnemyDrone_UfoSaucerHovering {
     private Enemies.EnemyFactory.EnemyInstance instance;
     private float x;
     private float y;
 
-    public Enemies.EnemyEntities.EnemyDrone_UfoSaucerHovering(float f, float f2) {
+    public EnemyDrone_UfoSaucerHovering(float f, float f2) {
         this.x = f;
         this.y = f2;
         this.instance = Enemies.EnemyFactory.createEnemy(Enemies.EnemyPhysicsProfile.EnemyType.UFO_SAUCER, f, f2);

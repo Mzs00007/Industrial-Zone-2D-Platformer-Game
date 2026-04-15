@@ -2,6 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
+import game2D.*;
 
 import animation.AnimationAndSpriteLoader;
 import java.awt.image.BufferedImage;
@@ -10,14 +11,13 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.imageio.ImageIO;
-
-public static class AnimationAndSpriteLoader.CategorySpriteRegistry
+public class CategorySpriteRegistry
 extends AnimationAndSpriteLoader.AssetType {
     private String dirPath;
     private Map<String, BufferedImage> spriteRegistry;
     private Map<String, String> spriteToPath;
 
-    public AnimationAndSpriteLoader.CategorySpriteRegistry(String string, String string2) {
+    public CategorySpriteRegistry(String string, String string2) {
         super(string, string2);
         this.dirPath = string2;
         this.spriteRegistry = new HashMap<String, BufferedImage>();

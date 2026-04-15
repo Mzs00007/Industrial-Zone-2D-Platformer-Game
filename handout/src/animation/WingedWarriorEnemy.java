@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.AdvancedEnemyAssetProperties.WingedWarriorEnemy {
+public class WingedWarriorEnemy {
     public static final String ENEMY_NAME = "Winged Warrior";
     public static final String ENEMY_TYPE = "winged_warrior";
     public static final String DIRECTORY = "Resources/industrial-zone/characters/enemies/sci-fi-antagonists/3";

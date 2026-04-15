@@ -4,8 +4,7 @@
 package animation;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody {
+public class PhysicsBody {
     public AnimationAndSpriteLoader.PhysicsUnitSystem.Vector2D position;
     public AnimationAndSpriteLoader.PhysicsUnitSystem.Vector2D velocity;
     public AnimationAndSpriteLoader.PhysicsUnitSystem.Vector2D acceleration;
@@ -15,7 +14,7 @@ public static class AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody {
     public boolean isGrounded;
     public boolean isAffectedByGravity;
 
-    public AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody(float f, float f2, float f3, float f4) {
+    public PhysicsBody(float f, float f2, float f3, float f4) {
         this.position = new AnimationAndSpriteLoader.PhysicsUnitSystem.Vector2D(f, f2);
         this.velocity = new AnimationAndSpriteLoader.PhysicsUnitSystem.Vector2D();
         this.acceleration = new AnimationAndSpriteLoader.PhysicsUnitSystem.Vector2D();
@@ -90,7 +89,7 @@ public static class AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody {
         return this.position.y + this.radius;
     }
 
-    public boolean collidesWithAABB(AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody physicsBody) {
+    public boolean collidesWithAABB(PhysicsBody physicsBody) {
         return !(this.getRight() < physicsBody.getLeft() || this.getLeft() > physicsBody.getRight() || this.getBottom() < physicsBody.getTop() || this.getTop() > physicsBody.getBottom());
     }
 

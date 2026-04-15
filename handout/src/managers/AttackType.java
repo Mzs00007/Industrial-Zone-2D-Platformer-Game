@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package managers;
-
-public static enum BossCombatPhaseManager.AttackType {
+public enum AttackType {
     SLOW_PUNCH,
     STOMP,
     DUAL_PUNCH_COMBO,

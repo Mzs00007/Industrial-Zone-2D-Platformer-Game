@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.LevelWeaponPlacementSystem.WeaponPlacement {
+public class WeaponPlacement {
     public String gunFile;
     public int screenX;
     public int screenY;
@@ -13,7 +12,7 @@ public static class AnimationAndSpriteLoader.LevelWeaponPlacementSystem.WeaponPl
     public String validationReason;
     public boolean isValid;
 
-    public AnimationAndSpriteLoader.LevelWeaponPlacementSystem.WeaponPlacement(String string, int n, int n2, int n3, int n4) {
+    public WeaponPlacement(String string, int n, int n2, int n3, int n4) {
         this.gunFile = string;
         this.screenX = n;
         this.screenY = n2;

@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static final class AnimationAndSpriteLoader.ParallaxRenderingPipeline.Phase7LayerWrapping.WrappingMathematicsLevel1 {
+public final class WrappingMathematicsLevel1 {
     public static final String LEVEL = "Industrial Zone Level 1";
     public static final int ESTIMATED_LAYER_WIDTH = 1920;
     public static final float[] PARALLAX_FACTORS = new float[]{0.0f, 0.1f, 0.25f, 0.35f, 0.55f};

@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.AdvancedEnemyAssetProperties.ArmoredKnightEnemy {
+public class ArmoredKnightEnemy {
     public static final String ENEMY_NAME = "Armored Knight";
     public static final String ENEMY_TYPE = "armored_knight";
     public static final String DIRECTORY = "Resources/industrial-zone/characters/enemies/sci-fi-antagonists/2";

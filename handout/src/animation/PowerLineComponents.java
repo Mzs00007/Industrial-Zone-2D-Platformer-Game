@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.Level2EnvironmentSystem.PowerLineComponents {
+public class PowerLineComponents {
     public static final String DIR_POWER = "Resources/industrial-zone/1 Tiles/power-station-level-2/3 Objects/3 Power lines";
     public static final String PYLON_BASE_B = "Resources/industrial-zone/1 Tiles/power-station-level-2/3 Objects/3 Power lines/Prop_Pylon_BaseOnly_VariantB_BlueMetal_PylonFeetAlt.png";
     public static final String PYLON_FULL_A = "Resources/industrial-zone/1 Tiles/power-station-level-2/3 Objects/3 Power lines/Prop_Pylon_FullTall_WithAntennaTop_BlueMetal_PylonFullA.png";

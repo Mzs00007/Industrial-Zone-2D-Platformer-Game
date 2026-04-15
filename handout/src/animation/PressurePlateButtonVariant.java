@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static final class AnimationAndSpriteLoader.ButtonVariants.PressurePlateButtonVariant {
+public final class PressurePlateButtonVariant {
     public static final String VARIANT_NAME = "Pressure Plate";
     public static final String SPRITESHEET = "05_GUI_Button_PressurePlate_4StatesVertical_PhysicalDepression.png";
     public static final int NORMAL_STATE = 0;

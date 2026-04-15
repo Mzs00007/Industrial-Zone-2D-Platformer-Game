@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.SpriteChainSystems.InteractiveObjectChain {
+public class InteractiveObjectChain {
     public static final String CHAIN_NAME = "interactive_object";
     public static final String STEP_1_COLLISION = "Character collides with collectible";
     public static final String STEP_1_EXAMPLE = "   Example: CollectibleMoney at position (100, 50)";

@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package managers;
-
-public static class Core.GameplayEnhancementSystem {
+public class GameplayEnhancementSystem {
     public static final int DIFFICULTY_EASY = 1;
     public static final int DIFFICULTY_NORMAL = 2;
     public static final int DIFFICULTY_HARD = 3;

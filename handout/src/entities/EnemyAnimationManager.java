@@ -3,21 +3,20 @@
  */
 package entities;
 
-import entities.enemies.Enemies;
+import entities.Enemies;
 import game2D.Animation;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import javax.imageio.ImageIO;
-
-public static class Enemies.EnemyAnimationManager {
+public class EnemyAnimationManager {
     private Enemies.EnemyPhysicsProfile.EnemyType enemyType;
     private String baseAssetPath;
     private Map<String, Animation> animationCache;
     private static final String RESOURCE_BASE = "Resources/industrial-zone/characters/enemies/";
 
-    public Enemies.EnemyAnimationManager(Enemies.EnemyPhysicsProfile.EnemyType enemyType) {
+    public EnemyAnimationManager(Enemies.EnemyPhysicsProfile.EnemyType enemyType) {
         this.enemyType = enemyType;
         this.baseAssetPath = RESOURCE_BASE + enemyType.assetPath;
         this.animationCache = new HashMap<String, Animation>();

@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.AmbientParticleVfx.SmokeWispsVfx {
+public class SmokeWispsVfx {
     public static final String EFFECT_NAME = "Smoke Wisps";
     public static final String EFFECT_TYPE = "smoke_wisp";
     public static final String DIRECTORY = "Resources/industrial-zone/vfx/5 Other";

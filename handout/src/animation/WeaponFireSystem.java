@@ -2,10 +2,10 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
+import game2D.*;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class AnimationAndSpriteLoader.WeaponFireSystem {
+public class WeaponFireSystem {
     public static final String SYSTEM_TYPE = "weapon_fire_system";
 
     public static FireSequence executeFire(String string, float f, float f2, int n, AnimationAndSpriteLoader.CharacterAnimationStateMachine.CharacterAnimationState characterAnimationState) {
@@ -33,8 +33,7 @@ public static class AnimationAndSpriteLoader.WeaponFireSystem {
         System.out.println("Velocity: (" + fireSequence.spawnedBullet.velocityX + ", " + fireSequence.spawnedBullet.velocityY + ")");
         System.out.println("\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550");
     }
-
-    public static class FireSequence {
+public class FireSequence {
         public String characterId;
         public String gunFile;
         public int aimAngle;

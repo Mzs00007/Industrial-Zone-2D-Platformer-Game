@@ -2,27 +2,26 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class Vector2D.PhysicsUnitSystem.Vector2D {
+public class Vector2D {
     public float x;
     public float y;
 
-    public AnimationAndSpriteLoader.PhysicsUnitSystem.Vector2D() {
+    public Vector2D() {
         this.x = 0.0f;
         this.y = 0.0f;
     }
 
-    public AnimationAndSpriteLoader.PhysicsUnitSystem.Vector2D(float f, float f2) {
+    public Vector2D(float f, float f2) {
         this.x = f;
         this.y = f2;
     }
 
-    public AnimationAndSpriteLoader.PhysicsUnitSystem.Vector2D(Vector2D.PhysicsUnitSystem.Vector2D vector2D) {
+    public Vector2D(Vector2D vector2D) {
         this.x = vector2D.x;
         this.y = vector2D.y;
     }
 
-    public void add(Vector2D.PhysicsUnitSystem.Vector2D vector2D) {
+    public void add(Vector2D vector2D) {
         this.x += vector2D.x;
         this.y += vector2D.y;
     }
@@ -32,7 +31,7 @@ public static class Vector2D.PhysicsUnitSystem.Vector2D {
         this.y += f2;
     }
 
-    public void subtract(Vector2D.PhysicsUnitSystem.Vector2D vector2D) {
+    public void subtract(Vector2D vector2D) {
         this.x -= vector2D.x;
         this.y -= vector2D.y;
     }
@@ -42,7 +41,7 @@ public static class Vector2D.PhysicsUnitSystem.Vector2D {
         this.y *= f;
     }
 
-    public float dot(Vector2D.PhysicsUnitSystem.Vector2D vector2D) {
+    public float dot(Vector2D vector2D) {
         return this.x * vector2D.x + this.y * vector2D.y;
     }
 
@@ -62,12 +61,12 @@ public static class Vector2D.PhysicsUnitSystem.Vector2D {
         }
     }
 
-    public Vector2D.PhysicsUnitSystem.Vector2D toPixels() {
-        return new Vector2D.PhysicsUnitSystem.Vector2D(this.x * 32.0f, this.y * 32.0f);
+    public Vector2D toPixels() {
+        return new Vector2D(this.x * 32.0f, this.y * 32.0f);
     }
 
-    public Vector2D.PhysicsUnitSystem.Vector2D toMeters() {
-        return new Vector2D.PhysicsUnitSystem.Vector2D(this.x * 0.03125f, this.y * 0.03125f);
+    public Vector2D toMeters() {
+        return new Vector2D(this.x * 0.03125f, this.y * 0.03125f);
     }
 
     public String toString() {

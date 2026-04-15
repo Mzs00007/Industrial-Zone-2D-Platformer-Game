@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.GUIDecorProperties {
+public class GUIDecorProperties {
     public static final String UI_TYPE = "decor";
     public static final String DIRECTORY = "Resources/industrial-zone/gui/9 Other/1 Decor";
     public static final int DECOR_ELEMENTS = 8;

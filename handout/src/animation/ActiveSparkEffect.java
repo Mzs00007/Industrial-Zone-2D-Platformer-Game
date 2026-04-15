@@ -4,8 +4,7 @@
 package vfx;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class SparkEffectSystem.ActiveSparkEffect {
+public class ActiveSparkEffect {
     private AnimationAndSpriteLoader.HorizontalSpritesheetLoader loader;
     private int screenX;
     private int screenY;
@@ -13,7 +12,7 @@ public static class SparkEffectSystem.ActiveSparkEffect {
     private long frameHoldMs;
     private boolean expired = false;
 
-    public SparkEffectSystem.ActiveSparkEffect(AnimationAndSpriteLoader.HorizontalSpritesheetLoader horizontalSpritesheetLoader, int n, int n2, long l, long l2) {
+    public ActiveSparkEffect(AnimationAndSpriteLoader.HorizontalSpritesheetLoader horizontalSpritesheetLoader, int n, int n2, long l, long l2) {
         this.loader = horizontalSpritesheetLoader;
         this.screenX = n;
         this.screenY = n2;

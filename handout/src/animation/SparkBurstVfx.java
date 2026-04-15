@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.ImpactBurstVfx.SparkBurstVfx {
+public class SparkBurstVfx {
     public static final String EFFECT_NAME = "Spark Burst Impact";
     public static final String EFFECT_TYPE = "spark_burst";
     public static final String DIRECTORY = "Resources/industrial-zone/vfx/3 Sparks";

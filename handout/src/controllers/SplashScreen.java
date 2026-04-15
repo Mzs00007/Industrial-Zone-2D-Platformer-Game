@@ -1,8 +1,8 @@
-package ui;
+package controllers;
 
 import java.awt.image.BufferedImage;
 import animation.InputController.PixelCopyHelper;
-import ui.ManifestLoader;
+import controllers.ManifestLoader;
 
 /**
  * Splash Screen - Brief intro before menu

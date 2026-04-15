@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package utilities;
-
-public static class AudioSystem.SoundEffectPresets {
+public class SoundEffectPresets {
     public static final String JUMP = "jump";
     public static final String LAND = "land";
     public static final String FALL = "fall";

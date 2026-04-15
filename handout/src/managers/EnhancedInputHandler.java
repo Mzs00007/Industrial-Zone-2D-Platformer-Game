@@ -10,8 +10,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.HashSet;
 import java.util.Set;
-
-public static class Core.EnhancedInputHandler
+public class EnhancedInputHandler
 extends KeyAdapter
 implements MouseListener,
 MouseMotionListener {

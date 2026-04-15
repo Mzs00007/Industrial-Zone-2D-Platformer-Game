@@ -7,8 +7,7 @@ import animation.AnimationAndSpriteLoader;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
-
-public static class AnimationAndSpriteLoader.TransporterPathLoader
+public class TransporterPathLoader
 extends AnimationAndSpriteLoader.AssetType {
     private float startX;
     private float startY;
@@ -18,7 +17,7 @@ extends AnimationAndSpriteLoader.AssetType {
     private PathType pathType;
     private List<float[]> waypoints;
 
-    public AnimationAndSpriteLoader.TransporterPathLoader(String string, float f, float f2, float f3, float f4, long l, PathType pathType) {
+    public TransporterPathLoader(String string, float f, float f2, float f3, float f4, long l, PathType pathType) {
         super(string, "");
         this.startX = f;
         this.startY = f2;
@@ -117,8 +116,7 @@ extends AnimationAndSpriteLoader.AssetType {
     public int getFrameHeight() {
         return 0;
     }
-
-    public static enum PathType {
+public enum PathType {
         LINEAR("Straight line movement"),
         CURVED("Smooth bezier curve path"),
         PARABOLIC("Arc-shaped movement");

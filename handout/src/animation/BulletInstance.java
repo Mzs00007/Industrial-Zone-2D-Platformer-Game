@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.BulletSpawner.BulletInstance {
+public class BulletInstance {
     public String bulletType;
     public float x;
     public float y;
@@ -12,7 +11,7 @@ public static class AnimationAndSpriteLoader.BulletSpawner.BulletInstance {
     public float directionAngle;
     public long spawnTime;
 
-    public AnimationAndSpriteLoader.BulletSpawner.BulletInstance(String string, float f, float f2, float f3) {
+    public BulletInstance(String string, float f, float f2, float f3) {
         this.bulletType = string;
         this.x = f;
         this.y = f2;

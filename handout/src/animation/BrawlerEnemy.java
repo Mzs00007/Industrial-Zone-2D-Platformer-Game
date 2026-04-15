@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.InfantryEnemyAssetProperties.BrawlerEnemy {
+public class BrawlerEnemy {
     public static final String SOLDIER_NAME = "Infantry Brawler";
     public static final String SOLDIER_TYPE = "brawler";
     public static final String BUILD = "Stocky, heavily armored";

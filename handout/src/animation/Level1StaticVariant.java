@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static final class AnimationAndSpriteLoader.ParallaxRenderingPipeline.Phase2VariantSelection.Level1StaticVariant {
+public final class Level1StaticVariant {
     public static final String LEVEL = "Industrial Zone Level 1";
     public static final String VARIANT_TYPE = "SINGLE STATIC VARIANT (No day/night)";
     public static final String APPLIES_TO_LEVEL_1 = "Level 1 skips this phase entirely";

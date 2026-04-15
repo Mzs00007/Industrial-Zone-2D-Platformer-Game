@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.TileCompositionPatterns.DecorationTileSystem {
+public class DecorationTileSystem {
     public static final String PATTERN_NAME = "DecoTileAccents";
     public static final String PATTERN_TYPE = "decoration_visual";
     public static final String DECO_DIAMOND_GRID = "62_Deco_DiamondXGridPattern_SmallScaleRepeating_PurpleOnDark_DecorativeWallO.png";

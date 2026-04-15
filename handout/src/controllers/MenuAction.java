@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package controllers;
-
-public static enum Phase13MainMenuScreen.MenuAction {
+public enum MenuAction {
     NEW_GAME("Start new game"),
     CONTINUE("Continue saved game"),
     SETTINGS("Adjust game settings"),
@@ -12,7 +11,7 @@ public static enum Phase13MainMenuScreen.MenuAction {
 
     public String tooltip;
 
-    private Phase13MainMenuScreen.MenuAction(String string2) {
+    private MenuAction(String string2) {
         this.tooltip = string2;
     }
 }

@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package entities;
-
-public static enum EnemyAICombat.CombatState {
+public enum CombatState {
     IDLE,
     ALERT,
     ATTACKING,

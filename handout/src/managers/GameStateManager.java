@@ -7,8 +7,7 @@ import managers.Core;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-
-public static class Core.GameStateManager {
+public class GameStateManager {
     private Core.GameState currentState;
     private Core.GameState previousState = null;
     private Stack<Core.GameState> stateHistory;
@@ -16,7 +15,7 @@ public static class Core.GameStateManager {
     private float stateElapsed;
     private List<StateListener> listeners = new ArrayList<StateListener>();
 
-    public Core.GameStateManager() {
+    public GameStateManager() {
         this.currentState = Core.GameState.INITIALIZING;
         this.stateHistory = new Stack();
         this.stateChangeTime = System.currentTimeMillis();
@@ -57,8 +56,7 @@ public static class Core.GameStateManager {
     public float getStateElapsed() {
         return this.stateElapsed;
     }
-
-    public static interface StateListener {
+public interface StateListener {
         public void onStateChanged(Core.GameState var1, Core.GameState var2);
     }
 }

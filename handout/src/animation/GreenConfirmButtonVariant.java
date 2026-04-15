@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static final class AnimationAndSpriteLoader.ButtonVariants.GreenConfirmButtonVariant {
+public final class GreenConfirmButtonVariant {
     public static final String VARIANT_NAME = "Confirm (Green)";
     public static final String SPRITESHEET = "09_GUI_Button_GreenConfirm_4StatesVertical_SuccessColor.png";
     public static final int NORMAL_STATE = 0;

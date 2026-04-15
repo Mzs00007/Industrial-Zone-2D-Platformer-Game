@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static final class AnimationAndSpriteLoader.GUITilesetSystem.TileAdjacencyRules.EdgeBottomAdjacency {
+public final class EdgeBottomAdjacency {
     public static final String TILE_TYPE = "EDGE-BOTTOM (Ceiling)";
     public static final String LEFT_NEIGHBOR_VALID = "EDGE-BOTTOM or CORNER-BL";
     public static final String RIGHT_NEIGHBOR_VALID = "EDGE-BOTTOM or CORNER-BR";

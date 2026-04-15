@@ -2,8 +2,8 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.SpriteChainSystems.CharacterVisualChain {
+import game2D.*;
+public class CharacterVisualChain {
     public static final String CHAIN_NAME = "character_visual";
     public static final String START_POINT = "PlayerCharacterProperties.BIKER/CYBORG/PUNK";
     public static final String STEP_1_BASE = "PlayerCharacterAnimations - Load character movement animations";

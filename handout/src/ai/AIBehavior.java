@@ -4,8 +4,7 @@
 package ai;
 
 import ai.AI;
-
-public static interface AI.AIBehavior {
+public interface AIBehavior {
     public void initialize();
 
     public AIAction execute(AI.AIAgent var1, float var2);
@@ -17,8 +16,7 @@ public static interface AI.AIBehavior {
     public void stop();
 
     public String getName();
-
-    public static abstract class SimpleAction
+public abstract class SimpleAction
     implements AIAction {
         protected String name;
         protected boolean complete = false;
@@ -37,19 +35,18 @@ public static interface AI.AIBehavior {
             return this.complete;
         }
     }
-
-    public static abstract class SimpleBehavior
-    implements AI.AIBehavior {
+public abstract class SimpleBehavior
+    implements AIBehavior {
         protected String name;
         protected boolean complete = false;
         protected float duration = 0.0f;
         protected float elapsedTime = 0.0f;
 
-        public SimpleBehavior(String string) {
+        public SimpleAction(String string) {
             this.name = string;
         }
 
-        public SimpleBehavior(String string, float f) {
+        public SimpleAction(String string, float f) {
             this.name = string;
             this.duration = f;
         }
@@ -82,8 +79,7 @@ public static interface AI.AIBehavior {
         public void initialize() {
         }
     }
-
-    public static interface AIAction {
+public interface AIAction {
         public void execute(AI.AIAgent var1);
 
         public boolean isComplete();

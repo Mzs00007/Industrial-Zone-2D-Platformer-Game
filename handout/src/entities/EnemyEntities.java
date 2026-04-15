@@ -3,11 +3,9 @@
  */
 package entities;
 
-import entities.enemies.Enemies;
-
-public static class Enemies.EnemyEntities {
-
-    public static class EnemyDrone_HoverPlatformVariant {
+import entities.Enemies;
+public class EnemyEntities {
+public class EnemyDrone_HoverPlatformVariant {
         private Enemies.EnemyFactory.EnemyInstance instance;
         private float x;
         private float y;
@@ -48,8 +46,7 @@ public static class Enemies.EnemyEntities {
             return this.instance != null ? this.instance.getAttackRange() : 0.0f;
         }
     }
-
-    public static class EnemyDrone_JetDroneVariant {
+public class EnemyDrone_JetDroneVariant {
         private Enemies.EnemyFactory.EnemyInstance instance;
         private float x;
         private float y;
@@ -90,8 +87,7 @@ public static class Enemies.EnemyEntities {
             return this.instance != null ? this.instance.getAttackRange() : 0.0f;
         }
     }
-
-    public static class EnemyDrone_UfoSaucerHovering {
+public class EnemyDrone_UfoSaucerHovering {
         private Enemies.EnemyFactory.EnemyInstance instance;
         private float x;
         private float y;

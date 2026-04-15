@@ -4,8 +4,7 @@
 package animation;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class AnimationAndSpriteLoader.EnemyProjectileRegistry {
+public class EnemyProjectileRegistry {
     public static EnemyProjectileType getProjectileForEnemy(String string) {
         if (string.contains("RugbyGuy")) {
             return EnemyProjectileType.RUGBY_BALL;
@@ -21,8 +20,7 @@ public static class AnimationAndSpriteLoader.EnemyProjectileRegistry {
         }
         return EnemyProjectileType.COMBAT_LASER;
     }
-
-    public static enum EnemyProjectileType {
+public enum EnemyProjectileType {
         RUGBY_BALL("RugbyBall", "Resources/industrial-zone/characters/RugbyGuy/03_Boss_RugbyGuy_Projectile_1Frame_RugbyBallThrow_RangedAttackProjectile_Single_Instant.png", AnimationAndSpriteLoader.WeaponSystemCore.TrajectoryType.ARC, 30, 10.0),
         GHOST_ORB("GhostOrb", "Resources/industrial-zone/characters/2/02_Enemy_ArmouredKnight_Projectile_1Frame1Row_SingleProjectileSprite_Projectile_Loop_100ms.png", AnimationAndSpriteLoader.WeaponSystemCore.TrajectoryType.HOMING, 20, 8.0),
         CAPSULE_PROJECTILE("CapsuleProjectile", "Resources/industrial-zone/characters/6/04_EnemyDrone_HoverPlatform_CapsuleProjectileAttack_7Frames1Row.png", AnimationAndSpriteLoader.WeaponSystemCore.TrajectoryType.STRAIGHT, 40, 5.0),

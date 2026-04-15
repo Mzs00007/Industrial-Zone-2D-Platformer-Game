@@ -1,7 +1,7 @@
 package framework;
 
 import controllers.GUIAssetManager;
-import controllers.screens.FrameTiler;
+import controllers.FrameTiler;
 import java.awt.BufferedImage;
 import java.awt.Graphics2D;
 import java.awt.Image;

@@ -3,16 +3,15 @@
  */
 package controllers;
 
-import controllers.screens.Phase15SettingsScreen;
+import controllers.Phase15SettingsScreen;
 import java.util.ArrayList;
 import java.util.List;
-
-public static class Phase15SettingsScreen.SettingTab {
+public class SettingTab {
     public String name;
     public String category;
     public List<Phase15SettingsScreen.Setting> settings;
 
-    public Phase15SettingsScreen.SettingTab(String string, String string2) {
+    public SettingTab(String string, String string2) {
         this.name = string;
         this.category = string2;
         this.settings = new ArrayList<Phase15SettingsScreen.Setting>();

@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-public static class AnimationAndSpriteLoader.GridFrameAnimationLoader
+public class GridFrameAnimationLoader
 extends AnimationAndSpriteLoader.AssetType {
     private int frameWidth;
     private int frameHeight;
@@ -19,7 +18,7 @@ extends AnimationAndSpriteLoader.AssetType {
     private int columns;
     private List<BufferedImage> frames = new ArrayList<BufferedImage>();
 
-    public AnimationAndSpriteLoader.GridFrameAnimationLoader(String string, String string2) {
+    public GridFrameAnimationLoader(String string, String string2) {
         super(string, string2);
     }
 

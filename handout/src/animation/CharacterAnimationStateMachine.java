@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.CharacterAnimationStateMachine {
+public class CharacterAnimationStateMachine {
     public static final String SYSTEM_TYPE = "character_animation_state";
     public static final int STATE_IDLE = 0;
     public static final int STATE_RUN = 1;
@@ -18,8 +17,7 @@ public static class AnimationAndSpriteLoader.CharacterAnimationStateMachine {
     public static CharacterAnimationState createStateFor(String string) {
         return new CharacterAnimationState(string);
     }
-
-    public static class CharacterAnimationState {
+public class CharacterAnimationState {
         public int currentState = 0;
         public String characterId;
         public boolean isArmed;

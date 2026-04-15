@@ -2,8 +2,8 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.AnimatedObjectPlacementRules.CollectibleMoneyPlacement {
+import game2D.*;
+public class CollectibleMoneyPlacement {
     public static final String OBJECT_TYPE = "collectible_money";
     public static final String OBJECT_FILE = "Anim_Collectible_Money_6Frames1Row_GreenBanknotesSpinFlip_CurrencyPickup_Loop80ms.png";
     public static final String ANIMATION_DESCRIPTION = "Spinning banknote with flip rotation - plays 6 frames at 80ms intervals";

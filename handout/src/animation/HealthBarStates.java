@@ -4,8 +4,7 @@
 package animation;
 
 import java.awt.image.BufferedImage;
-
-public static final class AnimationAndSpriteLoader.GUIButtonSystemProperties.HUDBarSystem.HealthBarStates {
+public final class HealthBarStates {
     public static final String BAR_TYPE = "health_bar";
     public static final String COLOR = "Red/Orange #FF6B35";
     public static final String PURPOSE = "Display player health percentage";

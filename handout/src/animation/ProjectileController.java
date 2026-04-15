@@ -4,14 +4,13 @@
 package animation;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class AnimationAndSpriteLoader.ProjectileController
+public class ProjectileController
 extends AnimationAndSpriteLoader.EntityAnimationController {
     private float damage;
     private float lifetime;
     private long spawnTime;
 
-    public AnimationAndSpriteLoader.ProjectileController(AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody physicsBody, float f) {
+    public ProjectileController(AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody physicsBody, float f) {
         super(physicsBody);
         this.damage = f;
         this.lifetime = 5.0f;

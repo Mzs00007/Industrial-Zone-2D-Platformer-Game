@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.KeyboardKeyBindings {
+public class KeyboardKeyBindings {
     public static final String INPUT_TYPE = "keyboard_key";
     public static final String DIRECTORY = "Resources/industrial-zone/KeyBoard_Keys";
     public static final int TOTAL_KEY_BINDINGS = 100;

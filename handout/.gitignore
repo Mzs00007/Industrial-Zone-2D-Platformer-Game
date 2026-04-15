@@ -1,56 +1,38 @@
-# Build artifacts
+# ── Compiled output ─────────────────────────────────────────────
 bin/
-*.class
 _compiled_classes/
+*.class
 
-# IDEs and editors
+# ── IDEs / editors ───────────────────────────────────────────────
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
-# OS files
+# ── OS noise ─────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
 *.lnk
 
-# Scripts and configs
-*.bat
-*.ps1
-*.sh
-*.py
-
-# Documentation and logs
-*.txt
+# ── Logs / temp build artefacts ──────────────────────────────────
 *.log
-*.md
+compile_errors.txt
+compile_output.txt
+err.txt
+out.txt
+sources.txt
+sources_list.txt
+sources_relative.txt
 
-# JSON and data files (except necessary configs)
-*.json
-
-# Images
-*.png
-*.jpg
-*.jpeg
-*.gif
-*.bmp
-
-# Archives
+# ── Archives ─────────────────────────────────────────────────────
 *.zip
 *.rar
 *.7z
 
-# IDE specific
+# ── IDE project files ────────────────────────────────────────────
 .classpath
 .project
 .settings/
 out/
 dist/
-
-# Compiled Java classes (keep .java files only)
-*.class
-
-# Keep all .java files and their directories
-!src/
-!

@@ -1,8 +1,9 @@
 package managers;
+import game2D.*;
 
-import managers.assets.AssetManager_001_UnifiedLoader;
-import managers.assets.AssetMetadata;
-import managers.assets.AssetPathBridge;
+import managers.AssetManager_001_UnifiedLoader;
+import managers.AssetMetadata;
+import managers.AssetPathBridge;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;

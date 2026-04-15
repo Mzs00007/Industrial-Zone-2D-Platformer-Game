@@ -6,8 +6,7 @@ package animation;
 import animation.AnimationAndSpriteLoader;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-public static class AnimationAndSpriteLoader.WeaponCyborgAnimations {
+public class WeaponCyborgAnimations {
     public static final String CHARACTER = "Cyborg";
     public static final String ANIMATION_TYPE = "weapon_held";
     public static final String DIRECTORY = "Resources/industrial-zone/weapons/1/1 Characters/3 Cyborg";

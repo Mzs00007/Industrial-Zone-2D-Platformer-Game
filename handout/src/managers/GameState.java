@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package managers;
-
-public static enum Core.GameState {
+public enum GameState {
     INITIALIZING("System startup"),
     SPLASH_SCREEN("Studio splash screen"),
     STUDIO_IDENT("University identification"),
@@ -33,7 +32,7 @@ public static enum Core.GameState {
 
     private final String description;
 
-    private Core.GameState(String string2) {
+    private GameState(String string2) {
         this.description = string2;
     }
 

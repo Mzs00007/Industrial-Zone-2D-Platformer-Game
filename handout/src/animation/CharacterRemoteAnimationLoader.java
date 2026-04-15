@@ -2,19 +2,19 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
+import game2D.*;
 
 import animation.AnimationAndSpriteLoader;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
-
-public static class AnimationAndSpriteLoader.CharacterRemoteAnimationLoader
+public class CharacterRemoteAnimationLoader
 extends AnimationAndSpriteLoader.AssetType {
     private CharacterType character;
     private Map<String, AnimationAndSpriteLoader.SingleSpriteLoader> poses;
     private int syncFrameRateMs;
 
-    public AnimationAndSpriteLoader.CharacterRemoteAnimationLoader(String string, String string2, CharacterType characterType) {
+    public CharacterRemoteAnimationLoader(String string, String string2, CharacterType characterType) {
         super(string, string2);
         this.character = characterType;
         this.poses = new HashMap<String, AnimationAndSpriteLoader.SingleSpriteLoader>();
@@ -102,8 +102,7 @@ extends AnimationAndSpriteLoader.AssetType {
     public int getFrameHeight() {
         return 64;
     }
-
-    public static enum CharacterType {
+public enum CharacterType {
         CYBORG("Cyborg - Heavy built, stable"),
         PUNK("Punk - Slim, agile"),
         BIKER("Biker - Medium, balanced");

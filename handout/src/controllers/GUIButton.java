@@ -4,8 +4,7 @@
 package controllers;
 
 import java.awt.image.BufferedImage;
-
-private static class ButtonPanel.GUIButton {
+class GUIButton {
     String id;
     int x;
     int y;
@@ -19,7 +18,7 @@ private static class ButtonPanel.GUIButton {
     boolean isPressed = false;
     Runnable onClickCallback;
 
-    ButtonPanel.GUIButton(String string, int n, int n2, int n3, int n4, String string2) {
+    GUIButton(String string, int n, int n2, int n3, int n4, String string2) {
         this.id = string;
         this.x = n;
         this.y = n2;

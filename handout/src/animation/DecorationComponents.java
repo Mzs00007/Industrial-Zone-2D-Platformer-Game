@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.Level2EnvironmentSystem.DecorationComponents {
+public class DecorationComponents {
     public static final String DIR_DECO = "Resources/industrial-zone/1 Tiles/power-station-level-2/3 Objects/2 Decoration";
     public static final String ANTENNA_BRACKET = "Resources/industrial-zone/1 Tiles/power-station-level-2/3 Objects/2 Decoration/Prop_Antenna_SmallBracket_HorizontalMount_RooftopAerialB.png";
     public static final String ANTENNA_TALL = "Resources/industrial-zone/1 Tiles/power-station-level-2/3 Objects/2 Decoration/Prop_Antenna_TallPole_ThinVertical_RooftopAerialA.png";

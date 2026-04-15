@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.PlayerCharacterAssetProperties.BikerProperties {
+public class BikerProperties {
     public static final String CHARACTER_NAME = "Biker";
     public static final String CHARACTER_TYPE = "biker";
     public static final String BASE_DIRECTORY = "Resources/industrial-zone/characters/player/biker";

@@ -4,7 +4,7 @@
 package controllers;
 
 import managers.GameState;
-import controllers.screens.Screen;
+import controllers.Screen;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;

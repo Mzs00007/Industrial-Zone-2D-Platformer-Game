@@ -2,8 +2,8 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.AnimatedObjectPlacementRules.DecoScreenBluePlacement {
+import game2D.*;
+public class DecoScreenBluePlacement {
     public static final String OBJECT_TYPE = "deco_screen_blue";
     public static final String OBJECT_FILE = "Anim_Deco_Screen1_4Frames1Row_BlueMonitorFlicker_WallPanelTechDeco_Loop150ms.png";
     public static final String ANIMATION_DESCRIPTION = "Blue monitor flicker effect - plays 4 frames at 150ms with active glow";

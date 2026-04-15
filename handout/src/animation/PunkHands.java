@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.WeaponHandPoses.PunkHands {
+public class PunkHands {
     public static final String CHARACTER = "Punk";
     public static final String DIRECTORY = "Resources/industrial-zone/weapons/1/3 Hands/2 Punk";
     public static final String GRIP_VERTICAL = "01_Weapon_Hand_Punk_GripVertical_WeaponHoldPose_StaticSprite.png";

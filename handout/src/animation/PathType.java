@@ -2,15 +2,14 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static enum AnimationAndSpriteLoader.TransporterPathLoader.PathType {
+public enum PathType {
     LINEAR("Straight line movement"),
     CURVED("Smooth bezier curve path"),
     PARABOLIC("Arc-shaped movement");
 
     public final String description;
 
-    private AnimationAndSpriteLoader.TransporterPathLoader.PathType(String string2) {
+    private PathType(String string2) {
         this.description = string2;
     }
 }

@@ -1,4 +1,5 @@
 package physics;
+import game2D.*;
 
 /**
  * PHYSICS UPDATE SYSTEM

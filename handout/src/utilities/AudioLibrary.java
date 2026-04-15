@@ -1,65 +1,79 @@
-/*
- * Decompiled with CFR 0.152.
- */
 package utilities;
 
-import utilities.AudioSystem;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-public static class AudioSystem.AudioLibrary {
-    private Map<String, AudioSystem.SoundEffect> soundEffects = new HashMap<String, AudioSystem.SoundEffect>();
+public class AudioLibrary {
+    private Map<String, SoundEffect> soundEffects = new HashMap<String, SoundEffect>();
     private int totalSoundsLoaded = 0;
     private float totalMemoryUsed = 0.0f;
 
-    public void registerSound(String string, AudioSystem.SoundEffect soundEffect) {
-        this.soundEffects.put(string, soundEffect);
-        ++this.totalSoundsLoaded;
+    public void registerSound(String key, SoundEffect soundEffect) {
+        soundEffects.put(key, soundEffect);
+        ++totalSoundsLoaded;
     }
 
-    public AudioSystem.SoundEffect getSound(String string) {
-        return this.soundEffects.getOrDefault(string, null);
+    public SoundEffect getSound(String key) {
+        return soundEffects.getOrDefault(key, null);
     }
 
-    public boolean hasSound(String string) {
-        return this.soundEffects.containsKey(string);
+    public boolean hasSound(String key) {
+        return soundEffects.containsKey(key);
+    }
+
+    public void loadAllSoundsFromDirectory(String directory) {
+        File dir = new File(directory);
+        if (!dir.exists() || !dir.isDirectory()) {
+            System.err.println("[AudioLibrary] Directory not found: " + directory);
+            return;
+        }
+        File[] files = dir.listFiles((d, name) -> name.endsWith(".wav") || name.endsWith(".WAV"));
+        if (files == null) return;
+        for (File f : files) {
+            String filename = f.getName();
+            String key = filename.startsWith("._") ? filename.substring(2) : filename;
+            int dot = key.lastIndexOf('.');
+            if (dot > 0) key = key.substring(0, dot);
+            key = key.toLowerCase();
+            registerSound(key, new SoundEffect(key, f.getPath()));
+        }
     }
 
     public void loadDefaultSounds() {
-        this.registerSound("jump", new AudioSystem.SoundEffect("jump", "Resources/industrial-zone/audio/sfx/jump.wav"));
-        this.registerSound("land", new AudioSystem.SoundEffect("land", "Resources/industrial-zone/audio/sfx/land.wav"));
-        this.registerSound("fall", new AudioSystem.SoundEffect("fall", "Resources/industrial-zone/audio/sfx/fall.wav"));
-        this.registerSound("dash", new AudioSystem.SoundEffect("dash", "Resources/industrial-zone/audio/sfx/dash.wav"));
-        this.registerSound("hit", new AudioSystem.SoundEffect("hit", "Resources/industrial-zone/audio/sfx/hit.wav"));
-        this.registerSound("punch", new AudioSystem.SoundEffect("punch", "Resources/industrial-zone/audio/sfx/punch.wav"));
-        this.registerSound("kick", new AudioSystem.SoundEffect("kick", "Resources/industrial-zone/audio/sfx/kick.wav"));
-        this.registerSound("death", new AudioSystem.SoundEffect("death", "Resources/industrial-zone/audio/sfx/death.wav"));
-        this.registerSound("hurt", new AudioSystem.SoundEffect("hurt", "Resources/industrial-zone/audio/sfx/hurt.wav"));
-        this.registerSound("item_collect", new AudioSystem.SoundEffect("item_collect", "Resources/industrial-zone/audio/sfx/item_collect.wav"));
-        this.registerSound("powerup", new AudioSystem.SoundEffect("powerup", "Resources/industrial-zone/audio/sfx/powerup.wav"));
-        this.registerSound("coin", new AudioSystem.SoundEffect("coin", "Resources/industrial-zone/audio/sfx/coin.wav"));
-        this.registerSound("explosion", new AudioSystem.SoundEffect("explosion", "Resources/industrial-zone/audio/sfx/explosion.wav"));
-        this.registerSound("ui_click", new AudioSystem.SoundEffect("ui_click", "Resources/industrial-zone/audio/sfx/ui_click.wav"));
-        this.registerSound("ui_hover", new AudioSystem.SoundEffect("ui_hover", "Resources/industrial-zone/audio/sfx/ui_hover.wav"));
-        this.registerSound("ui_select", new AudioSystem.SoundEffect("ui_select", "Resources/industrial-zone/audio/sfx/ui_select.wav"));
-        this.registerSound("ui_back", new AudioSystem.SoundEffect("ui_back", "Resources/industrial-zone/audio/sfx/ui_back.wav"));
-        this.registerSound("door_open", new AudioSystem.SoundEffect("door_open", "Resources/industrial-zone/audio/sfx/door_open.wav"));
-        this.registerSound("water_splash", new AudioSystem.SoundEffect("water_splash", "Resources/industrial-zone/audio/sfx/water_splash.wav"));
-        this.registerSound("fire_burn", new AudioSystem.SoundEffect("fire_burn", "Resources/industrial-zone/audio/sfx/fire_burn.wav"));
-        this.registerSound("ambient_loop", new AudioSystem.SoundEffect("ambient_loop", "Resources/industrial-zone/audio/sfx/ambient.wav"));
-        this.registerSound("wind", new AudioSystem.SoundEffect("wind", "Resources/industrial-zone/audio/sfx/wind.wav"));
-        this.registerSound("rain", new AudioSystem.SoundEffect("rain", "Resources/industrial-zone/audio/sfx/rain.wav"));
+        String base = "Resources/industrial-zone/audio/sfx/";
+        String[][] sounds = {
+            {"jump", "jump.wav"}, {"land", "land.wav"}, {"fall", "fall.wav"},
+            {"dash", "dash.wav"}, {"hit", "hit.wav"}, {"punch", "punch.wav"},
+            {"kick", "kick.wav"}, {"death", "death.wav"}, {"hurt", "hurt.wav"},
+            {"item_collect", "item_collect.wav"}, {"powerup", "powerup.wav"},
+            {"coin", "coin.wav"}, {"explosion", "explosion.wav"},
+            {"ui_click", "ui_click.wav"}, {"ui_hover", "ui_hover.wav"},
+            {"ui_select", "ui_select.wav"}, {"ui_back", "ui_back.wav"},
+            {"door_open", "door_open.wav"}, {"water_splash", "water_splash.wav"},
+            {"fire_burn", "fire_burn.wav"}, {"ambient_loop", "ambient.wav"},
+            {"wind", "wind.wav"}, {"rain", "rain.wav"}
+        };
+        for (String[] s : sounds) {
+            registerSound(s[0], new SoundEffect(s[0], base + s[1]));
+        }
+    }
+
+    public void stopAllSounds() {
+        for (SoundEffect se : soundEffects.values()) {
+            if (se.isPlaying()) se.stop();
+        }
     }
 
     public int getTotalSoundsLoaded() {
-        return this.totalSoundsLoaded;
+        return totalSoundsLoaded;
     }
 
     public float getTotalMemoryUsed() {
-        return this.totalMemoryUsed;
+        return totalMemoryUsed;
     }
 
     public void addMemoryUsage(float f) {
-        this.totalMemoryUsed += f;
+        totalMemoryUsed += f;
     }
 }

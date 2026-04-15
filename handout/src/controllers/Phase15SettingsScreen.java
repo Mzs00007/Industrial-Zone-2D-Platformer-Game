@@ -2,8 +2,9 @@
  * Decompiled with CFR 0.152.
  */
 package controllers;
+import game2D.*;
 
-import controllers.screens.Screen;
+import controllers.Screen;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;

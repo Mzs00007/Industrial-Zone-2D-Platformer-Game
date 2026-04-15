@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.TileCompositionPatterns.HorizontalBrickPlatformPattern {
+public class HorizontalBrickPlatformPattern {
     public static final String PATTERN_NAME = "HorizontalBrickPlatform";
     public static final String PATTERN_TYPE = "horizontal_strip";
     public static final String LEFT_EDGE_FILE = "02_Panel_HorizStripeBrick_BluePurple_SolidFloorVariantB.png";

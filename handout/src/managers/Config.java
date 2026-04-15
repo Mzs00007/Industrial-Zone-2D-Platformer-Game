@@ -1,4 +1,5 @@
 package config;
+import game2D.*;
 import java.util.*;
 
 /**

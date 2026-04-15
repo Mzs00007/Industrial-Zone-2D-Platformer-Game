@@ -2,16 +2,14 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.Level2EnvironmentSystem {
+public class Level2EnvironmentSystem {
     public static final String TYPE_LEVEL2_ENV = "level2_environment_system";
     public static final String DIRECTORY_LEVEL2_OBJECTS = "Resources/industrial-zone/1 Tiles/power-station-level-2/3 Objects";
     public static final String ANIM_CARD_L2 = "Resources/industrial-zone/1 Tiles/power-station-level-2/4 Animated objects/Anim_Collectible_Card_6Frames1Row_BlueSpinningFloat_PickupItem_Loop80ms.png";
     public static final String ANIM_MONEY_L2 = "Resources/industrial-zone/1 Tiles/power-station-level-2/4 Animated objects/Anim_Collectible_Money_6Frames1Row_GreenBanknotesSpinFlip_CurrencyPickup_Loop80ms.png";
     public static final String ANIM_CHEST_L2 = "Resources/industrial-zone/1 Tiles/power-station-level-2/4 Animated objects/Anim_Interactive_Chest_8Frames1Row_BlueTealLidOpenSequence_PlayOnce100ms.png";
     public static final String ANIM_TRAP_L2 = "Resources/industrial-zone/1 Tiles/power-station-level-2/4 Animated objects/Anim_Hazard_Turret_MultiFrame1Row_TurretFiringProjectile_DamageOnFire_Loop120ms.png";
-
-    public static class PowerLineComponents {
+public class PowerLineComponents {
         public static final String DIR_POWER = "Resources/industrial-zone/1 Tiles/power-station-level-2/3 Objects/3 Power lines";
         public static final String PYLON_BASE_B = "Resources/industrial-zone/1 Tiles/power-station-level-2/3 Objects/3 Power lines/Prop_Pylon_BaseOnly_VariantB_BlueMetal_PylonFeetAlt.png";
         public static final String PYLON_FULL_A = "Resources/industrial-zone/1 Tiles/power-station-level-2/3 Objects/3 Power lines/Prop_Pylon_FullTall_WithAntennaTop_BlueMetal_PylonFullA.png";
@@ -22,8 +20,7 @@ public static class AnimationAndSpriteLoader.Level2EnvironmentSystem {
         public static final String WIRE_DIAGONAL_A = "Resources/industrial-zone/1 Tiles/power-station-level-2/3 Objects/3 Power lines/Prop_Wire_DiagonalCable_ThinSingle_PowerLineSegmentA.png";
         public static final String WIRE_DIAGONAL_B = "Resources/industrial-zone/1 Tiles/power-station-level-2/3 Objects/3 Power lines/Prop_Wire_DiagonalCable_ThinAltAngle_PowerLineSegmentB.png";
     }
-
-    public static class DecorationComponents {
+public class DecorationComponents {
         public static final String DIR_DECO = "Resources/industrial-zone/1 Tiles/power-station-level-2/3 Objects/2 Decoration";
         public static final String ANTENNA_BRACKET = "Resources/industrial-zone/1 Tiles/power-station-level-2/3 Objects/2 Decoration/Prop_Antenna_SmallBracket_HorizontalMount_RooftopAerialB.png";
         public static final String ANTENNA_TALL = "Resources/industrial-zone/1 Tiles/power-station-level-2/3 Objects/2 Decoration/Prop_Antenna_TallPole_ThinVertical_RooftopAerialA.png";
@@ -51,8 +48,7 @@ public static class AnimationAndSpriteLoader.Level2EnvironmentSystem {
         public static final String TANK_FACTORY_A = "Resources/industrial-zone/1 Tiles/power-station-level-2/3 Objects/2 Decoration/Prop_Tank_Industrial_LabelledAC3_LargeTankA.png";
         public static final String TANK_FACTORY_B = "Resources/industrial-zone/1 Tiles/power-station-level-2/3 Objects/2 Decoration/Prop_Tank_Industrial_LabelledEFG2_LargeTankB.png";
     }
-
-    public static class PipeComponents {
+public class PipeComponents {
         public static final String DIR_PIPES = "Resources/industrial-zone/1 Tiles/power-station-level-2/3 Objects/1 Tube";
         public static final String PIPE_ARCH_LOOP = "Resources/industrial-zone/1 Tiles/power-station-level-2/3 Objects/1 Tube/Prop_Pipe_ArchLoop_RedMetal_CurvedSection_WallDeco.png";
         public static final String PIPE_CONNECTOR_A = "Resources/industrial-zone/1 Tiles/power-station-level-2/3 Objects/1 Tube/Prop_Pipe_Connector_DarkBlue_SmallJoint_PipeJoinA.png";

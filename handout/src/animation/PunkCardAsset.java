@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.CharacterCardAnimationAssets.PunkCardAsset {
+public class PunkCardAsset {
     public static final String CHARACTER = "Punk";
     public static final String BASE_DIR = "Resources/industrial-zone/characters/player/punk";
     public static final String CARD_IDLE_PRIMARY = "01_Player_Punk_Idle_5Frames1Row_CasualStandingPosture_DefaultIdle_Loop_150ms.png";

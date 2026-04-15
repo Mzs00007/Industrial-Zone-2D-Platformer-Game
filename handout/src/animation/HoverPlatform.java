@@ -6,8 +6,7 @@ package animation;
 import animation.AnimationAndSpriteLoader;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-public static class AnimationAndSpriteLoader.DroneAnimationConfigs.HoverPlatform {
+public class HoverPlatform {
     public static final String DRONE_TYPE = "hover_platform";
     public static final String BASE_PATH = "Resources/industrial-zone/characters/enemies/drones/6";
     public static final Map<String, AnimationAndSpriteLoader.AnimationConfig> ANIMATIONS = new LinkedHashMap<String, AnimationAndSpriteLoader.AnimationConfig>(){

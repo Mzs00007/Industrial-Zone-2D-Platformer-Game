@@ -1,9 +1,10 @@
 package managers;
 
 import managers.*;
-import managers.utils.MathUtils;
+import managers.MathUtils;
 import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 /**
  * GAME LOOP - Demonstrates all inheritance and composition patterns working together

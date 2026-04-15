@@ -7,8 +7,7 @@ import animation.AnimationAndSpriteLoader;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
-
-public static class AnimationAndSpriteLoader.GridSpritesheetLoader
+public class GridSpritesheetLoader
 extends AnimationAndSpriteLoader.AssetType {
     private int frameWidth;
     private int frameHeight;
@@ -16,7 +15,7 @@ extends AnimationAndSpriteLoader.AssetType {
     private int rows;
     private List<BufferedImage> frames;
 
-    public AnimationAndSpriteLoader.GridSpritesheetLoader(String string, String string2, int n, int n2, int n3, int n4) {
+    public GridSpritesheetLoader(String string, String string2, int n, int n2, int n3, int n4) {
         super(string, string2);
         this.frameWidth = n;
         this.frameHeight = n2;

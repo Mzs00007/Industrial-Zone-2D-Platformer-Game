@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.BossCharacterAssetProperties.GreenMechBoss {
+public class GreenMechBoss {
     public static final String BOSS_NAME = "Green Mech";
     public static final String BOSS_TYPE = "green_mech";
     public static final String DIRECTORY = "Resources/industrial-zone/characters/bosses/GreenMech";

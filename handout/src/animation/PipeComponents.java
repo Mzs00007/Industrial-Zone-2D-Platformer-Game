@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.Level2EnvironmentSystem.PipeComponents {
+public class PipeComponents {
     public static final String DIR_PIPES = "Resources/industrial-zone/1 Tiles/power-station-level-2/3 Objects/1 Tube";
     public static final String PIPE_ARCH_LOOP = "Resources/industrial-zone/1 Tiles/power-station-level-2/3 Objects/1 Tube/Prop_Pipe_ArchLoop_RedMetal_CurvedSection_WallDeco.png";
     public static final String PIPE_CONNECTOR_A = "Resources/industrial-zone/1 Tiles/power-station-level-2/3 Objects/1 Tube/Prop_Pipe_Connector_DarkBlue_SmallJoint_PipeJoinA.png";

@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.AdvancedEnemyAssetProperties.CombatTankEnemy {
+public class CombatTankEnemy {
     public static final String ENEMY_NAME = "Combat Tank";
     public static final String ENEMY_TYPE = "combat_tank";
     public static final String DIRECTORY = "Resources/industrial-zone/characters/enemies/sci-fi-antagonists/1";

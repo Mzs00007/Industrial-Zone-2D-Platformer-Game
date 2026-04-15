@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.FontProperties {
+public class FontProperties {
     public static final String UI_TYPE = "font";
     public static final String DIRECTORY = "Resources/industrial-zone/gui/10 Font/images";
     public static final int CHARACTER_COUNT = 60;

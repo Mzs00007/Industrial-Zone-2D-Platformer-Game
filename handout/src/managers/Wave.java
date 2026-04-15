@@ -6,15 +6,14 @@ package managers;
 import managers.EnemyWaveManager;
 import java.util.ArrayList;
 import java.util.List;
-
-public static class EnemyWaveManager.Wave {
+public class Wave {
     public int waveNumber;
     public List<EnemyWaveManager.EnemySpawn> enemies;
     public float spawnStartDelay;
     public float spawnInterval;
     public int minCheckpointWaves = 1;
 
-    public EnemyWaveManager.Wave(int n, float f, float f2) {
+    public Wave(int n, float f, float f2) {
         this.waveNumber = n;
         this.enemies = new ArrayList<EnemyWaveManager.EnemySpawn>();
         this.spawnStartDelay = f;

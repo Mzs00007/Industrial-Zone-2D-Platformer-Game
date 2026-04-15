@@ -1,8 +1,8 @@
 package vfx;
 
 import managers.Core;
-import managers.assets.AssetManager_001_UnifiedLoader;
-import managers.assets.AssetPathBridge;
+import managers.AssetManager_001_UnifiedLoader;
+import managers.AssetPathBridge;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;

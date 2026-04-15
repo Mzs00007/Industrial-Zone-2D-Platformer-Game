@@ -1,4 +1,5 @@
 package physics;
+import game2D.*;
 
 /**
  * PhysicsSystem - UNIFIED PHYSICS API - Complete Game Physics System

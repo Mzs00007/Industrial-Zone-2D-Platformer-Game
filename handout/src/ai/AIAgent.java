@@ -4,8 +4,7 @@
 package ai;
 
 import ai.AI;
-
-public static abstract class AI.AIAgent {
+public abstract class AIAgent {
     protected String agentId;
     protected AI.AIState currentState;
     protected AI.AIBehavior behavior;
@@ -16,7 +15,7 @@ public static abstract class AI.AIAgent {
     protected float vx;
     protected float vy;
 
-    public AI.AIAgent(String string) {
+    public AIAgent(String string) {
         this.agentId = string;
         this.currentState = AI.AIState.IDLE;
     }

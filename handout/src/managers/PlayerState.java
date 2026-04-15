@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package managers;
-
-public static enum Core.PlayerState {
+public enum PlayerState {
     IDLE,
     WALK,
     RUN,

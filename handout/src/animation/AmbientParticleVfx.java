@@ -2,10 +2,8 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.AmbientParticleVfx {
-
-    public static class PortalVfx {
+public class AmbientParticleVfx {
+public class PortalVfx {
         public static final String EFFECT_NAME = "Teleport Portal";
         public static final String EFFECT_TYPE = "portal";
         public static final String DIRECTORY = "Resources/industrial-zone/vfx/5 Other";
@@ -17,8 +15,7 @@ public static class AnimationAndSpriteLoader.AmbientParticleVfx {
         public static final boolean LOOPS = false;
         public static final String[] PORTAL_FILES = new String[]{"09_VFX_Portal_Frame01_LargePortalOpeningA_Portal_PlayOnce_100ms.png", "10_VFX_Portal_Frame02_LargePortalOpeningB_Portal_PlayOnce_100ms.png"};
     }
-
-    public static class SmokeWispsVfx {
+public class SmokeWispsVfx {
         public static final String EFFECT_NAME = "Smoke Wisps";
         public static final String EFFECT_TYPE = "smoke_wisp";
         public static final String DIRECTORY = "Resources/industrial-zone/vfx/5 Other";
@@ -32,8 +29,7 @@ public static class AnimationAndSpriteLoader.AmbientParticleVfx {
         public static final boolean TALL_EFFECT = true;
         public static final String[] WISP_FILES = new String[]{"11_VFX_Smoke_Wisps_6Frames1Row_TallTealWispVariantA_Ambient_Loop_120ms.png", "12_VFX_Smoke_Wisps_6Frames1Row_TallTealWispVariantB_Ambient_Loop_120ms.png"};
     }
-
-    public static class StarbustVfx {
+public class StarbustVfx {
         public static final String EFFECT_NAME = "Starburst Effect";
         public static final String EFFECT_TYPE = "starburst";
         public static final String DIRECTORY = "Resources/industrial-zone/vfx/5 Other";
@@ -43,8 +39,7 @@ public static class AnimationAndSpriteLoader.AmbientParticleVfx {
         public static final String ANIMATION_PATTERN = "Mixed GridFrame (6/6/14/4 Frames)";
         public static final String[] STARBURST_FILES = new String[]{"01_VFX_Stars_Burst_6Frames1Row_TinyGoldSparse_Ambient_Loop_100ms.png", "02_VFX_Stars_Burst_6Frames1Row_SmallGoldUniform_Ambient_Loop_100ms.png", "03_VFX_Stars_Burst_14Frames1Row_MultiSizeGrowSequence_Impact_PlayOnce_80ms.png", "04_VFX_Stars_Burst_4Frames1Row_SmallStarMorph_Ambient_Loop_100ms.png"};
     }
-
-    public static class ParticleEffectsVfx {
+public class ParticleEffectsVfx {
         public static final String EFFECT_NAME = "Ambient Particles";
         public static final String EFFECT_TYPE = "particle";
         public static final String DIRECTORY = "Resources/industrial-zone/vfx/4 Particles";

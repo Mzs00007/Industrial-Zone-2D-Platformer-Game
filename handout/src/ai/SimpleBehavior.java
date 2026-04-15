@@ -4,19 +4,18 @@
 package ai;
 
 import ai.AI;
-
-public static abstract class AI.AIBehavior.SimpleBehavior
+public abstract class SimpleBehavior
 implements AI.AIBehavior {
     protected String name;
     protected boolean complete = false;
     protected float duration = 0.0f;
     protected float elapsedTime = 0.0f;
 
-    public AI.AIBehavior.SimpleBehavior(String string) {
+    public SimpleBehavior(String string) {
         this.name = string;
     }
 
-    public AI.AIBehavior.SimpleBehavior(String string, float f) {
+    public SimpleBehavior(String string, float f) {
         this.name = string;
         this.duration = f;
     }

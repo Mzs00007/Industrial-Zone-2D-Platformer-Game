@@ -2,14 +2,13 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.ProjectilePhysicsSystem.HomingTrajectory {
+public class HomingTrajectory {
     public double velocityX;
     public double velocityY;
     public double speed = 8.0;
     public double maxTurnSpeed = 0.1;
 
-    public AnimationAndSpriteLoader.ProjectilePhysicsSystem.HomingTrajectory(double d, double d2) {
+    public HomingTrajectory(double d, double d2) {
         this.velocityX = d;
         this.velocityY = d2;
     }

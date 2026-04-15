@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static enum AnimationAndSpriteLoader.WeaponSystemCore.GunType {
+public enum GunType {
     PISTOL_A(1, "Pistol", 15, 2.0, 8.0),
     PISTOL_B(2, "Pistol", 15, 2.0, 8.0),
     COMPACT_C(3, "Compact", 12, 3.0, 12.0),
@@ -21,7 +20,7 @@ public static enum AnimationAndSpriteLoader.WeaponSystemCore.GunType {
     public final double fireRatePerSec;
     public final double projectileVelocity;
 
-    private AnimationAndSpriteLoader.WeaponSystemCore.GunType(int n2, String string2, int n3, double d, double d2) {
+    private GunType(int n2, String string2, int n3, double d, double d2) {
         this.typeIndex = n2;
         this.className = string2;
         this.baseDamage = n3;

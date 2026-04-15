@@ -7,9 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-public static class Core.LevelManager {
-    private static Core.LevelManager instance = null;
+public class LevelManager {
+    private static LevelManager instance = null;
     private int currentLevel = 1;
     private Object tileMap;
     private Map<Character, String> tileCharacterMapping = new HashMap<Character, String>();
@@ -17,14 +16,14 @@ public static class Core.LevelManager {
     private float playerSpawnY = 100.0f;
     private List<EnemySpawn> enemySpawns = new ArrayList<EnemySpawn>();
 
-    public static synchronized Core.LevelManager getInstance() {
+    public static synchronized LevelManager getInstance() {
         if (instance == null) {
-            instance = new Core.LevelManager();
+            instance = new LevelManager();
         }
         return instance;
     }
 
-    private Core.LevelManager() {
+    private LevelManager() {
         System.out.println("[LevelManager] Initialized");
     }
 
@@ -60,8 +59,7 @@ public static class Core.LevelManager {
     public List<EnemySpawn> getEnemySpawns() {
         return this.enemySpawns;
     }
-
-    public static class EnemySpawn {
+public class EnemySpawn {
         public float x;
         public float y;
         public String type;

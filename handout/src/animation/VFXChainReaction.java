@@ -5,7 +5,7 @@ package core_game_entities.effects;
 
 import managers.Core;
 import entities.characters.PlayerBase;
-import entities.enemies.Enemies;
+import entities.Enemies;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

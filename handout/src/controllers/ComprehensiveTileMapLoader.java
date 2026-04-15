@@ -2,6 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package controllers;
+import game2D.*;
 
 import animation.AnimationAndSpriteLoader;
 import java.awt.image.BufferedImage;

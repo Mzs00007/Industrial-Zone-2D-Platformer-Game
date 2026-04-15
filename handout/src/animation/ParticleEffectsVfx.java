@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.AmbientParticleVfx.ParticleEffectsVfx {
+public class ParticleEffectsVfx {
     public static final String EFFECT_NAME = "Ambient Particles";
     public static final String EFFECT_TYPE = "particle";
     public static final String DIRECTORY = "Resources/industrial-zone/vfx/4 Particles";

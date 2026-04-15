@@ -4,7 +4,6 @@
 package managers;
 
 import managers.Core;
-
-public static interface Core.GameStateManager.StateListener {
+public interface StateListener {
     public void onStateChanged(Core.GameState var1, Core.GameState var2);
 }

@@ -4,15 +4,14 @@
 package animation;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class AnimationAndSpriteLoader.EnemyAIBehavior
+public class EnemyAIBehavior
 extends AnimationAndSpriteLoader.AIBehavior {
     private EnemyPattern pattern;
     private float patrolDistance = 5.0f;
     private float patrolStartX;
     private boolean patrolDirectionRight = true;
 
-    public AnimationAndSpriteLoader.EnemyAIBehavior(AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody physicsBody, float f, float f2, EnemyPattern enemyPattern) {
+    public EnemyAIBehavior(AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody physicsBody, float f, float f2, EnemyPattern enemyPattern) {
         super(physicsBody, f, f2);
         this.pattern = enemyPattern;
         this.patrolStartX = physicsBody.position.x;
@@ -64,8 +63,7 @@ extends AnimationAndSpriteLoader.AIBehavior {
     public void setPattern(EnemyPattern enemyPattern) {
         this.pattern = enemyPattern;
     }
-
-    public static enum EnemyPattern {
+public enum EnemyPattern {
         PATROL_HORIZONTAL,
         PATROL_STATIONARY,
         AGGRESSIVE,

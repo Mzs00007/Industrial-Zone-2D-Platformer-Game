@@ -2,10 +2,8 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.WeaponSystemCore {
-
-    public static enum PlayerCharacter {
+public class WeaponSystemCore {
+public enum PlayerCharacter {
         BIKER("Biker", 30),
         PUNK("Punk", 25),
         CYBORG("Cyborg", 28);
@@ -18,8 +16,7 @@ public static class AnimationAndSpriteLoader.WeaponSystemCore {
             this.baseHealth = n2;
         }
     }
-
-    public static enum GripPose {
+public enum GripPose {
         HORIZONTAL(0, "Horizontal", 35, 15),
         DIAGONAL_DOWN(1, "DiagonalDown", 30, 25),
         VERTICAL_UP(2, "VerticalUp", 28, 5),
@@ -43,8 +40,7 @@ public static class AnimationAndSpriteLoader.WeaponSystemCore {
             this.muzzleOffsetY = n4;
         }
     }
-
-    public static enum TrajectoryType {
+public enum TrajectoryType {
         STRAIGHT("Straight", 0.0, 0),
         ARC("Arc", 0.3, 100),
         HOMING("Homing", 0.0, 0),
@@ -60,8 +56,7 @@ public static class AnimationAndSpriteLoader.WeaponSystemCore {
             this.turningSpeed = n2;
         }
     }
-
-    public static enum GunType {
+public enum GunType {
         PISTOL_A(1, "Pistol", 15, 2.0, 8.0),
         PISTOL_B(2, "Pistol", 15, 2.0, 8.0),
         COMPACT_C(3, "Compact", 12, 3.0, 12.0),

@@ -13,8 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
-
-public static class AnimationAndSpriteLoader.WeaponRenderingSystem {
+public class WeaponRenderingSystem {
     private Map<String, BufferedImage> gunImageCache = new HashMap<String, BufferedImage>();
     private Map<String, BufferedImage> bulletImageCache = new HashMap<String, BufferedImage>();
 

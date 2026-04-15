@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.CharacterHandPositionSystem.BrawlerHandProfile.AnimationOffsets {
+public class AnimationOffsets {
     public static final int REACH_X_OFFSET = 32;
     public static final int REACH_Y_OFFSET = -8;
     public static final int REACH_DURATION_MS = 400;

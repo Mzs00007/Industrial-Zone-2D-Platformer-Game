@@ -2,13 +2,13 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
+import game2D.*;
 
 import animation.AnimationAndSpriteLoader;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
-
-public static class AnimationAndSpriteLoader.TransporterDroneLoader
+public class TransporterDroneLoader
 extends AnimationAndSpriteLoader.AssetType {
     private TransporterType type;
     private float movementSpeed;
@@ -23,7 +23,7 @@ extends AnimationAndSpriteLoader.AssetType {
         return this.type;
     }
 
-    public AnimationAndSpriteLoader.TransporterDroneLoader(String string, String string2, TransporterType transporterType) {
+    public TransporterDroneLoader(String string, String string2, TransporterType transporterType) {
         super(string, string2);
         this.type = transporterType;
         this.movementSpeed = transporterType.defaultSpeed;
@@ -132,8 +132,7 @@ extends AnimationAndSpriteLoader.AssetType {
     public int getFrameHeight() {
         return 64;
     }
-
-    public static enum TransporterType {
+public enum TransporterType {
         HOVER_PLATFORM("Hover Platform - Player stands on top", 350.0f, "ON_TOP"),
         HELICOPTER("Helicopter - Player hangs from cable", 450.0f, "HANGING");
 
@@ -147,8 +146,7 @@ extends AnimationAndSpriteLoader.AssetType {
             this.positionMode = string3;
         }
     }
-
-    public static enum TransporterState {
+public enum TransporterState {
         IDLE("Waiting for player at platform"),
         WALK("Moving horizontally along path"),
         DROP("Descending to pick up player"),

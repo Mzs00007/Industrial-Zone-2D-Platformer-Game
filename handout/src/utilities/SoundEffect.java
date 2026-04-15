@@ -1,9 +1,12 @@
-/*
- * Decompiled with CFR 0.152.
- */
 package utilities;
 
-public static class AudioSystem.SoundEffect {
+import java.io.File;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+
+public class SoundEffect {
     private String name;
     private String filePath;
     private float volume = 1.0f;
@@ -13,40 +16,58 @@ public static class AudioSystem.SoundEffect {
     private boolean looping = false;
     private float playbackPosition = 0.0f;
     private float duration = 0.0f;
+    private Clip clip;
+    private long pausePosition = 0L;
 
-    public AudioSystem.SoundEffect(String string, String string2) {
+    public SoundEffect(String string, String string2) {
         this.name = string;
         this.filePath = string2;
     }
 
     public void play() {
-        this.isPlaying = true;
-        this.playbackPosition = 0.0f;
+        try {
+            if (clip != null && clip.isOpen()) { clip.close(); }
+            AudioInputStream ais = AudioSystem.getAudioInputStream(new File(filePath));
+            clip = AudioSystem.getClip();
+            clip.open(ais);
+            applyVolume();
+            pausePosition = 0L;
+            if (looping) { clip.loop(Clip.LOOP_CONTINUOUSLY); }
+            else          { clip.start(); }
+            isPlaying = true;
+            playbackPosition = 0.0f;
+        } catch (Exception e) {
+            System.err.println("[SoundEffect] Cannot play " + filePath + ": " + e.getMessage());
+        }
     }
 
     public void stop() {
-        this.isPlaying = false;
-        this.playbackPosition = 0.0f;
+        if (clip != null) { clip.stop(); clip.close(); }
+        isPlaying = false;
+        playbackPosition = 0.0f;
+        pausePosition = 0L;
     }
 
     public void pause() {
-        this.isPlaying = false;
+        if (clip != null && clip.isRunning()) {
+            pausePosition = clip.getMicrosecondPosition();
+            clip.stop();
+        }
+        isPlaying = false;
     }
 
     public void resume() {
-        this.isPlaying = true;
+        if (clip != null && !clip.isRunning()) {
+            clip.setMicrosecondPosition(pausePosition);
+            clip.start();
+            isPlaying = true;
+        }
     }
 
     public void update(float f) {
-        if (this.isPlaying) {
-            this.playbackPosition += f;
-            if (this.playbackPosition >= this.duration) {
-                if (this.looping) {
-                    this.playbackPosition = 0.0f;
-                } else {
-                    this.isPlaying = false;
-                }
-            }
+        if (clip != null && isPlaying) {
+            isPlaying = clip.isRunning();
+            playbackPosition = clip.getMicrosecondPosition() / 1_000_000.0f;
         }
     }
 
@@ -75,7 +96,16 @@ public static class AudioSystem.SoundEffect {
     }
 
     public void setVolume(float f) {
-        this.volume = Math.max(0.0f, Math.min(1.0f, f));
+        volume = Math.max(0.0f, Math.min(1.0f, f));
+        applyVolume();
+    }
+
+    private void applyVolume() {
+        if (clip != null && clip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
+            FloatControl gain = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            float dB = (volume > 0.0001f) ? (float)(20.0 * Math.log10(volume)) : gain.getMinimum();
+            gain.setValue(Math.max(gain.getMinimum(), Math.min(gain.getMaximum(), dB)));
+        }
     }
 
     public float getVolume() {
@@ -91,7 +121,11 @@ public static class AudioSystem.SoundEffect {
     }
 
     public void setPan(float f) {
-        this.pan = Math.max(-1.0f, Math.min(1.0f, f));
+        pan = Math.max(-1.0f, Math.min(1.0f, f));
+        if (clip != null && clip.isControlSupported(FloatControl.Type.PAN)) {
+            FloatControl panCtrl = (FloatControl) clip.getControl(FloatControl.Type.PAN);
+            panCtrl.setValue(Math.max(panCtrl.getMinimum(), Math.min(panCtrl.getMaximum(), pan)));
+        }
     }
 
     public float getPan() {

@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package controllers;
-
-public static class ComprehensiveTileMapLoader.AnimatedObject {
+public class AnimatedObject {
     public String name;
     public String filePath;
     public int frameCount;
@@ -11,7 +10,7 @@ public static class ComprehensiveTileMapLoader.AnimatedObject {
     public int frameHeight;
     public int animationSpeed;
 
-    public ComprehensiveTileMapLoader.AnimatedObject(String string, String string2) {
+    public AnimatedObject(String string, String string2) {
         this.name = string;
         this.filePath = string2;
         this.frameCount = 1;

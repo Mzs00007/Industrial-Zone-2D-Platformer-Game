@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.ProjectileTracerProperties {
+public class ProjectileTracerProperties {
     public static final String FX_TYPE = "projectile_tracer";
     public static final String DIRECTORY = "Resources/industrial-zone/weapons/1/4 Shoot effects";
     public static final int TRACER_TYPES = 5;

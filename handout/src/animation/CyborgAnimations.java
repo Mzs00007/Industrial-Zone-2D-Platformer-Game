@@ -6,8 +6,7 @@ package animation;
 import animation.AnimationAndSpriteLoader;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-public static class AnimationAndSpriteLoader.PlayerCharacterAnimations.CyborgAnimations {
+public class CyborgAnimations {
     public static final String CHARACTER = "cyborg";
     public static final String BASE_PATH = "Resources/industrial-zone/characters/player/cyborg";
     public static final Map<String, AnimationAndSpriteLoader.AnimationConfig> ANIMATIONS = new LinkedHashMap<String, AnimationAndSpriteLoader.AnimationConfig>(){

@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static final class AnimationAndSpriteLoader.ParallaxBackgroundSystem.Phase3ScrollCalculation.ExampleLevel2 {
+public final class ExampleLevel2 {
     public static final String SCENARIO = "Player at X=4000, Near Structure (0.45x)";
     public static final int PLAYER_X = 4000;
     public static final float PARALLAX_FACTOR = 0.45f;

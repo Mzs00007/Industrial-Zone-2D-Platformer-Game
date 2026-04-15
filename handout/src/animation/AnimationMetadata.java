@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.AnimationMetadata {
+public class AnimationMetadata {
     public String spriteKey;
     public String spriteFile;
     public String[] animationNames;
@@ -13,7 +12,7 @@ public static class AnimationAndSpriteLoader.AnimationMetadata {
     public String[] soundTriggers;
     public float[] triggerFramePercent;
 
-    public AnimationAndSpriteLoader.AnimationMetadata(String string, String string2) {
+    public AnimationMetadata(String string, String string2) {
         this.spriteKey = string;
         this.spriteFile = string2;
         this.animationNames = new String[0];

@@ -4,12 +4,11 @@
 package animation;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class AnimationAndSpriteLoader.VFXController
+public class VFXController
 extends AnimationAndSpriteLoader.EntityAnimationController {
     private long effectStartTime = System.currentTimeMillis();
 
-    public AnimationAndSpriteLoader.VFXController(AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody physicsBody) {
+    public VFXController(AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody physicsBody) {
         super(physicsBody);
     }
 
@@ -37,25 +36,25 @@ extends AnimationAndSpriteLoader.EntityAnimationController {
     public static String getVFXAssetPath(VFXType vFXType, String string) {
         switch (vFXType.ordinal()) {
             case 0: {
-                return AnimationAndSpriteLoader.VFX_SMOKE + AnimationAndSpriteLoader.VFXController.getSmokeEffect(string);
+                return AnimationAndSpriteLoader.VFX_SMOKE + VFXController.getSmokeEffect(string);
             }
             case 1: {
-                return AnimationAndSpriteLoader.VFX_BLOOD + AnimationAndSpriteLoader.VFXController.getBloodEffect(string);
+                return AnimationAndSpriteLoader.VFX_BLOOD + VFXController.getBloodEffect(string);
             }
             case 2: {
-                return AnimationAndSpriteLoader.VFX_SPARKS + AnimationAndSpriteLoader.VFXController.getSparkEffect(string);
+                return AnimationAndSpriteLoader.VFX_SPARKS + VFXController.getSparkEffect(string);
             }
             case 3: {
-                return AnimationAndSpriteLoader.VFX_PARTICLES + AnimationAndSpriteLoader.VFXController.getParticleEffect(string);
+                return AnimationAndSpriteLoader.VFX_PARTICLES + VFXController.getParticleEffect(string);
             }
             case 4: {
-                return AnimationAndSpriteLoader.VFX_OTHER + AnimationAndSpriteLoader.VFXController.getStarEffect(string);
+                return AnimationAndSpriteLoader.VFX_OTHER + VFXController.getStarEffect(string);
             }
             case 5: {
-                return AnimationAndSpriteLoader.VFX_EXTRA_CHARACTER + AnimationAndSpriteLoader.VFXController.getCharacterEffect(string);
+                return AnimationAndSpriteLoader.VFX_EXTRA_CHARACTER + VFXController.getCharacterEffect(string);
             }
             case 6: {
-                return AnimationAndSpriteLoader.VFX_EXTRA_OBJECTS + AnimationAndSpriteLoader.VFXController.getDestructionEffect(string);
+                return AnimationAndSpriteLoader.VFX_EXTRA_OBJECTS + VFXController.getDestructionEffect(string);
             }
         }
         return "Resources/industrial-zone/vfx/1 Smoke/01_VFX_Smoke_Frame01_DenseThickCloud_SmokeAnim_Loop_80ms.png";
@@ -198,8 +197,7 @@ extends AnimationAndSpriteLoader.EntityAnimationController {
         }
         return "01_VFX_Objects_Box1_Destruction_WoodSplinter_5Frame.png";
     }
-
-    public static enum VFXType {
+public enum VFXType {
         SMOKE,
         BLOOD,
         SPARKS,

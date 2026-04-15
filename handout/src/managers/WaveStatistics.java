@@ -2,14 +2,13 @@
  * Decompiled with CFR 0.152.
  */
 package managers;
-
-public static class EnemyWaveManager.WaveStatistics {
+public class WaveStatistics {
     public int totalWaves;
     public int completedWaves;
     public int totalEnemies;
     public float progress;
 
-    public EnemyWaveManager.WaveStatistics(int n, int n2, int n3, float f) {
+    public WaveStatistics(int n, int n2, int n3, float f) {
         this.totalWaves = n;
         this.completedWaves = n2;
         this.totalEnemies = n3;

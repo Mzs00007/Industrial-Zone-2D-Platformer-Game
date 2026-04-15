@@ -5,8 +5,7 @@ package controllers;
 
 import animation.AnimationAndSpriteLoader;
 import java.awt.image.BufferedImage;
-
-public static class AnimatedObjectManager.AnimatedObjectInstance {
+public class AnimatedObjectInstance {
     public String typeName;
     public float x;
     public float y;
@@ -21,7 +20,7 @@ public static class AnimatedObjectManager.AnimatedObjectInstance {
     public AnimationAndSpriteLoader.AssetType asset;
     public String assetPath;
 
-    public AnimatedObjectManager.AnimatedObjectInstance(String string, float f, float f2, float f3, float f4) {
+    public AnimatedObjectInstance(String string, float f, float f2, float f3, float f4) {
         this.typeName = string;
         this.x = f;
         this.y = f2;

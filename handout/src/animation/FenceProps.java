@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.StaticPropProperties.FenceProps {
+public class FenceProps {
     public static final String PROP_TYPE = "fence";
     public static final String DIRECTORY = "Resources/industrial-zone/1 Tiles/Industrial_zone_level_1/3 Objects";
     public static final int FENCE_VARIANTS = 3;

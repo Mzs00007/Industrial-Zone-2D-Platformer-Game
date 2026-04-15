@@ -1,4 +1,5 @@
 package game2D;
+import game2D.*;
 
 import javax.swing.ImageIcon;
 

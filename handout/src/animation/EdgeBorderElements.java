@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.TilesetProperties.EdgeBorderElements {
+public class EdgeBorderElements {
     public static final String TILE_TYPE = "edge_border";
     public static final String TILE_FAMILY = "Border Details";
     public static final String DIRECTORY = "Resources/industrial-zone/1 Tiles/power-station-level-2/1 Tiles";

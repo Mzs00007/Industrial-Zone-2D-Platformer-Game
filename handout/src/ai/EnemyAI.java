@@ -4,8 +4,7 @@
 package ai;
 
 import ai.AI;
-
-public static class AI.EnemyAI
+public class EnemyAI
 extends AI.AIAgent {
     private AI.AIPathfinder pathfinder;
     private AI.AIPathfinder.Path currentPath;
@@ -20,7 +19,7 @@ extends AI.AIAgent {
     private float attackCooldown = 0.0f;
     private float attackRange = 40.0f;
 
-    public AI.EnemyAI(String string, AI.AIPathfinder aIPathfinder) {
+    public EnemyAI(String string, AI.AIPathfinder aIPathfinder) {
         super(string);
         this.pathfinder = aIPathfinder;
         this.behavior = new EnemyBehavior(this);
@@ -247,10 +246,9 @@ extends AI.AIAgent {
         this.currentPath = path;
         this.currentWaypointIndex = 0;
     }
-
-    private class EnemyBehavior
+class EnemyBehavior
     implements AI.AIBehavior {
-        private EnemyBehavior(AI.EnemyAI enemyAI) {
+        private EnemyBehavior(EnemyAI enemyAI) {
         }
 
         @Override

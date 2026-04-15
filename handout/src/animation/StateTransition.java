@@ -4,8 +4,7 @@
 package animation;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class AnimationAndSpriteLoader.StateTransition {
+public class StateTransition {
     public AnimationAndSpriteLoader.AnimationState fromState;
     public AnimationAndSpriteLoader.AnimationState toState;
     public float gravityMultiplier;
@@ -13,7 +12,7 @@ public static class AnimationAndSpriteLoader.StateTransition {
     public boolean canInterrupt;
     public String description;
 
-    public AnimationAndSpriteLoader.StateTransition(AnimationAndSpriteLoader.AnimationState animationState, AnimationAndSpriteLoader.AnimationState animationState2, float f, float f2, boolean bl, String string) {
+    public StateTransition(AnimationAndSpriteLoader.AnimationState animationState, AnimationAndSpriteLoader.AnimationState animationState2, float f, float f2, boolean bl, String string) {
         this.fromState = animationState;
         this.toState = animationState2;
         this.gravityMultiplier = f;

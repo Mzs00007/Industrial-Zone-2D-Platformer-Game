@@ -2,10 +2,8 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.InteractiveObjectProperties {
-
-    public static class DecoScreenRedMonitor {
+public class InteractiveObjectProperties {
+public class DecoScreenRedMonitor {
         public static final String OBJECT_NAME = "Deco Screen Red";
         public static final String OBJECT_TYPE = "deco_screen_red";
         public static final String DIRECTORY = "Resources/industrial-zone/1 Tiles/Industrial_zone_level_1/4 Animated objects";
@@ -19,8 +17,7 @@ public static class AnimationAndSpriteLoader.InteractiveObjectProperties {
         public static final int FRAME_HEIGHT = 80;
         public static final String FILE = "Anim_Deco_Screen2_4Frames1Row_RedBlueMonitorFlicker_WallPanelAltDeco_Loop150ms.png";
     }
-
-    public static class DecoScreenBlueMonitor {
+public class DecoScreenBlueMonitor {
         public static final String OBJECT_NAME = "Deco Screen Blue";
         public static final String OBJECT_TYPE = "deco_screen_blue";
         public static final String DIRECTORY = "Resources/industrial-zone/1 Tiles/Industrial_zone_level_1/4 Animated objects";
@@ -34,8 +31,7 @@ public static class AnimationAndSpriteLoader.InteractiveObjectProperties {
         public static final int FRAME_HEIGHT = 80;
         public static final String FILE = "Anim_Deco_Screen1_4Frames1Row_BlueMonitorFlicker_WallPanelTechDeco_Loop150ms.png";
     }
-
-    public static class CollectibleCard {
+public class CollectibleCard {
         public static final String OBJECT_NAME = "Card Collectible";
         public static final String OBJECT_TYPE = "collectible_card";
         public static final String DIRECTORY = "Resources/industrial-zone/1 Tiles/Industrial_zone_level_1/4 Animated objects";
@@ -49,8 +45,7 @@ public static class AnimationAndSpriteLoader.InteractiveObjectProperties {
         public static final int FRAME_HEIGHT = 64;
         public static final String FILE = "Anim_Collectible_Card_6Frames1Row_WhiteBlueSpinningFloat_PickupItem_Loop80ms.png";
     }
-
-    public static class CollectibleMoney {
+public class CollectibleMoney {
         public static final String OBJECT_NAME = "Money Collectible";
         public static final String OBJECT_TYPE = "collectible_money";
         public static final String DIRECTORY = "Resources/industrial-zone/1 Tiles/Industrial_zone_level_1/4 Animated objects";

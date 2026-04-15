@@ -1,4 +1,5 @@
 package combat;
+import game2D.*;
 
 import animation.InputController;
 import animation.InputController.PixelCopyHelper;

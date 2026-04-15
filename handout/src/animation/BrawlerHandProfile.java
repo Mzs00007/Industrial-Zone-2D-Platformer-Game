@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.CharacterHandPositionSystem.BrawlerHandProfile {
+public class BrawlerHandProfile {
     public static final String CHARACTER_TYPE = "brawler";
     public static final String CHARACTER_DESC = "Melee bruiser - powerful grip, slow but devastating";
     public static final float HAND_SPEED_MULTIPLIER = 0.8f;
@@ -13,16 +12,14 @@ public static class AnimationAndSpriteLoader.CharacterHandPositionSystem.Brawler
     public static final int LEFT_HAND_Y = -12;
     public static final int RIGHT_HAND_X = 22;
     public static final int RIGHT_HAND_Y = -12;
-
-    public static class HandJoints {
+public class HandJoints {
         public static final int WRIST_OFFSET_X = 8;
         public static final int WRIST_OFFSET_Y = 5;
         public static final int PALM_OFFSET_X = 12;
         public static final int PALM_OFFSET_Y = 8;
         public static final int FINGER_SPREAD = 6;
     }
-
-    public static class AnimationOffsets {
+public class AnimationOffsets {
         public static final int REACH_X_OFFSET = 32;
         public static final int REACH_Y_OFFSET = -8;
         public static final int REACH_DURATION_MS = 400;

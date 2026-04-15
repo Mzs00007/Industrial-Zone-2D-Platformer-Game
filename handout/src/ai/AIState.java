@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package ai;
-
-public static enum AI.AIState {
+public enum AIState {
     IDLE("idle"),
     PATROL("patrol"),
     ALERT("alert"),
@@ -16,7 +15,7 @@ public static enum AI.AIState {
 
     private final String displayName;
 
-    private AI.AIState(String string2) {
+    private AIState(String string2) {
         this.displayName = string2;
     }
 

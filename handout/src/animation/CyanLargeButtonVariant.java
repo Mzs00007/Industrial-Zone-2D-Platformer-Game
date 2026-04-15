@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static final class AnimationAndSpriteLoader.ButtonVariants.CyanLargeButtonVariant {
+public final class CyanLargeButtonVariant {
     public static final String VARIANT_NAME = "Large Cyan";
     public static final String SPRITESHEET = "08_GUI_Button_CyanLarge_4StatesVertical_FullWidthButton.png";
     public static final int NORMAL_STATE = 0;

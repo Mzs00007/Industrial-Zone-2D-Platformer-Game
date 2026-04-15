@@ -2,15 +2,14 @@
  * Decompiled with CFR 0.152.
  */
 package managers;
-
-public static class Core.StateMachine<T extends Enum<T>> {
+public class StateMachine<T extends Enum<T>> {
     private T currentState;
     private T previousState;
     private long stateTransitionTime;
     private int transitionCount;
     private StateChangeListener<T> stateChangeListener;
 
-    public Core.StateMachine(T t) {
+    public StateMachine(T t) {
         this.currentState = t;
         this.previousState = null;
         this.stateTransitionTime = 0L;
@@ -62,8 +61,7 @@ public static class Core.StateMachine<T extends Enum<T>> {
     public int getTransitionCount() {
         return this.transitionCount;
     }
-
-    public static interface StateChangeListener<E> {
+public interface StateChangeListener<E> {
         public void onStateChange(E var1, E var2);
     }
 }

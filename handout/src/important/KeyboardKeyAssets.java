@@ -1,0 +1,81 @@
+package important;
+
+/**
+ * Keyboard Key Assets
+ * Auto-generated from assets-manifest.json
+ * Total: 66 assets
+ * Date: 2026-04-14
+ */
+public enum KeyboardKeyAssets {
+
+    ASSET_KEY_0_NUMBER_SELECTITEM5ORQUICKSLOT0_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_0_Number_SelectItem5OrQuickslot0_CombatAction.png"),
+    ASSET_KEY_1_NUMBER_SELECTWEAPON1ORABILITY1_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_1_Number_SelectWeapon1OrAbility1_CombatAction.png"),
+    ASSET_KEY_2_NUMBER_SELECTWEAPON2ORABILITY2_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_2_Number_SelectWeapon2OrAbility2_CombatAction.png"),
+    ASSET_KEY_3_NUMBER_SELECTWEAPON3ORABILITY3_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_3_Number_SelectWeapon3OrAbility3_CombatAction.png"),
+    ASSET_KEY_4_NUMBER_SELECTWEAPON4ORABILITY4_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_4_Number_SelectWeapon4OrAbility4_CombatAction.png"),
+    ASSET_KEY_5_NUMBER_SELECTWEAPON5ORABILITY5_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_5_Number_SelectWeapon5OrAbility5_CombatAction.png"),
+    ASSET_KEY_6_NUMBER_SELECTITEM1ORQUICKSLOT6_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_6_Number_SelectItem1OrQuickslot6_CombatAction.png"),
+    ASSET_KEY_7_NUMBER_SELECTITEM2ORQUICKSLOT7_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_7_Number_SelectItem2OrQuickslot7_CombatAction.png"),
+    ASSET_KEY_8_NUMBER_SELECTITEM3ORQUICKSLOT8_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_8_Number_SelectItem3OrQuickslot8_CombatAction.png"),
+    ASSET_KEY_9_NUMBER_SELECTITEM4ORQUICKSLOT9_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_9_Number_SelectItem4OrQuickslot9_CombatAction.png"),
+    ASSET_KEY_ALT_MODIFIER_ALTERNATEMODEORAIM_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_Alt_Modifier_AlternateModeOrAim_CombatAction.png"),
+    ASSET_KEY_ARROWDOWN_DIRECTION_MOVEDOWNORCROUCH_MOVEMENTTUTORIAL("Resources/industrial-zone/KeyBoard_Keys/Key_ArrowDown_Direction_MoveDownOrCrouch_MovementTutorial.png"),
+    ASSET_KEY_ARROWLEFT_DIRECTION_MOVELEFTORPREVITEM_MOVEMENTTUTORIAL("Resources/industrial-zone/KeyBoard_Keys/Key_ArrowLeft_Direction_MoveLeftOrPrevItem_MovementTutorial.png"),
+    ASSET_KEY_ARROWRIGHT_DIRECTION_MOVERIGHTORNEXTITEM_MOVEMENTTUTORIAL("Resources/industrial-zone/KeyBoard_Keys/Key_ArrowRight_Direction_MoveRightOrNextItem_MovementTutorial.png"),
+    ASSET_KEY_ARROWUP_DIRECTION_MOVEUPORSCROLLMENU_MOVEMENTTUTORIAL("Resources/industrial-zone/KeyBoard_Keys/Key_ArrowUp_Direction_MoveUpOrScrollMenu_MovementTutorial.png"),
+    ASSET_KEY_A_LETTER_MOVELEFTORSTRAFELEFT_MOVEMENTTUTORIAL("Resources/industrial-zone/KeyBoard_Keys/Key_A_Letter_MoveLeftOrStrafeLeft_MovementTutorial.png"),
+    ASSET_KEY_B2_LETTER_BOMBORSPECIALATTACK_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_B2_Letter_BombOrSpecialAttack_CombatAction.png"),
+    ASSET_KEY_B_LETTER_BLOCKORSHIELD_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_B_Letter_BlockOrShield_CombatAction.png"),
+    ASSET_KEY_CAPSLOCK_SPECIAL_ALTERNATEMODIFIER_UICONTROL("Resources/industrial-zone/KeyBoard_Keys/Key_CapsLock_Special_AlternateModifier_UIControl.png"),
+    ASSET_KEY_COMMA_SYMBOL_PREVIOUSTARGETORDECREASEZOOM_UICONTROL("Resources/industrial-zone/KeyBoard_Keys/Key_Comma_Symbol_PreviousTargetOrDecreaseZoom_UIControl.png"),
+    ASSET_KEY_CTRL_MODIFIER_CROUCHORSPRINTMODIFIER_MOVEMENTTUTORIAL("Resources/industrial-zone/KeyBoard_Keys/Key_Ctrl_Modifier_CrouchOrSprintModifier_MovementTutorial.png"),
+    ASSET_KEY_C_LETTER_CROUCHORCOVERMODE_MOVEMENTTUTORIAL("Resources/industrial-zone/KeyBoard_Keys/Key_C_Letter_CrouchOrCoverMode_MovementTutorial.png"),
+    ASSET_KEY_D_LETTER_MOVERIGHTORSTRAFERIGHT_MOVEMENTTUTORIAL("Resources/industrial-zone/KeyBoard_Keys/Key_D_Letter_MoveRightOrStrafeRight_MovementTutorial.png"),
+    ASSET_KEY_ENTER_SPECIAL_CONFIRMORINTERACT_UINAVIGATION("Resources/industrial-zone/KeyBoard_Keys/Key_Enter_Special_ConfirmOrInteract_UINavigation.png"),
+    ASSET_KEY_ESCAPE_FUNCTION_PAUSEORQUITGAME_UICONTROL("Resources/industrial-zone/KeyBoard_Keys/Key_Escape_Function_PauseOrQuitGame_UIControl.png"),
+    ASSET_KEY_E_LETTER_INTERACTORUSEOBJECT_ACTIONTUTORIAL("Resources/industrial-zone/KeyBoard_Keys/Key_E_Letter_InteractOrUseObject_ActionTutorial.png"),
+    ASSET_KEY_F10_FUNCTION_EXTRAACTION2_UICONTROL("Resources/industrial-zone/KeyBoard_Keys/Key_F10_Function_ExtraAction2_UIControl.png"),
+    ASSET_KEY_F11_FUNCTION_FULLSCREENTOGGLE_UICONTROL("Resources/industrial-zone/KeyBoard_Keys/Key_F11_Function_FullscreenToggle_UIControl.png"),
+    ASSET_KEY_F12_FUNCTION_DEVELOPERCONSOLE_UICONTROL("Resources/industrial-zone/KeyBoard_Keys/Key_F12_Function_DeveloperConsole_UIControl.png"),
+    ASSET_KEY_F1_FUNCTION_HELPORTUTORIALOVERLAY_UICONTROL("Resources/industrial-zone/KeyBoard_Keys/Key_F1_Function_HelpOrTutorialOverlay_UIControl.png"),
+    ASSET_KEY_F2_FUNCTION_DEBUGTOGGLEORMAP_UICONTROL("Resources/industrial-zone/KeyBoard_Keys/Key_F2_Function_DebugToggleOrMap_UIControl.png"),
+    ASSET_KEY_F3_FUNCTION_INVENTORYORSTATS_UICONTROL("Resources/industrial-zone/KeyBoard_Keys/Key_F3_Function_InventoryOrStats_UIControl.png"),
+    ASSET_KEY_F4_FUNCTION_AUDIOTOGGLEORSETTINGS_UICONTROL("Resources/industrial-zone/KeyBoard_Keys/Key_F4_Function_AudioToggleOrSettings_UIControl.png"),
+    ASSET_KEY_F5_FUNCTION_QUICKSAVEORCHECKPOINT_UICONTROL("Resources/industrial-zone/KeyBoard_Keys/Key_F5_Function_QuickSaveOrCheckpoint_UIControl.png"),
+    ASSET_KEY_F6_FUNCTION_QUICKLOADORRESTART_UICONTROL("Resources/industrial-zone/KeyBoard_Keys/Key_F6_Function_QuickLoadOrRestart_UIControl.png"),
+    ASSET_KEY_F7_FUNCTION_SCREENSHOTORRECORD_UICONTROL("Resources/industrial-zone/KeyBoard_Keys/Key_F7_Function_ScreenshotOrRecord_UIControl.png"),
+    ASSET_KEY_F8_FUNCTION_SPEEDTOGGLEORREWIND_UICONTROL("Resources/industrial-zone/KeyBoard_Keys/Key_F8_Function_SpeedToggleOrRewind_UIControl.png"),
+    ASSET_KEY_F9_FUNCTION_EXTRAACTION1_UICONTROL("Resources/industrial-zone/KeyBoard_Keys/Key_F9_Function_ExtraAction1_UIControl.png"),
+    ASSET_KEY_F_LETTER_ACTIONORFIREWEAPON_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_F_Letter_ActionOrFireWeapon_CombatAction.png"),
+    ASSET_KEY_G_LETTER_THROWGRENADEORPICKUP_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_G_Letter_ThrowGrenadeOrPickup_CombatAction.png"),
+    ASSET_KEY_H_LETTER_HEALORHELP_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_H_Letter_HealOrHelp_CombatAction.png"),
+    ASSET_KEY_I_LETTER_INVENTORYOPEN_UINAVIGATION("Resources/industrial-zone/KeyBoard_Keys/Key_I_Letter_InventoryOpen_UINavigation.png"),
+    ASSET_KEY_J_LETTER_JOURNALORJUMP2_UINAVIGATION("Resources/industrial-zone/KeyBoard_Keys/Key_J_Letter_JournalOrJump2_UINavigation.png"),
+    ASSET_KEY_K_LETTER_KICKORSKILLTREE_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_K_Letter_KickOrSkillTree_CombatAction.png"),
+    ASSET_KEY_L_LETTER_LOCKONTARGETORLIGHT_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_L_Letter_LockOnTargetOrLight_CombatAction.png"),
+    ASSET_KEY_L_LETTER_LOCKTARGETORLOG_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_L_Letter_LockTargetOrLog_CombatAction.png"),
+    ASSET_KEY_M2_LETTER_MELEEORMOVE_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_M2_Letter_MeleeOrMove_CombatAction.png"),
+    ASSET_KEY_MINUS_SYMBOL_ZOOMOUTORDECREASEVALUE_UICONTROL("Resources/industrial-zone/KeyBoard_Keys/Key_Minus_Symbol_ZoomOutOrDecreaseValue_UIControl.png"),
+    ASSET_KEY_M_LETTER_MAPORMELEEATTACK_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_M_Letter_MapOrMeleeAttack_CombatAction.png"),
+    ASSET_KEY_N2_LETTER_NEXTWEAPONORNOTIFICATION_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_N2_Letter_NextWeaponOrNotification_CombatAction.png"),
+    ASSET_KEY_N_LETTER_NOTEPADORNEXTOBJECTIVE_UINAVIGATION("Resources/industrial-zone/KeyBoard_Keys/Key_N_Letter_NotepadOrNextObjective_UINavigation.png"),
+    ASSET_KEY_O_LETTER_OBJECTIVEORMAP_UINAVIGATION("Resources/industrial-zone/KeyBoard_Keys/Key_O_Letter_ObjectiveOrMap_UINavigation.png"),
+    ASSET_KEY_PERIOD_SYMBOL_NEXTTARGETORINCREASEZOOM_UICONTROL("Resources/industrial-zone/KeyBoard_Keys/Key_Period_Symbol_NextTargetOrIncreaseZoom_UIControl.png"),
+    ASSET_KEY_P_LETTER_PAUSEGAME_UICONTROL("Resources/industrial-zone/KeyBoard_Keys/Key_P_Letter_PauseGame_UIControl.png"),
+    ASSET_KEY_Q_LETTER_SWAPWEAPONORSPECIALLEFT_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_Q_Letter_SwapWeaponOrSpecialLeft_CombatAction.png"),
+    ASSET_KEY_R_LETTER_RELOADORRESPAWN_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_R_Letter_ReloadOrRespawn_CombatAction.png"),
+    ASSET_KEY_SPACEBAR_SPECIAL_JUMPORCONFIRM_MOVEMENTTUTORIAL("Resources/industrial-zone/KeyBoard_Keys/Key_Spacebar_Special_JumpOrConfirm_MovementTutorial.png"),
+    ASSET_KEY_S_LETTER_MOVEDOWNORCROUCH_MOVEMENTTUTORIAL("Resources/industrial-zone/KeyBoard_Keys/Key_S_Letter_MoveDownOrCrouch_MovementTutorial.png"),
+    ASSET_KEY_TAB_SPECIAL_INVENTORYORMAPTOGGLE_UINAVIGATION("Resources/industrial-zone/KeyBoard_Keys/Key_Tab_Special_InventoryOrMapToggle_UINavigation.png"),
+    ASSET_KEY_T_LETTER_THROWORTAUNT_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_T_Letter_ThrowOrTaunt_CombatAction.png"),
+    ASSET_KEY_U_LETTER_USEITEMORUPGRADE_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_U_Letter_UseItemOrUpgrade_CombatAction.png"),
+    ASSET_KEY_V_LETTER_VAULTORMELEEFINISHER_MOVEMENTTUTORIAL("Resources/industrial-zone/KeyBoard_Keys/Key_V_Letter_VaultOrMeleeFinisher_MovementTutorial.png"),
+    ASSET_KEY_W_LETTER_MOVEUPORFORWARD_MOVEMENTTUTORIAL("Resources/industrial-zone/KeyBoard_Keys/Key_W_Letter_MoveUpOrForward_MovementTutorial.png"),
+    ASSET_KEY_X_LETTER_EXECUTEORDODGE_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_X_Letter_ExecuteOrDodge_CombatAction.png"),
+    ASSET_KEY_Y_LETTER_EXTRAACTIONORYES_UICONTROL("Resources/industrial-zone/KeyBoard_Keys/Key_Y_Letter_ExtraActionOrYes_UIControl.png"),
+    ASSET_KEY_Z_LETTER_ZOOMORROLLLEFT_COMBATACTION("Resources/industrial-zone/KeyBoard_Keys/Key_Z_Letter_ZoomOrRollLeft_CombatAction.png")
+;
+    private final String path;
+    KeyboardKeyAssets(String path) { this.path = path; }
+    public String getPath() { return path; }
+}

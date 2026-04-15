@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static final class AnimationAndSpriteLoader.ButtonVariants.OrangeWarningButtonVariant {
+public final class OrangeWarningButtonVariant {
     public static final String VARIANT_NAME = "Warning/Danger";
     public static final String SPRITESHEET = "07_GUI_Button_OrangeWarning_4StatesVertical_AlertColor.png";
     public static final int NORMAL_STATE = 0;

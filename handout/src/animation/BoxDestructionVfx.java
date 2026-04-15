@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.DestructibleObjectVfx.BoxDestructionVfx {
+public class BoxDestructionVfx {
     public static final String OBJECT_NAME = "Box Crate Destruction";
     public static final String OBJECT_TYPE = "box";
     public static final String DIRECTORY = "Resources/industrial-zone/vfx/6 Extra/Objects";

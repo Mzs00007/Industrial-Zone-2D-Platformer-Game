@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static final class AnimationAndSpriteLoader.ParallaxRenderingPipeline.Phase2VariantSelection.NightVariantRules {
+public final class NightVariantRules {
     public static final String VARIANT_NAME = "NIGHT";
     public static final String LEVEL = "Power Station Level 2 ONLY";
     public static final String TIME_RANGE = "18:00 to 6:00 (12 hours)";

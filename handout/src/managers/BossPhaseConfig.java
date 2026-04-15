@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package managers;
-
-public static class GameplayEnhancementSystem.BossPhaseConfig {
+public class BossPhaseConfig {
     public int phase;
     public int hpStart;
     public int hpEnd;
@@ -12,7 +11,7 @@ public static class GameplayEnhancementSystem.BossPhaseConfig {
     public int screenShakeIntensity;
     public boolean slowAttacks;
 
-    public GameplayEnhancementSystem.BossPhaseConfig(int n, int n2, int n3, int n4, float f, int n5, boolean bl) {
+    public BossPhaseConfig(int n, int n2, int n3, int n4, float f, int n5, boolean bl) {
         this.phase = n;
         this.hpStart = n2;
         this.hpEnd = n3;

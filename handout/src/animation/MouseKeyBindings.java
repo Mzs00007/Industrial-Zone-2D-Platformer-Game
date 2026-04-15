@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.MouseKeyBindings {
+public class MouseKeyBindings {
     public static final String INPUT_TYPE = "mouse_key";
     public static final String DIRECTORY = "Resources/industrial-zone/Mouse_keys";
     public static final int TOTAL_MOUSE_BINDINGS = 18;

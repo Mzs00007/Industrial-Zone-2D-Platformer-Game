@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.BulletSpawner {
+public class BulletSpawner {
     public static final String SYSTEM_TYPE = "bullet_spawner";
 
     public static String selectBulletForGun(String string) {
@@ -26,12 +25,11 @@ public static class AnimationAndSpriteLoader.BulletSpawner {
     }
 
     public static BulletInstance fireWeapon(String string, float f, float f2, int n) {
-        String string2 = AnimationAndSpriteLoader.BulletSpawner.selectBulletForGun(string);
+        String string2 = BulletSpawner.selectBulletForGun(string);
         float f3 = (float)n * 36.0f;
         return new BulletInstance(string2, f, f2, f3);
     }
-
-    public static class BulletInstance {
+public class BulletInstance {
         public String bulletType;
         public float x;
         public float y;

@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.SpriteChainSystems.WeaponFireChain {
+public class WeaponFireChain {
     public static final String CHAIN_NAME = "weapon_fire";
     public static final String START_POINT = "GunProperties.GUN_[TYPE]_[VARIANT]";
     public static final String STEP_1_WEAPON_SELECT = "GunProperties - Select specific gun file";

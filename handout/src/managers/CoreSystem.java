@@ -1,7 +1,7 @@
 package managers;
 
 import physics.PhysicsSystem;
-import ui.components.game2D.*;
+import game2D.*;
 
 import java.util.*;
 

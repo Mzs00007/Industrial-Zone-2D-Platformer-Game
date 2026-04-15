@@ -3,12 +3,11 @@
  */
 package controllers;
 
-import controllers.screens.Phase12QuestTrackerScreen;
+import controllers.Phase12QuestTrackerScreen;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-
-public static class Phase12QuestTrackerScreen.Quest {
+public class Quest {
     public String title;
     public String description;
     public int currentStep;
@@ -18,7 +17,7 @@ public static class Phase12QuestTrackerScreen.Quest {
     public Color category;
     public List<Phase12QuestTrackerScreen.Objective> objectives;
 
-    public Phase12QuestTrackerScreen.Quest(String string, String string2, String string3, Phase12QuestTrackerScreen.QuestStatus questStatus, Color color) {
+    public Quest(String string, String string2, String string3, Phase12QuestTrackerScreen.QuestStatus questStatus, Color color) {
         this.title = string;
         this.description = string2;
         this.reward = string3;

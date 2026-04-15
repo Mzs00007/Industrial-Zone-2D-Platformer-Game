@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.StaticPropsSystem {
+public class StaticPropsSystem {
     public static final String TYPE_STATIC_PROPS = "static_props_system";
     public static final String DIRECTORY_LEVEL1_OBJECTS = "Resources/industrial-zone/1 Tiles/Industrial_zone_level_1/3 Objects";
     public static final String DIRECTORY_LEVEL1_ANIM = "Resources/industrial-zone/1 Tiles/Industrial_zone_level_1/4 Animated objects";

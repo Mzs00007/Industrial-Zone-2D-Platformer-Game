@@ -1,8 +1,9 @@
 package managers;
+import game2D.*;
 
 import managers.GameplayAnimationController;
 import managers.GameplayKeyboardController;
-import physics.CharacterPhysicsAnimationBridge;
+import important.CharacterPhysicsAnimationBridge;
 import vfx.GameplayVFXCoordinator;
 import utilities.GameplayAudioVisualSynchronizer;
 import controllers.GameplayMouseUIController;

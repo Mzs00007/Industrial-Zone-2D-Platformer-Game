@@ -2,11 +2,9 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.ParallaxBackgroundSystem.Phase1Initialization {
+public class Phase1Initialization {
     public static final String PHASE_NAME = "PHASE 1: LAYER ASSET INITIALIZATION";
-
-    public static final class Level2LoadSequence {
+public final class Level2LoadSequence {
         public static final String LEVEL = "Power Station Level 2";
         public static final int LAYER_COUNT_PER_VARIANT = 5;
         public static final int TOTAL_VARIANT_SETS = 2;
@@ -15,8 +13,7 @@ public static class AnimationAndSpriteLoader.ParallaxBackgroundSystem.Phase1Init
         public static final String[] NIGHT_LAYERS = new String[]{"Sky (0.0x - static night sky)", "Far Tower (0.15x - nighttime)", "Mid Tower (0.30x - nighttime)", "Near Structure (0.45x - nighttime)", "Foreground (0.60x - nighttime)"};
         public static final String OVERLAY_ASSET = "Overlay.png (blending mask for smooth transitions)";
     }
-
-    public static final class Level1LoadSequence {
+public final class Level1LoadSequence {
         public static final String LEVEL = "Industrial Zone Level 1";
         public static final int LAYER_COUNT = 5;
         public static final String LOAD_TYPE = "Single Static Variant";

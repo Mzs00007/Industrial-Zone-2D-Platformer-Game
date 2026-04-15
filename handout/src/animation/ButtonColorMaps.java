@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class GUIComponentsSystem.GUIButtonSystemProperties.ButtonColorMaps {
+public class ButtonColorMaps {
     public static final String UI_TYPE = "button_animation_spritesheet";
     public static final String DIRECTORY = "Resources/industrial-zone/gui/6 Buttons";
     public static final int TOTAL_VARIANTS = 10;

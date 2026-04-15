@@ -20,7 +20,7 @@
  *   String path = VFX_FILE.F_01_VFX_SMOKE_FRAME01.getRelativePath();
  */
 
-public class GeneratedAssetFileEnums {
+public class GENERATED_COMPLETE_ASSET_ENUMS {
 
     /**
      * vfx - All 82 files

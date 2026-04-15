@@ -3,9 +3,8 @@
  */
 package entities;
 
-import entities.enemies.Enemies;
-
-public static enum Enemies.EnemyPhysicsProfile.EnemyType {
+import entities.Enemies;
+public enum EnemyType {
     UFO_SAUCER("UfoSaucer", "drones/1/", Enemies.EnemyPhysicsProfile.EnemyCategory.DRONE),
     JET_DRONE("JetDrone", "drones/2/", Enemies.EnemyPhysicsProfile.EnemyCategory.DRONE),
     HOVER_PLATFORM("HoverPlatform", "drones/3/", Enemies.EnemyPhysicsProfile.EnemyCategory.DRONE),
@@ -17,7 +16,7 @@ public static enum Enemies.EnemyPhysicsProfile.EnemyType {
     public final String assetPath;
     public final Enemies.EnemyPhysicsProfile.EnemyCategory category;
 
-    private Enemies.EnemyPhysicsProfile.EnemyType(String string2, String string3, Enemies.EnemyPhysicsProfile.EnemyCategory enemyCategory) {
+    private EnemyType(String string2, String string3, Enemies.EnemyPhysicsProfile.EnemyCategory enemyCategory) {
         this.displayName = string2;
         this.assetPath = string3;
         this.category = enemyCategory;

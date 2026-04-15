@@ -2,20 +2,17 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.CharacterHandPositionSystem {
+public class CharacterHandPositionSystem {
     public static final String SYSTEM_TYPE = "hand_positioning";
     public static final int CHARACTER_TYPES = 3;
-
-    public static class HandAnimationTiming {
+public class HandAnimationTiming {
         public static final int TRANSITION_EASE_MS = 50;
         public static final int IDLE_FRAME_RATE = 100;
         public static final int ACTION_FRAME_RATE = 60;
         public static final float ROTATION_SPEED = 8.0f;
         public static final float INTERPOLATION_SMOOTHNESS = 0.85f;
     }
-
-    public static class HandPositionRegistry {
+public class HandPositionRegistry {
         public static final String getCharacterType(String string) {
             if (string.contains("female")) {
                 return "female_soldier";
@@ -74,8 +71,7 @@ public static class AnimationAndSpriteLoader.CharacterHandPositionSystem {
             return 1.0f;
         }
     }
-
-    public static class BrawlerHandProfile {
+public class BrawlerHandProfile {
         public static final String CHARACTER_TYPE = "brawler";
         public static final String CHARACTER_DESC = "Melee bruiser - powerful grip, slow but devastating";
         public static final float HAND_SPEED_MULTIPLIER = 0.8f;
@@ -85,16 +81,14 @@ public static class AnimationAndSpriteLoader.CharacterHandPositionSystem {
         public static final int LEFT_HAND_Y = -12;
         public static final int RIGHT_HAND_X = 22;
         public static final int RIGHT_HAND_Y = -12;
-
-        public static class HandJoints {
+public class HandJoints {
             public static final int WRIST_OFFSET_X = 8;
             public static final int WRIST_OFFSET_Y = 5;
             public static final int PALM_OFFSET_X = 12;
             public static final int PALM_OFFSET_Y = 8;
             public static final int FINGER_SPREAD = 6;
         }
-
-        public static class AnimationOffsets {
+public class AnimationOffsets {
             public static final int REACH_X_OFFSET = 32;
             public static final int REACH_Y_OFFSET = -8;
             public static final int REACH_DURATION_MS = 400;
@@ -109,8 +103,7 @@ public static class AnimationAndSpriteLoader.CharacterHandPositionSystem {
             public static final int PICKUP_DURATION_MS = 550;
         }
     }
-
-    public static class MaleSoldierHandProfile {
+public class MaleSoldierHandProfile {
         public static final String CHARACTER_TYPE = "male_soldier";
         public static final String CHARACTER_DESC = "Standard soldier - balanced strength and control";
         public static final float HAND_SPEED_MULTIPLIER = 1.0f;
@@ -120,16 +113,14 @@ public static class AnimationAndSpriteLoader.CharacterHandPositionSystem {
         public static final int LEFT_HAND_Y = -10;
         public static final int RIGHT_HAND_X = 20;
         public static final int RIGHT_HAND_Y = -10;
-
-        public static class HandJoints {
+public class HandJoints {
             public static final int WRIST_OFFSET_X = 6;
             public static final int WRIST_OFFSET_Y = 4;
             public static final int PALM_OFFSET_X = 10;
             public static final int PALM_OFFSET_Y = 6;
             public static final int FINGER_SPREAD = 5;
         }
-
-        public static class AnimationOffsets {
+public class AnimationOffsets {
             public static final int REACH_X_OFFSET = 28;
             public static final int REACH_Y_OFFSET = -3;
             public static final int REACH_DURATION_MS = 350;
@@ -144,8 +135,7 @@ public static class AnimationAndSpriteLoader.CharacterHandPositionSystem {
             public static final int PICKUP_DURATION_MS = 500;
         }
     }
-
-    public static class FemaleSoldierHandProfile {
+public class FemaleSoldierHandProfile {
         public static final String CHARACTER_TYPE = "female_soldier";
         public static final String CHARACTER_DESC = "Elite soldier - agile with precise hand control";
         public static final float HAND_SPEED_MULTIPLIER = 1.15f;
@@ -155,16 +145,14 @@ public static class AnimationAndSpriteLoader.CharacterHandPositionSystem {
         public static final int LEFT_HAND_Y = -8;
         public static final int RIGHT_HAND_X = 18;
         public static final int RIGHT_HAND_Y = -8;
-
-        public static class HandJoints {
+public class HandJoints {
             public static final int WRIST_OFFSET_X = 5;
             public static final int WRIST_OFFSET_Y = 3;
             public static final int PALM_OFFSET_X = 8;
             public static final int PALM_OFFSET_Y = 5;
             public static final int FINGER_SPREAD = 4;
         }
-
-        public static class AnimationOffsets {
+public class AnimationOffsets {
             public static final int REACH_X_OFFSET = 25;
             public static final int REACH_Y_OFFSET = -5;
             public static final int REACH_DURATION_MS = 300;

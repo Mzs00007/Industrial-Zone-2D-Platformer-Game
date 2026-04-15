@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.AnimatedObjectsSystem {
+public class AnimatedObjectsSystem {
     public static final String TYPE_ANIMATED_OBJECTS = "animated_objects_system";
     public static final String ANIM_CARD_COLLECTIBLE = "Resources/industrial-zone/1 Tiles/Industrial_zone_level_1/4 Animated objects/Anim_Collectible_Card_6Frames1Row_WhiteBlueSpinningFloat_PickupItem_Loop80ms.png";
     public static final int ANIM_CARD_FRAMES = 6;

@@ -6,8 +6,7 @@ package animation;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-
-public static class AnimationAndSpriteLoader.TileRegistry {
+public class TileRegistry {
     private static final Map<Character, String> REGISTRY = new TreeMap<Character, String>();
 
     public static String getTile(char c) {

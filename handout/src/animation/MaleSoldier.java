@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.InfantryEnemyAssetProperties.MaleSoldier {
+public class MaleSoldier {
     public static final String SOLDIER_NAME = "Infantry Male";
     public static final String SOLDIER_TYPE = "male_soldier";
     public static final String HELMET_COLOR = "Green #4A6741";

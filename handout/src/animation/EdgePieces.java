@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.GUIFrameAssetProperties.EdgePieces {
+public class EdgePieces {
     public static final String CATEGORY = "Edges";
     public static final int PIECE_COUNT = 22;
     public static final String[] TOP_EDGES = new String[]{"02_GUI_Frame_EdgeTopBar_HorizontalBlueAccentStrip_WindowTopEdge.png", "36_GUI_Frame_EdgeTopBarVariant_LighterStripe_WindowTopEdge.png", "44_GUI_Frame_EdgeHorizBar_DenseDotLineTexture_WindowEdge.png", "50_GUI_Frame_EdgeBottomBar_HorizStripTexture_WindowBottomEdge.png", "67_GUI_Frame_EdgeTopBar_PlainBar_WindowTopEdge.png"};

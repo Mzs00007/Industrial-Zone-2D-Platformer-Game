@@ -3,9 +3,8 @@
  */
 package entities;
 
-import entities.enemies.EnemyAICombat;
-
-public static class EnemyAICombat.CombatInstance {
+import entities.EnemyAICombat;
+public class CombatInstance {
     public String enemyId;
     public EnemyAICombat.CombatState state = EnemyAICombat.CombatState.IDLE;
     public float lastVisionCheckTime = 0.0f;
@@ -17,7 +16,7 @@ public static class EnemyAICombat.CombatInstance {
     public float targetY = 0.0f;
     public boolean debugDetection = false;
 
-    public EnemyAICombat.CombatInstance(String string) {
+    public CombatInstance(String string) {
         this.enemyId = string;
     }
 }

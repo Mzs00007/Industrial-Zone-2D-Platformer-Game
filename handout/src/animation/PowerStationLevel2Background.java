@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.LevelBackgroundProperties.PowerStationLevel2Background {
+public class PowerStationLevel2Background {
     public static final String LEVEL_NAME = "Power Station Level 2";
     public static final String LEVEL_TYPE = "power_station_level_2";
     public static final String DIRECTORY = "Resources/industrial-zone/1 Tiles/power-station-level-2/2 Background_level_2";

@@ -4,13 +4,12 @@
 package animation;
 
 import animation.CharacterSelectionAnimationSystem;
-
-public static class CharacterSelectionAnimationSystem.CharacterSelectionScreen {
+public class CharacterSelectionScreen {
     private CharacterSelectionAnimationSystem.CharacterCard[] cards = new CharacterSelectionAnimationSystem.CharacterCard[3];
     private int selectedCardIndex = 0;
     private long screenStartTime = 0L;
 
-    public CharacterSelectionAnimationSystem.CharacterSelectionScreen() {
+    public CharacterSelectionScreen() {
         this.createBikerCard();
         this.createCyborgCard();
         this.createPunkCard();

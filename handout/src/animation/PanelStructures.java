@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.TilesetProperties.PanelStructures {
+public class PanelStructures {
     public static final String TILE_TYPE = "panel_structure";
     public static final String TILE_FAMILY = "Architectural Elements";
     public static final String DIRECTORY = "Resources/industrial-zone/1 Tiles/power-station-level-2/1 Tiles";

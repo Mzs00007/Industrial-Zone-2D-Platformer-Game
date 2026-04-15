@@ -4,8 +4,7 @@
 package controllers;
 
 import java.awt.Color;
-
-public static enum Phase11NotificationScreen.NotificationType {
+public enum NotificationType {
     INFO(new Color(100, 150, 255)),
     SUCCESS(new Color(100, 255, 100)),
     WARNING(new Color(255, 200, 50)),
@@ -13,7 +12,7 @@ public static enum Phase11NotificationScreen.NotificationType {
 
     public Color color;
 
-    private Phase11NotificationScreen.NotificationType(Color color) {
+    private NotificationType(Color color) {
         this.color = color;
     }
 }

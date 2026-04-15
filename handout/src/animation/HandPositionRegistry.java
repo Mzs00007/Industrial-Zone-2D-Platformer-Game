@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.CharacterHandPositionSystem.HandPositionRegistry {
+public class HandPositionRegistry {
     public static final String getCharacterType(String string) {
         if (string.contains("female")) {
             return "female_soldier";

@@ -3,14 +3,13 @@
  */
 package entities;
 
-import entities.enemies.Enemies;
-
-public static class Enemies.EnemyEntities.EnemyDrone_HoverPlatformVariant {
+import entities.Enemies;
+public class EnemyDrone_HoverPlatformVariant {
     private Enemies.EnemyFactory.EnemyInstance instance;
     private float x;
     private float y;
 
-    public Enemies.EnemyEntities.EnemyDrone_HoverPlatformVariant(float f, float f2) {
+    public EnemyDrone_HoverPlatformVariant(float f, float f2) {
         this.x = f;
         this.y = f2;
         this.instance = Enemies.EnemyFactory.createEnemy(Enemies.EnemyPhysicsProfile.EnemyType.HOVER_PLATFORM, f, f2);

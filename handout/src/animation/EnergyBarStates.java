@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static final class AnimationAndSpriteLoader.GUIButtonSystemProperties.HUDBarSystem.EnergyBarStates {
+public final class EnergyBarStates {
     public static final String BAR_TYPE = "energy_bar";
     public static final String COLOR = "Blue/Cyan #00DDFF";
     public static final String PURPOSE = "Display player energy/mana percentage";

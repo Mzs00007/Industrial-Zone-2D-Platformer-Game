@@ -2,14 +2,13 @@
  * Decompiled with CFR 0.152.
  */
 package controllers;
-
-public static class InteractiveButton.AnimationController {
+public class AnimationController {
     private int frameCount;
     private int currentFrame = 0;
     private long frameDuration;
     private long lastFrameTime = 0L;
 
-    public InteractiveButton.AnimationController(int n, long l) {
+    public AnimationController(int n, long l) {
         this.frameCount = n;
         this.frameDuration = l;
         this.lastFrameTime = System.currentTimeMillis();

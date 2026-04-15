@@ -4,14 +4,13 @@
 package animation;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class AnimationAndSpriteLoader.BossController
+public class BossController
 extends AnimationAndSpriteLoader.EntityAnimationController {
     private float healthPercent = 1.0f;
     private int attackPatternIndex = 0;
     private AnimationAndSpriteLoader.AIBehavior aiBehavior = null;
 
-    public AnimationAndSpriteLoader.BossController(AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody physicsBody) {
+    public BossController(AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody physicsBody) {
         super(physicsBody);
     }
 
@@ -117,16 +116,16 @@ extends AnimationAndSpriteLoader.EntityAnimationController {
         String string2 = AnimationAndSpriteLoader.BOSS_BASE;
         switch (bossType.ordinal()) {
             case 0: {
-                return string2 + "GreenMech/" + AnimationAndSpriteLoader.BossController.getGreenMechAsset(string);
+                return string2 + "GreenMech/" + BossController.getGreenMechAsset(string);
             }
             case 1: {
-                return string2 + "GolfCartSoldier/" + AnimationAndSpriteLoader.BossController.getGolfCartSoldierAsset(string);
+                return string2 + "GolfCartSoldier/" + BossController.getGolfCartSoldierAsset(string);
             }
             case 2: {
-                return string2 + "RugbyGuy/" + AnimationAndSpriteLoader.BossController.getRugbyGuyAsset(string);
+                return string2 + "RugbyGuy/" + BossController.getRugbyGuyAsset(string);
             }
         }
-        return string2 + "GreenMech/" + AnimationAndSpriteLoader.BossController.getGreenMechAsset(string);
+        return string2 + "GreenMech/" + BossController.getGreenMechAsset(string);
     }
 
     private static String getGreenMechAsset(String string) {
@@ -200,8 +199,7 @@ extends AnimationAndSpriteLoader.EntityAnimationController {
         }
         return "01_Boss_RugbyGuy_Idle_3Frames_PowerStance_ReadyForRush_Loop_150ms.png";
     }
-
-    public static enum BossType {
+public enum BossType {
         GREEN_MECH,
         GOLF_CART_SOLDIER,
         RUGBY_GUY;

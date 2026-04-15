@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static enum AnimationAndSpriteLoader.TransporterDroneLoader.TransporterState {
+public enum TransporterState {
     IDLE("Waiting for player at platform"),
     WALK("Moving horizontally along path"),
     DROP("Descending to pick up player"),
@@ -12,7 +11,7 @@ public static enum AnimationAndSpriteLoader.TransporterDroneLoader.TransporterSt
 
     public final String description;
 
-    private AnimationAndSpriteLoader.TransporterDroneLoader.TransporterState(String string2) {
+    private TransporterState(String string2) {
         this.description = string2;
     }
 }

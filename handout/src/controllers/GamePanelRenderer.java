@@ -1,4 +1,4 @@
-package ui;
+package controllers;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -9,7 +9,7 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import levels.Level1;
 import controllers.RenderingSystem;
-import ui.components.game2D.GameScreenManager;
+import controllers.GameScreenManager;
 
 /**
  * PHASE 1 REFACTOR: All Rendering Logic

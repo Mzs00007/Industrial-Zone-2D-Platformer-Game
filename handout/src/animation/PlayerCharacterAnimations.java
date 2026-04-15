@@ -6,10 +6,8 @@ package animation;
 import animation.AnimationAndSpriteLoader;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-public static class AnimationAndSpriteLoader.PlayerCharacterAnimations {
-
-    public static class PunkAnimations {
+public class PlayerCharacterAnimations {
+public class PunkAnimations {
         public static final String CHARACTER = "punk";
         public static final String BASE_PATH = "Resources/industrial-zone/characters/player/punk";
         public static final Map<String, AnimationAndSpriteLoader.AnimationConfig> ANIMATIONS = new LinkedHashMap<String, AnimationAndSpriteLoader.AnimationConfig>(){
@@ -55,8 +53,7 @@ public static class AnimationAndSpriteLoader.PlayerCharacterAnimations {
             return gridFrameAnimationLoader;
         }
     }
-
-    public static class CyborgAnimations {
+public class CyborgAnimations {
         public static final String CHARACTER = "cyborg";
         public static final String BASE_PATH = "Resources/industrial-zone/characters/player/cyborg";
         public static final Map<String, AnimationAndSpriteLoader.AnimationConfig> ANIMATIONS = new LinkedHashMap<String, AnimationAndSpriteLoader.AnimationConfig>(){
@@ -102,8 +99,7 @@ public static class AnimationAndSpriteLoader.PlayerCharacterAnimations {
             return gridFrameAnimationLoader;
         }
     }
-
-    public static class BikerAnimations {
+public class BikerAnimations {
         public static final String CHARACTER = "biker";
         public static final String BASE_PATH = "Resources/industrial-zone/characters/player/biker";
         public static final Map<String, AnimationAndSpriteLoader.AnimationConfig> ANIMATIONS = new LinkedHashMap<String, AnimationAndSpriteLoader.AnimationConfig>(){

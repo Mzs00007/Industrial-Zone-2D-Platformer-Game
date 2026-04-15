@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.TileCompositionPatterns.BrickSmallUnitWallPattern {
+public class BrickSmallUnitWallPattern {
     public static final String PATTERN_NAME = "BrickSmallUnitWall";
     public static final String PATTERN_TYPE = "modular_grid";
     public static final String UNIT_VARIANT_A = "17_Brick_SmallUnit_BluePurple_WallFillTileA.png";

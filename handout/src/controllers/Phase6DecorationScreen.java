@@ -4,7 +4,7 @@
 package controllers;
 
 import managers.GameState;
-import controllers.screens.AssetDrivenScreen;
+import controllers.AssetDrivenScreen;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;

@@ -1,4 +1,5 @@
 package game2D;
+import game2D.*;
 
 /**
  * A Tile in the TileMap.

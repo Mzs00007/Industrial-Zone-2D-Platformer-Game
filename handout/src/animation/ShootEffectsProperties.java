@@ -4,8 +4,7 @@
 package animation;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class AnimationAndSpriteLoader.ShootEffectsProperties {
+public class ShootEffectsProperties {
     public static final String TYPE_SHOOT_EFFECTS = "shoot_effects_system";
     public static final String DIRECTORY = "Resources/industrial-zone/weapons/2/4 Shoot_effects";
     public static final int TOTAL_EFFECT_TYPES = 10;

@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package controllers;
-
-private static enum LeftSidebar.Tab {
+enum Tab {
     INVENTORY,
     CHARACTER,
     SKILLS,

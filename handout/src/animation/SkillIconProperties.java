@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class PlayerCharacterAnimations.SkillIconProperties {
+public class SkillIconProperties {
     public static final String SYSTEM_TYPE = "ability_icon_display";
     public static final String DIRECTORY = "Resources/industrial-zone/gui/9 Other/2 Skill icons";
     public static final int TOTAL_SKILL_ICONS = 20;

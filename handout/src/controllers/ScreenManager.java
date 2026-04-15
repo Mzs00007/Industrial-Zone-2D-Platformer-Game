@@ -1,4 +1,4 @@
-package ui;
+package controllers;
 
 import java.awt.image.BufferedImage;
 

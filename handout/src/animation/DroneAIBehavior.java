@@ -4,15 +4,14 @@
 package animation;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class AnimationAndSpriteLoader.DroneAIBehavior
+public class DroneAIBehavior
 extends AnimationAndSpriteLoader.AIBehavior {
     public static final float DRONE_HEIGHT_OFFSET = 1.5f;
     private DronePattern pattern;
     private float sweepDistance = 8.0f;
     private float hoverAltitude = 1.5f;
 
-    public AnimationAndSpriteLoader.DroneAIBehavior(AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody physicsBody, float f, float f2, DronePattern dronePattern) {
+    public DroneAIBehavior(AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody physicsBody, float f, float f2, DronePattern dronePattern) {
         super(physicsBody, f, f2);
         this.pattern = dronePattern;
         this.hoverAltitude = physicsBody.position.y + 1.5f;
@@ -76,8 +75,7 @@ extends AnimationAndSpriteLoader.AIBehavior {
     public void setPattern(DronePattern dronePattern) {
         this.pattern = dronePattern;
     }
-
-    public static enum DronePattern {
+public enum DronePattern {
         HOVER,
         SWEEP,
         SPIRAL,

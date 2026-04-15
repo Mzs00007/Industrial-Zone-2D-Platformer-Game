@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.GunProperties {
+public class GunProperties {
     public static final String WEAPON_TYPE = "gun";
     public static final String DIRECTORY = "Resources/industrial-zone/weapons/1/2 Guns";
     public static final int GUN_CLASSES = 5;

@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.CursorProperties {
+public class CursorProperties {
     public static final String UI_TYPE = "cursor";
     public static final String DIRECTORY = "Resources/industrial-zone/gui/8 Cursors";
     public static final int CURSOR_VARIANTS = 4;

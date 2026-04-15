@@ -7,8 +7,7 @@ import animation.AnimationAndSpriteLoader;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-public static class AnimationAndSpriteLoader.GUIAnimationRegistry {
+public class GUIAnimationRegistry {
     private static final Map<String, AnimationAndSpriteLoader.GUIAnimationPattern> GUI_ANIMATIONS = new LinkedHashMap<String, AnimationAndSpriteLoader.GUIAnimationPattern>();
 
     public static AnimationAndSpriteLoader.GUIAnimationPattern getPattern(String string) {

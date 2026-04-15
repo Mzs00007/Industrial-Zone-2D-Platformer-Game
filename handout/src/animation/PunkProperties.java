@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.PlayerCharacterAssetProperties.PunkProperties {
+public class PunkProperties {
     public static final String CHARACTER_NAME = "Punk";
     public static final String CHARACTER_TYPE = "punk";
     public static final String BASE_DIRECTORY = "Resources/industrial-zone/characters/player/punk";

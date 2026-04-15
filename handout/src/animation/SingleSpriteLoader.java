@@ -6,10 +6,9 @@ package animation;
 import animation.AnimationAndSpriteLoader;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
-public static class AnimationAndSpriteLoader.SingleSpriteLoader
+public class SingleSpriteLoader
 extends AnimationAndSpriteLoader.AssetType {
-    public AnimationAndSpriteLoader.SingleSpriteLoader(String string, String string2) {
+    public SingleSpriteLoader(String string, String string2) {
         super(string, string2);
     }
 

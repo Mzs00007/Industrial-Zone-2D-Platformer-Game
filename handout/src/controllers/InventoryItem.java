@@ -4,14 +4,13 @@
 package controllers;
 
 import java.awt.Color;
-
-public static class Phase7ItemInventoryScreen.InventoryItem {
+public class InventoryItem {
     public String name;
     public String description;
     public int quantity;
     public Color rarity;
 
-    public Phase7ItemInventoryScreen.InventoryItem(String string, String string2, int n, Color color) {
+    public InventoryItem(String string, String string2, int n, Color color) {
         this.name = string;
         this.description = string2;
         this.quantity = n;

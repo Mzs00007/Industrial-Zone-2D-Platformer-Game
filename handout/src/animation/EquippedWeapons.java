@@ -6,8 +6,7 @@ package animation;
 import animation.AnimationAndSpriteLoader;
 import java.util.HashMap;
 import java.util.Map;
-
-public static class AnimationAndSpriteLoader.CharacterWeaponState.EquippedWeapons {
+public class EquippedWeapons {
     private static Map<String, String> weaponMap = new HashMap<String, String>();
 
     public static void equipWeapon(String string, String string2) {

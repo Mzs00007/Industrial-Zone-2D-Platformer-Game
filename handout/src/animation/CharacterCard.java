@@ -4,8 +4,7 @@
 package animation;
 
 import java.awt.image.BufferedImage;
-
-public static class CharacterSelectionAnimationSystem.CharacterCard {
+public class CharacterCard {
     public String characterName;
     public String characterType;
     public String characterDescription;
@@ -14,7 +13,7 @@ public static class CharacterSelectionAnimationSystem.CharacterCard {
     private long lastFrameTime = 0L;
     private int currentFrameDuration = 100;
 
-    public CharacterSelectionAnimationSystem.CharacterCard(String string, String string2, String string3) {
+    public CharacterCard(String string, String string2, String string3) {
         this.characterName = string;
         this.characterType = string2;
         this.characterDescription = string3;

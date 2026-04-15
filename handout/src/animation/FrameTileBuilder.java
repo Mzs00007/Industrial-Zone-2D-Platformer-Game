@@ -8,8 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-
-public static class AnimationAndSpriteLoader.FrameTileBuilder {
+public class FrameTileBuilder {
     private String frameName;
     private String cornerTopLeft;
     private String cornerTopRight;
@@ -30,51 +29,51 @@ public static class AnimationAndSpriteLoader.FrameTileBuilder {
     private BufferedImage imgEdgeRight;
     private BufferedImage imgInterior;
 
-    public AnimationAndSpriteLoader.FrameTileBuilder(String string) {
+    public FrameTileBuilder(String string) {
         this.frameName = string;
     }
 
-    public AnimationAndSpriteLoader.FrameTileBuilder setCornerTopLeft(String string) {
+    public FrameTileBuilder setCornerTopLeft(String string) {
         this.cornerTopLeft = string;
         return this;
     }
 
-    public AnimationAndSpriteLoader.FrameTileBuilder setCornerTopRight(String string) {
+    public FrameTileBuilder setCornerTopRight(String string) {
         this.cornerTopRight = string;
         return this;
     }
 
-    public AnimationAndSpriteLoader.FrameTileBuilder setCornerBottomLeft(String string) {
+    public FrameTileBuilder setCornerBottomLeft(String string) {
         this.cornerBottomLeft = string;
         return this;
     }
 
-    public AnimationAndSpriteLoader.FrameTileBuilder setCornerBottomRight(String string) {
+    public FrameTileBuilder setCornerBottomRight(String string) {
         this.cornerBottomRight = string;
         return this;
     }
 
-    public AnimationAndSpriteLoader.FrameTileBuilder setEdgeTop(String string) {
+    public FrameTileBuilder setEdgeTop(String string) {
         this.edgeTop = string;
         return this;
     }
 
-    public AnimationAndSpriteLoader.FrameTileBuilder setEdgeBottom(String string) {
+    public FrameTileBuilder setEdgeBottom(String string) {
         this.edgeBottom = string;
         return this;
     }
 
-    public AnimationAndSpriteLoader.FrameTileBuilder setEdgeLeft(String string) {
+    public FrameTileBuilder setEdgeLeft(String string) {
         this.edgeLeft = string;
         return this;
     }
 
-    public AnimationAndSpriteLoader.FrameTileBuilder setEdgeRight(String string) {
+    public FrameTileBuilder setEdgeRight(String string) {
         this.edgeRight = string;
         return this;
     }
 
-    public AnimationAndSpriteLoader.FrameTileBuilder setInterior(String string) {
+    public FrameTileBuilder setInterior(String string) {
         this.interior = string;
         return this;
     }

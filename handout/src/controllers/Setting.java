@@ -3,10 +3,9 @@
  */
 package controllers;
 
-import controllers.screens.Phase15SettingsScreen;
+import controllers.Phase15SettingsScreen;
 import java.util.List;
-
-public static class Phase15SettingsScreen.Setting {
+public class Setting {
     public String label;
     public String value;
     public Phase15SettingsScreen.SettingType type;
@@ -14,7 +13,7 @@ public static class Phase15SettingsScreen.Setting {
     public int maxValue;
     public List<String> options;
 
-    public Phase15SettingsScreen.Setting(String string, String string2, Phase15SettingsScreen.SettingType settingType) {
+    public Setting(String string, String string2, Phase15SettingsScreen.SettingType settingType) {
         this.label = string;
         this.value = string2;
         this.type = settingType;

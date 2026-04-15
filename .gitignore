@@ -1,4 +1,4 @@
-# ===== COMPILED FILES =====
+# ── Compiled Java output ─────────────────────────────────────────
 *.class
 *.jar
 *.war
@@ -6,8 +6,17 @@ bin/
 out/
 dist/
 build/
+_compiled_classes/
 
-# ===== IDE & EDITOR =====
+# ── Python virtual env & cache ───────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# ── IDEs / editors ───────────────────────────────────────────────
 .vscode/
 .idea/
 *.iml
@@ -16,47 +25,7 @@ build/
 *.swp
 *.swo
 
-# ===== PYTHON (decompilation scripts) =====
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-*.py
-.venv/
-venv/
-
-# ===== BUILD SCRIPTS (optional) =====
-*.bat
-*.cmd
-*.ps1
-decompile*
-
-# ===== MARKDOWN & DOCUMENTATION (NOT CODE) =====
-*.md
-
-# ===== PLANNING & DOCUMENTATION (NOT CODE) =====
-/plans/
-/batch_planner/
-/main_planning_designing/
-RECOVERY_STATUS.md
-START_HERE.md
-ARCHITECTURE_DIAGRAM.txt
-CLASS_PATHS_LIST.txt
-CLEANUP_SUMMARY.txt
-COMPILATION_REPORT.txt
-COMPLETE_CLASS_PATHS_ONLY.txt
-COMPLETION_CHECKLIST.txt
-FILE_RENAMING_DETAILED_ANALYSIS.txt
-FINAL_BUILD_COMPLETE.txt
-FINAL_SUBMISSION_READY.txt
-FINAL_SUMMARY.txt
-GAME_COMPLETION_REPORT.txt
-GAME_READY_FOR_SUBMISSION.txt
-GITHUB_PUSH_INSTRUCTIONS.md
-*.md
-
-# ===== OS FILES =====
+# ── OS noise ─────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
 .DS_Store?
@@ -65,39 +34,31 @@ Thumbs.db
 .Trashes
 ehthumbs.db
 
-# ===== BACKUPS =====
-backup_before_renaming/
+# ── Temp / logs ──────────────────────────────────────────────────
+*.log
+logs/
 *.bak
 *.backup
 *.tmp
 *.temp
 
-# ===== LOGS =====
-*.log
-logs/
-
-# ===== PROJECT SPECIFIC =====
+# ── IDE project files ────────────────────────────────────────────
 .gradle/
 .classpath
 .project
 .settings/
-_DECOMPILATION_GUIDE.md
-_CLASS_INVENTORY.json
-_compiled_classes/
 
-# ===== GIT CONFIG =====
+# ── AI assistant settings ────────────────────────────────────────
+.claude/
+
+# ── Git internals ────────────────────────────────────────────────
 .git/
 
-# ===== KEEP ONLY THESE =====
-!handout/src/
-!handout/Resources/
-!handout/lib/
-!*.java
-!*.json
-!build.bat
-!run.bat
-!run_game.bat
-!RunAssetTester.bat
+# ── Stale planning / decompilation artefacts ─────────────────────
+backup_before_renaming/
+_DECOMPILATION_GUIDE.md
+_CLASS_INVENTORY.json
+
 !*.ps1
 !*.py
 !*.xml

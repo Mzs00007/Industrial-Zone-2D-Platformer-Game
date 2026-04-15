@@ -1,4 +1,5 @@
 package utilities;
+import game2D.*;
 
 /**
  * CharacterAssetMapper - Utility class for mapping character names and states to asset paths

@@ -4,15 +4,14 @@
 package animation;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class AnimationAndSpriteLoader.BossAIBehavior
+public class BossAIBehavior
 extends AnimationAndSpriteLoader.AIBehavior {
     private float healthPercent = 1.0f;
     private BossPhase currentPhase = BossPhase.PHASE_1;
     private int attackPattern = 0;
     private float combatDistance = 3.0f;
 
-    public AnimationAndSpriteLoader.BossAIBehavior(AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody physicsBody, float f, float f2) {
+    public BossAIBehavior(AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody physicsBody, float f, float f2) {
         super(physicsBody, f, f2);
     }
 
@@ -62,8 +61,7 @@ extends AnimationAndSpriteLoader.AIBehavior {
     public BossPhase getCurrentPhase() {
         return this.currentPhase;
     }
-
-    public static enum BossPhase {
+public enum BossPhase {
         PHASE_1,
         PHASE_2,
         PHASE_3;

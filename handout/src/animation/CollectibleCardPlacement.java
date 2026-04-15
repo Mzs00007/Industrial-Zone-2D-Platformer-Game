@@ -2,8 +2,8 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.AnimatedObjectPlacementRules.CollectibleCardPlacement {
+import game2D.*;
+public class CollectibleCardPlacement {
     public static final String OBJECT_TYPE = "collectible_card";
     public static final String OBJECT_FILE = "Anim_Collectible_Card_6Frames1Row_WhiteBlueSpinningFloat_PickupItem_Loop80ms.png";
     public static final String ANIMATION_DESCRIPTION = "Rotating holographic card - plays 6 frames at 80ms with active glow";

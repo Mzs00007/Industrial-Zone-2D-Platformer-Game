@@ -1,37 +1,96 @@
-/*
- * Decompiled with CFR 0.152.
- */
 package animation;
 
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
-import java.util.Map;
 
-public static class Core.AnimationPlayer {
-    private Map<Integer, BufferedImage> entityFrames = new HashMap<Integer, BufferedImage>();
-    private Map<Integer, Long> entityStartTimes = new HashMap<Integer, Long>();
+/**
+ * Drives a HorizontalSpritesheetLoader forward in time.
+ *
+ * Usage:
+ *   AnimationPlayer player = new AnimationPlayer();
+ *   player.play(myAnim);
+ *   // Each tick:
+ *   player.update(dtMs);
+ *   g.drawImage(player.getCurrentFrame(), x, y, null);
+ */
+public class AnimationPlayer {
 
-    public void playAnimation(int n, String string, String string2, long l) {
-        this.entityStartTimes.put(n, l);
+    private HorizontalSpritesheetLoader current;
+    private int   frame;
+    private long  accumulated;
+    private boolean finished;
+
+    public AnimationPlayer() {
+        this.current     = null;
+        this.frame       = 0;
+        this.accumulated = 0;
+        this.finished    = false;
     }
 
-    public void switchAnimation(int n, String string, long l) {
-        this.entityStartTimes.put(n, l);
+    // ── playback control ─────────────────────────────────────────────────────
+
+    /** Switch to anim — no-op if it is already playing (prevents unwanted reset). */
+    public void play(HorizontalSpritesheetLoader anim) {
+        if (anim == null || anim == current) return;
+        current     = anim;
+        frame       = 0;
+        accumulated = 0;
+        finished    = false;
     }
 
-    public void stopAnimation(int n) {
-        this.entityFrames.remove(n);
-        this.entityStartTimes.remove(n);
+    /** Always restart the animation even if it is already the current one. */
+    public void forcePlay(HorizontalSpritesheetLoader anim) {
+        current     = anim;
+        frame       = 0;
+        accumulated = 0;
+        finished    = false;
     }
 
-    public void update(long l) {
+    /** Reset frame counter without changing the animation. */
+    public void reset() {
+        frame       = 0;
+        accumulated = 0;
+        finished    = false;
     }
 
-    public BufferedImage getCurrentFrameImage(int n) {
-        return this.entityFrames.get(n);
+    // ── update ───────────────────────────────────────────────────────────────
+
+    /**
+     * Advance by dtMs milliseconds. Call once per game tick.
+     */
+    public void update(long dtMs) {
+        if (current == null || finished) return;
+        accumulated += dtMs;
+        int ms = current.getMsPerFrame();
+        if (ms <= 0) ms = 100;
+        while (accumulated >= ms) {
+            accumulated -= ms;
+            if (current.isLoop()) {
+                frame = (frame + 1) % current.getFrameCount();
+            } else {
+                if (frame < current.getFrameCount() - 1) {
+                    frame++;
+                } else {
+                    finished = true;
+                    return;
+                }
+            }
+        }
     }
 
-    public String getMemoryStats() {
-        return "Animations loaded: " + this.entityFrames.size();
+    // ── frame access ─────────────────────────────────────────────────────────
+
+    /** Returns the current frame, or null if no animation is loaded. */
+    public BufferedImage getCurrentFrame() {
+        if (current == null) return null;
+        return current.getFrame(frame);
     }
+
+    // ── state / getters ──────────────────────────────────────────────────────
+    public boolean isFinished()     { return finished; }
+    public int     getFrameIndex()  { return frame; }
+    public int     getFrameCount()  { return current != null ? current.getFrameCount() : 0; }
+    public String  getAnimName()    { return current != null ? current.getName() : "none"; }
+    public boolean isLoop()         { return current != null && current.isLoop(); }
+    public HorizontalSpritesheetLoader getCurrent() { return current; }
 }
+

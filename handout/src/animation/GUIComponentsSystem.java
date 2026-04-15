@@ -2,6 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
+import game2D.*;
 
 import java.awt.image.BufferedImage;
 

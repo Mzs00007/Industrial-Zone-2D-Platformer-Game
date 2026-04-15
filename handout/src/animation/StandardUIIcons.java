@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class GUIComponentsSystem.StandardUIIcons {
+public class StandardUIIcons {
     public static final String UI_TYPE = "standard_icon";
     public static final String DIRECTORY = "Resources/industrial-zone/gui/3 Icons/Icons";
     public static final int TOTAL_ICONS = 40;

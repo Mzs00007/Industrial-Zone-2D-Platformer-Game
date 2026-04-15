@@ -4,8 +4,7 @@
 package animation;
 
 import animation.AnimationAndSpriteLoader;
-
-public static abstract class AnimationAndSpriteLoader.AIBehavior {
+public abstract class AIBehavior {
     protected AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody entityBody;
     protected AnimationAndSpriteLoader.PhysicsUnitSystem.Vector2D targetPosition;
     protected AnimationAndSpriteLoader.AnimationState currentBehaviorState = AnimationAndSpriteLoader.AnimationState.ENEMY_IDLE;
@@ -14,7 +13,7 @@ public static abstract class AnimationAndSpriteLoader.AIBehavior {
     protected boolean isAlerted;
     protected long alertTime;
 
-    public AnimationAndSpriteLoader.AIBehavior(AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody physicsBody, float f, float f2) {
+    public AIBehavior(AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody physicsBody, float f, float f2) {
         this.entityBody = physicsBody;
         this.detectionRadius = f;
         this.attackRange = f2;

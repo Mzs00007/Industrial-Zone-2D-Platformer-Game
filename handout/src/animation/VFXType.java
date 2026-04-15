@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static enum AnimationAndSpriteLoader.VFXController.VFXType {
+public enum VFXType {
     SMOKE,
     BLOOD,
     SPARKS,

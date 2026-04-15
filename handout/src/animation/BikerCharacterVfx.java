@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.CharacterVfxEffects.BikerCharacterVfx {
+public class BikerCharacterVfx {
     public static final String CHARACTER = "biker";
     public static final String DIRECTORY = "Resources/industrial-zone/vfx/6 Extra/Character";
     public static final String COLOR_ACCENT = "Magenta #E84B8A";

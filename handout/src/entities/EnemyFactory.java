@@ -3,12 +3,11 @@
  */
 package entities;
 
-import entities.enemies.Enemies;
+import entities.Enemies;
 import game2D.Animation;
 import java.util.ArrayList;
 import java.util.List;
-
-public static class Enemies.EnemyFactory {
+public class EnemyFactory {
     public static EnemyInstance createEnemy(Enemies.EnemyPhysicsProfile.EnemyType enemyType, float f, float f2) {
         return new EnemyInstance(enemyType, f, f2);
     }
@@ -16,18 +15,18 @@ public static class Enemies.EnemyFactory {
     public static EnemyInstance createEnemyByName(String string, float f, float f2) {
         try {
             Enemies.EnemyPhysicsProfile.EnemyType enemyType = Enemies.EnemyPhysicsProfile.EnemyType.valueOf(string.toUpperCase());
-            return Enemies.EnemyFactory.createEnemy(enemyType, f, f2);
+            return EnemyFactory.createEnemy(enemyType, f, f2);
         }
         catch (IllegalArgumentException illegalArgumentException) {
             System.err.println("[EnemyFactory] Unknown enemy: " + string);
-            return Enemies.EnemyFactory.createEnemy(Enemies.EnemyPhysicsProfile.EnemyType.UFO_SAUCER, f, f2);
+            return EnemyFactory.createEnemy(Enemies.EnemyPhysicsProfile.EnemyType.UFO_SAUCER, f, f2);
         }
     }
 
     public static List<EnemyInstance> createEnemyWave(Enemies.EnemyPhysicsProfile.EnemyType[] enemyTypeArray, float f, float f2, float f3) {
         ArrayList<EnemyInstance> arrayList = new ArrayList<EnemyInstance>();
         for (int i = 0; i < enemyTypeArray.length; ++i) {
-            arrayList.add(Enemies.EnemyFactory.createEnemy(enemyTypeArray[i], f + (float)i * f3, f2));
+            arrayList.add(EnemyFactory.createEnemy(enemyTypeArray[i], f + (float)i * f3, f2));
         }
         return arrayList;
     }
@@ -35,12 +34,11 @@ public static class Enemies.EnemyFactory {
     public static List<EnemyInstance> createAllEnemyTypes(float f, float f2) {
         ArrayList<EnemyInstance> arrayList = new ArrayList<EnemyInstance>();
         for (Enemies.EnemyPhysicsProfile.EnemyType enemyType : Enemies.EnemyPhysicsProfile.EnemyType.values()) {
-            arrayList.add(Enemies.EnemyFactory.createEnemy(enemyType, f + (float)(arrayList.size() * 150), f2));
+            arrayList.add(EnemyFactory.createEnemy(enemyType, f + (float)(arrayList.size() * 150), f2));
         }
         return arrayList;
     }
-
-    public static class EnemyInstance {
+public class EnemyInstance {
         private Enemies.EnemyPhysicsProfile.EnemyType type;
         private String enemyName;
         private Enemies.EnemyPhysicsProfile physicsProfile;

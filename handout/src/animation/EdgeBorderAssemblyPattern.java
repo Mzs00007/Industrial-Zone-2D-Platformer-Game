@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.TileCompositionPatterns.EdgeBorderAssemblyPattern {
+public class EdgeBorderAssemblyPattern {
     public static final String PATTERN_NAME = "EdgeBorderFrame";
     public static final String PATTERN_TYPE = "border_frame";
     public static final String EDGE_TOP_VARIANT_1 = "55_Edge_SmallMutedCornerCap_TopRightAligned_MutedTone_MinimalTransitionEdgeD.png";

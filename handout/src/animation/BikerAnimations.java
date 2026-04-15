@@ -6,8 +6,7 @@ package animation;
 import animation.AnimationAndSpriteLoader;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-public static class AnimationAndSpriteLoader.PlayerCharacterAnimations.BikerAnimations {
+public class BikerAnimations {
     public static final String CHARACTER = "biker";
     public static final String BASE_PATH = "Resources/industrial-zone/characters/player/biker";
     public static final Map<String, AnimationAndSpriteLoader.AnimationConfig> ANIMATIONS = new LinkedHashMap<String, AnimationAndSpriteLoader.AnimationConfig>(){

@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static final class AnimationAndSpriteLoader.ButtonVariants.StandardButtonVariant {
+public final class StandardButtonVariant {
     public static final String VARIANT_NAME = "Standard Blue";
     public static final String SPRITESHEET = "01_GUI_Button_Standard_4StatesVertical_NormalHoverPressDisabled.png";
     public static final int NORMAL_STATE = 0;

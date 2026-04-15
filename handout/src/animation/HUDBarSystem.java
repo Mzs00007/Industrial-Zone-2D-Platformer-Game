@@ -4,14 +4,12 @@
 package animation;
 
 import java.awt.image.BufferedImage;
-
-public static class GUIComponentsSystem.HUDBarSystem {
+public class HUDBarSystem {
     public static final String UI_TYPE = "hud_bar";
     public static final String DIRECTORY = "Resources/industrial-zone/gui/2 Bars";
     public static final int TOTAL_STATES = 13;
     public static final String RENDERING_FORMAT = "Static PNG, no animation";
-
-    public static class EnergyBarStates {
+public class EnergyBarStates {
         public static final String BAR_TYPE = "energy_bar";
         public static final String COLOR = "Blue/Cyan #00DDFF";
         public static final String PURPOSE = "Display player energy/mana percentage";
@@ -19,8 +17,7 @@ public static class GUIComponentsSystem.HUDBarSystem {
         public static final int[] PERCENTAGE_VALUES = new int[]{100, 80, 60, 40, 20, 0};
         public static final String[] STATE_NAMES = new String[]{"Full", "Good", "Okay", "Low", "Critical", "Empty"};
     }
-
-    public static class HealthBarStates {
+public class HealthBarStates {
         public static final String BAR_TYPE = "health_bar";
         public static final String COLOR = "Red/Orange #FF6B35";
         public static final String PURPOSE = "Display player health percentage";

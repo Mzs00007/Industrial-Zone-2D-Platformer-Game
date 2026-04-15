@@ -5,7 +5,7 @@ package entities;
 
 import managers.Core;
 import entities.characters.PlayerBase;
-import entities.enemies.Enemies;
+import entities.Enemies;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

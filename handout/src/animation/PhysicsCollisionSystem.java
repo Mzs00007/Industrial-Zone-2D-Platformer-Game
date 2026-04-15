@@ -5,8 +5,7 @@ package animation;
 
 import animation.AnimationAndSpriteLoader;
 import java.util.List;
-
-public static class AnimationAndSpriteLoader.PhysicsCollisionSystem {
+public class PhysicsCollisionSystem {
     public void updateBulletPosition(AnimationAndSpriteLoader.BulletSpawner.BulletInstance bulletInstance, long l) {
         float f = (float)l / 1000.0f;
         bulletInstance.x += bulletInstance.velocityX * f;
@@ -114,8 +113,7 @@ public static class AnimationAndSpriteLoader.PhysicsCollisionSystem {
     public boolean isBulletOutOfBounds(AnimationAndSpriteLoader.BulletSpawner.BulletInstance bulletInstance, int n, int n2) {
         return bulletInstance.x < -50.0f || bulletInstance.x > (float)(n + 50) || bulletInstance.y < -50.0f || bulletInstance.y > (float)(n2 + 50);
     }
-
-    public static class CollisionResult {
+public class CollisionResult {
         public boolean hasCollided = false;
         public String targetType = "none";
         public Object target = null;

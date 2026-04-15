@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.DestructibleObjectVfx.BushDestructionVfx {
+public class BushDestructionVfx {
     public static final String OBJECT_NAME = "Bush Destruction";
     public static final String OBJECT_TYPE = "bush";
     public static final String DIRECTORY = "Resources/industrial-zone/vfx/6 Extra/Objects";

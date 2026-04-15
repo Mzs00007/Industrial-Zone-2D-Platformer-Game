@@ -5,8 +5,7 @@ package animation;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-
-public static class AnimationAndSpriteLoader.ParallaxSystem.ParallexLayer {
+public class ParallexLayer {
     private BufferedImage image;
     private float parallaxDepth;
     private float currentOffsetX = 0.0f;
@@ -14,7 +13,7 @@ public static class AnimationAndSpriteLoader.ParallaxSystem.ParallexLayer {
     private float imageWidth;
     private float imageHeight;
 
-    public AnimationAndSpriteLoader.ParallaxSystem.ParallexLayer(BufferedImage bufferedImage, float f, int n) {
+    public ParallexLayer(BufferedImage bufferedImage, float f, int n) {
         this.image = bufferedImage;
         this.parallaxDepth = Math.max(0.0f, Math.min(1.0f, f));
         this.layerIndex = n;

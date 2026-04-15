@@ -4,8 +4,7 @@
 package utilities;
 
 import utilities.AudioSystem;
-
-public static class AudioSystem.MusicPlayer {
+public class MusicPlayer {
     private AudioSystem.SoundEffect currentMusik;
     private AudioSystem.SoundEffect nextMusic;
     private boolean isPlaying = false;

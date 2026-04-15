@@ -4,8 +4,7 @@
 package ai;
 
 import ai.AI;
-
-public static class AI.AIDecisionMaker {
+public class AIDecisionMaker {
     private DecisionContext context;
 
     public void makeDecision(AI.AIAgent aIAgent) {
@@ -92,8 +91,7 @@ public static class AI.AIDecisionMaker {
     public DecisionContext getContext() {
         return this.context;
     }
-
-    public static class DecisionContext {
+public class DecisionContext {
         public AI.AIAgent agent;
         public float[] agentPos;
         public float[] playerPos;

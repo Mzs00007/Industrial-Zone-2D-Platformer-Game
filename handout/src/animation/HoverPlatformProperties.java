@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.DroneEnemyAssetProperties.HoverPlatformProperties {
+public class HoverPlatformProperties {
     public static final String DRONE_NAME = "Hover Platform";
     public static final String DRONE_TYPE = "hover_platform";
     public static final String DIRECTORY = "Resources/industrial-zone/characters/enemies/drones/6";

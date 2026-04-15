@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package managers;
-
-public static class Core.ScoreManager {
+public class ScoreManager {
     private int score = 0;
     private int lives = 3;
     private int collectibles = 0;

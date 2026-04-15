@@ -4,8 +4,7 @@
 package animation;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class AnimationAndSpriteLoader.UniversalWeaponPickup {
+public class UniversalWeaponPickup {
     public static final String SYSTEM_TYPE = "universal_weapon_pickup";
 
     public static void pickupWeapon(String string, String string2) {

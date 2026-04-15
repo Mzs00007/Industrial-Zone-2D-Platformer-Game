@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package entities;
-
-public static class Enemies.EnemyPhysicsProfile {
+public class EnemyPhysicsProfile {
     private EnemyType type;
     private float walkSpeed = 0.1f;
     private float runSpeed = 0.15f;
@@ -21,8 +20,8 @@ public static class Enemies.EnemyPhysicsProfile {
     private long attackCooldown = 2000L;
     private float attackRange = 120.0f;
 
-    public static Enemies.EnemyPhysicsProfile createProfile(EnemyType enemyType) {
-        Enemies.EnemyPhysicsProfile enemyPhysicsProfile = new Enemies.EnemyPhysicsProfile();
+    public static EnemyPhysicsProfile createProfile(EnemyType enemyType) {
+        EnemyPhysicsProfile enemyPhysicsProfile = new EnemyPhysicsProfile();
         enemyPhysicsProfile.type = enemyType;
         switch (enemyType.ordinal()) {
             case 0: {
@@ -185,8 +184,7 @@ public static class Enemies.EnemyPhysicsProfile {
     public String toString() {
         return String.format("[%s] HP:%d Armor:%d Dmg:%d Speed:%.2f Cooldown:%dms", this.type.displayName, this.maxHealth, this.armor, this.attackDamage, Float.valueOf(this.runSpeed), this.attackCooldown);
     }
-
-    public static enum EnemyType {
+public enum EnemyType {
         UFO_SAUCER("UfoSaucer", "drones/1/", EnemyCategory.DRONE),
         JET_DRONE("JetDrone", "drones/2/", EnemyCategory.DRONE),
         HOVER_PLATFORM("HoverPlatform", "drones/3/", EnemyCategory.DRONE),
@@ -204,8 +202,7 @@ public static class Enemies.EnemyPhysicsProfile {
             this.category = enemyCategory;
         }
     }
-
-    public static enum EnemyCategory {
+public enum EnemyCategory {
         DRONE,
         ANTAGONIST;
 

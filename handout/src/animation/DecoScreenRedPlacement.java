@@ -2,8 +2,8 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.AnimatedObjectPlacementRules.DecoScreenRedPlacement {
+import game2D.*;
+public class DecoScreenRedPlacement {
     public static final String OBJECT_TYPE = "deco_screen_red";
     public static final String OBJECT_FILE = "Anim_Deco_Screen2_4Frames1Row_RedBlueMonitorFlicker_WallPanelAltDeco_Loop150ms.png";
     public static final String ANIMATION_DESCRIPTION = "Red alarm monitor flicker - plays 4 frames at 150ms with intense red glow";

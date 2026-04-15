@@ -4,8 +4,7 @@
 package animation;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class AnimationAndSpriteLoader.DroneController
+public class DroneController
 extends AnimationAndSpriteLoader.EntityAnimationController {
     private static final float DRONE_HEIGHT_OFFSET = 1.5f;
     private float detectionRadius;
@@ -13,7 +12,7 @@ extends AnimationAndSpriteLoader.EntityAnimationController {
     private AnimationAndSpriteLoader.AIBehavior aiBehavior;
     private float baseGroundY;
 
-    public AnimationAndSpriteLoader.DroneController(AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody physicsBody, float f, float f2) {
+    public DroneController(AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody physicsBody, float f, float f2) {
         super(physicsBody);
         this.detectionRadius = f;
         this.isAlerted = false;

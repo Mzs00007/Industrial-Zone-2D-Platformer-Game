@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.DroneEnemyAssetProperties.HelicopterProperties {
+public class HelicopterProperties {
     public static final String DRONE_NAME = "Helicopter Drone";
     public static final String DRONE_TYPE = "helicopter";
     public static final String DIRECTORY = "Resources/industrial-zone/characters/enemies/drones/4";

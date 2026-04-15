@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package controllers;
-
-public static enum Phase14PauseMenuScreen.PauseAction {
+public enum PauseAction {
     RESUME("ESC"),
     SETTINGS("S"),
     HELP("H"),
@@ -11,7 +10,7 @@ public static enum Phase14PauseMenuScreen.PauseAction {
 
     public String shortcut;
 
-    private Phase14PauseMenuScreen.PauseAction(String string2) {
+    private PauseAction(String string2) {
         this.shortcut = string2;
     }
 }

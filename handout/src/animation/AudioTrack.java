@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.AudioTrack {
+public class AudioTrack {
     public String trackKey;
     public String filename;
     public float volumeLevel;
@@ -12,7 +11,7 @@ public static class AnimationAndSpriteLoader.AudioTrack {
     public float fadeOutMs;
     public int bpm;
 
-    public AnimationAndSpriteLoader.AudioTrack(String string, String string2, float f, boolean bl) {
+    public AudioTrack(String string, String string2, float f, boolean bl) {
         this.trackKey = string;
         this.filename = string2;
         this.volumeLevel = f;

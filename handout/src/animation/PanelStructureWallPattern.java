@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.TileCompositionPatterns.PanelStructureWallPattern {
+public class PanelStructureWallPattern {
     public static final String PATTERN_NAME = "PanelStructureWall";
     public static final String PATTERN_TYPE = "panel_assembly";
     public static final String INSET_DETAIL_TOP = "56_Panel_InsetDetail_SmallSquareEmbeddedLeftCentre_RecessedAccent_LeftWallDe.png";

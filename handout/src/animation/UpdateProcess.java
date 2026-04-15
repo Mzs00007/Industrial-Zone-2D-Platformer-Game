@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static final class AnimationAndSpriteLoader.ParallaxBackgroundSystem.Phase6FactorUpdate.UpdateProcess {
+public final class UpdateProcess {
     public static final String STEP1 = "GET current camera X (player position)";
     public static final String STEP2 = "FOR each layer: newOffset = cameraX \u00d7 parallaxFactor";
     public static final String STEP3 = "WRAP: newOffset = newOffset % layerWidth (seamless)";

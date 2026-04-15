@@ -2,11 +2,10 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.AnimatedObjectPlacementRules {
+import game2D.*;
+public class AnimatedObjectPlacementRules {
     public static final String REGISTRY_TYPE = "object_placement";
-
-    public static class DecoScreenRedPlacement {
+public class DecoScreenRedPlacement {
         public static final String OBJECT_TYPE = "deco_screen_red";
         public static final String OBJECT_FILE = "Anim_Deco_Screen2_4Frames1Row_RedBlueMonitorFlicker_WallPanelAltDeco_Loop150ms.png";
         public static final String ANIMATION_DESCRIPTION = "Red alarm monitor flicker - plays 4 frames at 150ms with intense red glow";
@@ -24,8 +23,7 @@ public static class AnimationAndSpriteLoader.AnimatedObjectPlacementRules {
         public static final String VISUAL_NOTE = "Red flicker creates alarm/alert atmosphere";
         public static final String TECHNICAL_NOTES = "Animation: 4 frames at 150ms = 600ms cycle, BUT frame 1-2-1-2 pattern (emphasis on red moments). Glow: Red glow pulsates more aggressively than blue - expands \u00b15px per frame. Audio: 1000Hz + 1500Hz sine wave \u00d7 3 harmonics, 200ms ON/100ms OFF pulse. Offset: Mount at +15px (slightly lower than blue to feel 'threatening'). Screen Flicker: Brightness variance 80%-100% (more extreme variation = more alarming). Rotation: Slight 10-degree tilt variance (\u00d7-5\u00b0, \u00d70\u00b0, \u00d7+5\u00b0) = unstable feeling. No interaction: Purely visual deco - cannot be disabled by player.";
     }
-
-    public static class DecoScreenBluePlacement {
+public class DecoScreenBluePlacement {
         public static final String OBJECT_TYPE = "deco_screen_blue";
         public static final String OBJECT_FILE = "Anim_Deco_Screen1_4Frames1Row_BlueMonitorFlicker_WallPanelTechDeco_Loop150ms.png";
         public static final String ANIMATION_DESCRIPTION = "Blue monitor flicker effect - plays 4 frames at 150ms with active glow";
@@ -43,8 +41,7 @@ public static class AnimationAndSpriteLoader.AnimatedObjectPlacementRules {
         public static final String VISUAL_NOTE = "Flickers creating sense of active surveillance/control";
         public static final String TECHNICAL_NOTES = "Animation: 4 frames at 150ms = 600ms total cycle (slower than collectibles - emphasizes stasis). Glow: Blue glow expands/contracts with frame - draws attention subtly. Audio: Low soft hum (60Hz sine wave \u00d7 2 harmonics) - background ambient. Offset: Mount at +20px vertical to simulate mounted-on-panel placement. Rotation: Slight 5-degree tilt variation between screens in cluster (\u00d7-2\u00b0, \u00d70\u00b0, \u00d7+2\u00b0) = more organic feel. No interaction: Purely visual deco - player cannot activate/disable.";
     }
-
-    public static class CollectibleCardPlacement {
+public class CollectibleCardPlacement {
         public static final String OBJECT_TYPE = "collectible_card";
         public static final String OBJECT_FILE = "Anim_Collectible_Card_6Frames1Row_WhiteBlueSpinningFloat_PickupItem_Loop80ms.png";
         public static final String ANIMATION_DESCRIPTION = "Rotating holographic card - plays 6 frames at 80ms with active glow";
@@ -65,8 +62,7 @@ public static class AnimationAndSpriteLoader.AnimatedObjectPlacementRules {
         public static final String DIFFICULTY_CONTEXT = "Typically only on Level 2 (harder) or challenge areas";
         public static final String TECHNICAL_NOTES = "Interaction radius: 100px (larger than money - forces player to commit). Animation: 6 frames at 80ms = 480ms loop with active glow effect. Audio: Ascending chime melody (Do-Re-Mi-Fa-Sol 5 notes) with 3x reverb. Visual: Glow expands/contracts with frame - signals importance. Behavior: Slight vertical bobbing (\u00b115px, 2 second cycle).";
     }
-
-    public static class CollectibleMoneyPlacement {
+public class CollectibleMoneyPlacement {
         public static final String OBJECT_TYPE = "collectible_money";
         public static final String OBJECT_FILE = "Anim_Collectible_Money_6Frames1Row_GreenBanknotesSpinFlip_CurrencyPickup_Loop80ms.png";
         public static final String ANIMATION_DESCRIPTION = "Spinning banknote with flip rotation - plays 6 frames at 80ms intervals";

@@ -4,8 +4,7 @@
 package animation;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class AnimationAndSpriteLoader.PresetFrameSets {
+public class PresetFrameSets {
     public static AnimationAndSpriteLoader.FrameTileBuilder createStandardBlueFrame() {
         return new AnimationAndSpriteLoader.FrameTileBuilder("StandardBlue").setCornerTopLeft("01_GUI_Frame_CornerTopLeft_TallLShapePiece_WindowCorner.png").setCornerTopRight("03_GUI_Frame_CornerTopRight_TallLShapeMirror_WindowCorner.png").setCornerBottomLeft("19_GUI_Frame_CornerBottomLeft_LShapeCorner_WindowCorner.png").setCornerBottomRight("27_GUI_Frame_CornerBottomRight_DiagonalAngleTrim_WindowCorner.png").setEdgeTop("02_GUI_Frame_EdgeTopBar_HorizontalBlueAccentStrip_WindowTopEdge.png").setEdgeBottom("20_GUI_Frame_EdgeBottomBar_PlainDarkStrip_WindowBottomEdge.png").setEdgeLeft("05_GUI_Frame_EdgeLeftStrip_TallNarrowVerticalBar_WindowLeftEdge.png").setEdgeRight("06_GUI_Frame_EdgeRightStrip_TallNarrowVerticalBar_WindowRightEdge.png").setInterior("07_GUI_Frame_FillSolidNavy_LargeFullBlock_WindowFill.png");
     }

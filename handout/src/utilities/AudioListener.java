@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package utilities;
-
-public static class AudioSystem.AudioListener {
+public class AudioListener {
     private float listenerX = 0.0f;
     private float listenerY = 0.0f;
     private float listenerZ = 0.0f;

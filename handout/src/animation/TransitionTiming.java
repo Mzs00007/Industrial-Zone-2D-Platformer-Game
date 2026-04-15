@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static final class AnimationAndSpriteLoader.ParallaxRenderingPipeline.Phase5OverlayBlending.TransitionTiming {
+public final class TransitionTiming {
     public static final String SUNRISE_START = "5:45 AM";
     public static final String SUNRISE_END = "6:30 AM";
     public static final String SUNRISE_DIRECTION = "Night \u2192 Day";

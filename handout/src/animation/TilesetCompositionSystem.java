@@ -4,8 +4,7 @@
 package animation;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class AnimationAndSpriteLoader.TilesetCompositionSystem {
+public class TilesetCompositionSystem {
     public static final String TYPE_TILESET_COMPOSITION = "tileset_composition_system";
     public static final String COLOR_RED = "Red";
     public static final String COLOR_BLUE = "Blue";
@@ -42,11 +41,11 @@ public static class AnimationAndSpriteLoader.TilesetCompositionSystem {
             return null;
         }
         String[] stringArray = new String[n];
-        stringArray[0] = AnimationAndSpriteLoader.TilesetCompositionSystem.getTileFile(string, POS_LEFT_CORNER);
+        stringArray[0] = TilesetCompositionSystem.getTileFile(string, POS_LEFT_CORNER);
         for (int i = 1; i < n - 1; ++i) {
-            stringArray[i] = AnimationAndSpriteLoader.TilesetCompositionSystem.getTileFile(string, POS_CENTER);
+            stringArray[i] = TilesetCompositionSystem.getTileFile(string, POS_CENTER);
         }
-        stringArray[n - 1] = AnimationAndSpriteLoader.TilesetCompositionSystem.getTileFile(string, POS_RIGHT_CORNER);
+        stringArray[n - 1] = TilesetCompositionSystem.getTileFile(string, POS_RIGHT_CORNER);
         return stringArray;
     }
 }

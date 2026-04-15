@@ -2,12 +2,11 @@
  * Decompiled with CFR 0.152.
  */
 package controllers;
-
-private static class SettingsScreen.SettingToggle {
+class SettingToggle {
     String settingName;
     boolean isEnabled;
 
-    public SettingsScreen.SettingToggle(String string, boolean bl) {
+    public SettingToggle(String string, boolean bl) {
         this.settingName = string;
         this.isEnabled = bl;
     }

@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-public static class Core.LevelCoordinator {
+public class LevelCoordinator {
     private Level currentLevel = Level.INDUSTRIAL_ZONE_L1;
     private Map<String, Object> currentLevelSprites = new HashMap<String, Object>();
 
@@ -30,8 +29,7 @@ public static class Core.LevelCoordinator {
     public List<String> getLoadedSprites() {
         return new ArrayList<String>(this.currentLevelSprites.keySet());
     }
-
-    public static enum Level {
+public enum Level {
         INDUSTRIAL_ZONE_L1("Level 1: Industrial Zone", "level_1"),
         POWER_STATION_L2("Level 2: Power Station", "level_2");
 

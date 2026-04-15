@@ -11,8 +11,7 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.imageio.ImageIO;
-
-public static class AnimationAndSpriteLoader.GUIAssetLoader {
+public class GUIAssetLoader {
     public static AnimationAndSpriteLoader.HorizontalSpritesheetLoader loadGUIElement(String string, String string2, int n) {
         AnimationAndSpriteLoader.HorizontalSpritesheetLoader horizontalSpritesheetLoader = new AnimationAndSpriteLoader.HorizontalSpritesheetLoader("GUI_" + string, string2, 0, 0, 0);
         if (horizontalSpritesheetLoader.load()) {
@@ -32,9 +31,9 @@ public static class AnimationAndSpriteLoader.GUIAssetLoader {
                 System.out.println("[GUIAssetLoader] \u26a0 Button sheet not found: " + string3);
                 return linkedHashMap;
             }
-            String string4 = AnimationAndSpriteLoader.GUIAssetLoader.detectSpriteOrientation(bufferedImage);
+            String string4 = GUIAssetLoader.detectSpriteOrientation(bufferedImage);
             System.out.println("[GUIAssetLoader] Button orientation: " + string4 + " (" + bufferedImage.getWidth() + "x" + bufferedImage.getHeight() + ")");
-            int[] nArray = AnimationAndSpriteLoader.GUIAssetLoader.detectGridDimensions(bufferedImage, string4);
+            int[] nArray = GUIAssetLoader.detectGridDimensions(bufferedImage, string4);
             System.out.println("[GUIAssetLoader] Grid detected: " + nArray[0] + " rows \u00d7 " + nArray[1] + " cols");
             String[] stringArray = new String[]{"Idle", "Hover", "Press", "Disabled"};
             if ("VERTICAL".equals(string4)) {
@@ -42,7 +41,7 @@ public static class AnimationAndSpriteLoader.GUIAssetLoader {
                 int n2 = bufferedImage.getHeight() / nArray[0];
                 int n3 = bufferedImage.getWidth() / nArray[1];
                 for (int i = 0; i < Math.min(stringArray.length, nArray[0]); ++i) {
-                    BufferedImage bufferedImage2 = AnimationAndSpriteLoader.GUIAssetLoader.extractStateFromVertical(bufferedImage, i, nArray[1], nArray[0]);
+                    BufferedImage bufferedImage2 = GUIAssetLoader.extractStateFromVertical(bufferedImage, i, nArray[1], nArray[0]);
                     if (bufferedImage2 == null) continue;
                     File file = new File(System.getProperty("java.io.tmpdir") + "/game_assets");
                     file.mkdirs();
@@ -101,8 +100,8 @@ public static class AnimationAndSpriteLoader.GUIAssetLoader {
             return null;
         }
         System.out.println("[GUIAssetLoader] Loaded card from: " + string3);
-        String string5 = AnimationAndSpriteLoader.GUIAssetLoader.detectSpriteOrientation(bufferedImage);
-        int n = AnimationAndSpriteLoader.GUIAssetLoader.detectFrameCount(bufferedImage, string5);
+        String string5 = GUIAssetLoader.detectSpriteOrientation(bufferedImage);
+        int n = GUIAssetLoader.detectFrameCount(bufferedImage, string5);
         System.out.println("[GUIAssetLoader] Card detected: " + string5 + " layout, " + n + " frames (" + bufferedImage.getWidth() + "x" + bufferedImage.getHeight() + ")");
         File file = new File(System.getProperty("java.io.tmpdir") + "/game_assets");
         file.mkdirs();
@@ -132,14 +131,14 @@ public static class AnimationAndSpriteLoader.GUIAssetLoader {
 
     public static AnimationAndSpriteLoader.HorizontalSpritesheetLoader loadTransition(String string, String string2) {
         String string3 = string2 + string + "_20Frames.png";
-        return AnimationAndSpriteLoader.GUIAssetLoader.loadGUIElement("Transition_" + string, string3, 20);
+        return GUIAssetLoader.loadGUIElement("Transition_" + string, string3, 20);
     }
 
     public static Map<String, AnimationAndSpriteLoader.HorizontalSpritesheetLoader> loadBatchElements(String string, String ... stringArray) {
         LinkedHashMap<String, AnimationAndSpriteLoader.HorizontalSpritesheetLoader> linkedHashMap = new LinkedHashMap<String, AnimationAndSpriteLoader.HorizontalSpritesheetLoader>();
         for (String string2 : stringArray) {
             String string3 = string + string2 + "_Idle_4Frames.png";
-            AnimationAndSpriteLoader.HorizontalSpritesheetLoader horizontalSpritesheetLoader = AnimationAndSpriteLoader.GUIAssetLoader.loadGUIElement(string2, string3, 4);
+            AnimationAndSpriteLoader.HorizontalSpritesheetLoader horizontalSpritesheetLoader = GUIAssetLoader.loadGUIElement(string2, string3, 4);
             if (horizontalSpritesheetLoader == null) continue;
             linkedHashMap.put(string2, horizontalSpritesheetLoader);
         }
@@ -206,7 +205,7 @@ public static class AnimationAndSpriteLoader.GUIAssetLoader {
             return Math.max(1, n);
         }
         if ("VERTICAL".equals(string)) {
-            int[] nArray = AnimationAndSpriteLoader.GUIAssetLoader.detectGridDimensions(bufferedImage, string);
+            int[] nArray = GUIAssetLoader.detectGridDimensions(bufferedImage, string);
             return nArray[1];
         }
         return 1;

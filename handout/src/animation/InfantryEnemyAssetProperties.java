@@ -2,10 +2,8 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.InfantryEnemyAssetProperties {
-
-    public static class BrawlerEnemy {
+public class InfantryEnemyAssetProperties {
+public class BrawlerEnemy {
         public static final String SOLDIER_NAME = "Infantry Brawler";
         public static final String SOLDIER_TYPE = "brawler";
         public static final String BUILD = "Stocky, heavily armored";
@@ -14,8 +12,7 @@ public static class AnimationAndSpriteLoader.InfantryEnemyAssetProperties {
         public static final int ESTIMATED_HEIGHT = 96;
         public static final String WALK_FILE = "03_PlayerCharacter_RemoteOperator_Cyborg_WalkCycle_6Frames1Row.png";
     }
-
-    public static class MaleSoldier {
+public class MaleSoldier {
         public static final String SOLDIER_NAME = "Infantry Male";
         public static final String SOLDIER_TYPE = "male_soldier";
         public static final String HELMET_COLOR = "Green #4A6741";
@@ -24,8 +21,7 @@ public static class AnimationAndSpriteLoader.InfantryEnemyAssetProperties {
         public static final int ESTIMATED_HEIGHT = 96;
         public static final String WALK_FILE = "01_PlayerCharacter_RemoteOperator_Biker_WalkCycle_6Frames1Row.png.png";
     }
-
-    public static class FemaleSoldier {
+public class FemaleSoldier {
         public static final String SOLDIER_NAME = "Infantry Female";
         public static final String SOLDIER_TYPE = "female_soldier";
         public static final String HAIR_COLOR = "Red #FF4444";

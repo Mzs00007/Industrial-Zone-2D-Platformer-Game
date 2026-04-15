@@ -6,8 +6,7 @@ package animation;
 import animation.AnimationAndSpriteLoader;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-public static class AnimationAndSpriteLoader.DroneAnimationConfigs.UfoSaucerDrone {
+public class UfoSaucerDrone {
     public static final String DRONE_TYPE = "ufo_saucer";
     public static final String BASE_PATH = "Resources/industrial-zone/characters/enemies/drones/1";
     public static final Map<String, AnimationAndSpriteLoader.AnimationConfig> ANIMATIONS = new LinkedHashMap<String, AnimationAndSpriteLoader.AnimationConfig>(){

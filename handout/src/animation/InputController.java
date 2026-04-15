@@ -4,8 +4,7 @@
 package animation;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class AnimationAndSpriteLoader.InputController {
+public class InputController {
     private AnimationAndSpriteLoader.InputHandler baseInput;
     private AnimationAndSpriteLoader.AnimationState currentState = AnimationAndSpriteLoader.AnimationState.IDLE;
     private AnimationAndSpriteLoader.AnimationState previousState = AnimationAndSpriteLoader.AnimationState.IDLE;
@@ -26,7 +25,7 @@ public static class AnimationAndSpriteLoader.InputController {
     public static final int KEY_CTRL = 17;
     public static final int MOUSE_LEFT = -1;
 
-    public AnimationAndSpriteLoader.InputController(AnimationAndSpriteLoader.InputHandler inputHandler) {
+    public InputController(AnimationAndSpriteLoader.InputHandler inputHandler) {
         this.baseInput = inputHandler;
     }
 

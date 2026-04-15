@@ -4,11 +4,10 @@
 package animation;
 
 import managers.Core;
-
-public static class Core.AnimationInitializer {
+public class Core {
     private Core.AnimationPlayer animPlayer;
 
-    public Core.AnimationInitializer(Core.AnimationPlayer animationPlayer) {
+    public AnimationInitializer(Core.AnimationPlayer animationPlayer) {
         this.animPlayer = animationPlayer;
     }
 

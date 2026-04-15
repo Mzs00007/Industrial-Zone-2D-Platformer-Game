@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package controllers;
-
-public static enum InteractiveButton.ButtonState {
+public enum ButtonState {
     IDLE,
     HOVER,
     PRESSED,

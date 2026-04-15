@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package managers;
-
-public static class GameplayEnhancementSystem.ZoneConfig {
+public class ZoneConfig {
     public int zoneNumber;
     public int enemyCount;
     public int hazardCount;
@@ -13,7 +12,7 @@ public static class GameplayEnhancementSystem.ZoneConfig {
     public boolean hasCheckpoint;
     public int checkpointIndex;
 
-    public GameplayEnhancementSystem.ZoneConfig(int n, int n2, int n3, int n4, float f, String string, boolean bl, int n5) {
+    public ZoneConfig(int n, int n2, int n3, int n4, float f, String string, boolean bl, int n5) {
         this.zoneNumber = n;
         this.enemyCount = n2;
         this.hazardCount = n3;

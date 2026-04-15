@@ -5,8 +5,7 @@ package animation;
 
 import java.util.HashMap;
 import java.util.Map;
-
-public static class AnimationAndSpriteLoader.CharacterWeaponState {
+public class CharacterWeaponState {
     public static final String SYSTEM_TYPE = "character_weapon_state";
     public static final String CHARACTER_BIKER = "biker";
     public static final String CHARACTER_PUNK = "punk";
@@ -20,12 +19,11 @@ public static class AnimationAndSpriteLoader.CharacterWeaponState {
         }
         return false;
     }
-
-    public static class EquippedWeapons {
+public class EquippedWeapons {
         private static Map<String, String> weaponMap = new HashMap<String, String>();
 
         public static void equipWeapon(String string, String string2) {
-            if (AnimationAndSpriteLoader.CharacterWeaponState.isValidCharacter(string)) {
+            if (CharacterWeaponState.isValidCharacter(string)) {
                 weaponMap.put(string, string2);
             }
         }

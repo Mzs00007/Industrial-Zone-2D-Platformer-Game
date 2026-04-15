@@ -2,10 +2,8 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.DroneEnemyAssetProperties {
-
-    public static class HoverPlatformProperties {
+public class DroneEnemyAssetProperties {
+public class HoverPlatformProperties {
         public static final String DRONE_NAME = "Hover Platform";
         public static final String DRONE_TYPE = "hover_platform";
         public static final String DIRECTORY = "Resources/industrial-zone/characters/enemies/drones/6";
@@ -17,8 +15,7 @@ public static class AnimationAndSpriteLoader.DroneEnemyAssetProperties {
         public static final int ANIMATION_COUNT = 4;
         public static final String[] ANIMATION_CONFIGS = new String[]{"01_Drone_HoverPlatform_Walk_4Frames1Row_PrimaryHoveringMovement_Movement_Loop_150ms.png", "02_Drone_HoverPlatform_Walk2_4Frames1Row_AlternativeMovementPattern_Movement_Loop_100ms.png", "03_Drone_HoverPlatform_Drop_5Frames1Row_PlatformDeploymentSequence_Special_PlayOnce_100ms.png", "04_Drone_HoverPlatform_Capsule_7Frames1Row_CapsuleProjectileLaunch_Attack_PlayOnce_100ms.png"};
     }
-
-    public static class ArmoredTruckVariantProperties {
+public class ArmoredTruckVariantProperties {
         public static final String DRONE_NAME = "Armored Truck (Variant)";
         public static final String DRONE_TYPE = "armored_truck_variant";
         public static final String DIRECTORY = "Resources/industrial-zone/characters/enemies/drones/5_2";
@@ -30,8 +27,7 @@ public static class AnimationAndSpriteLoader.DroneEnemyAssetProperties {
         public static final int ANIMATION_COUNT = 3;
         public static final String[] ANIMATION_CONFIGS = new String[]{"01_Drone_ArmoredTruckVariant_Idle_4Frames1Row_VariantIdleEngined_DefaultIdle_Loop_150ms.png", "02_Drone_ArmoredTruckVariant_Walk_4Frames1Row_VariantMovingForwardFrontView_Movement_Loop_100ms.png", "03_Drone_ArmoredTruckVariant_Death_5Frames1Row_VariantDestructionExplosionFlash_Death_PlayOnce_120ms.png"};
     }
-
-    public static class ArmoredTruckProperties {
+public class ArmoredTruckProperties {
         public static final String DRONE_NAME = "Armored Truck";
         public static final String DRONE_TYPE = "armored_truck";
         public static final String DIRECTORY = "Resources/industrial-zone/characters/enemies/drones/5";
@@ -43,8 +39,7 @@ public static class AnimationAndSpriteLoader.DroneEnemyAssetProperties {
         public static final int ANIMATION_COUNT = 3;
         public static final String[] ANIMATION_CONFIGS = new String[]{"01_Drone_ArmoredTruck_Idle_4Frames1Row_StationaryIdleEngineing_DefaultIdle_Loop_150ms.png", "02_Drone_ArmoredTruck_Movement_4Frames1Row_MovingForwardDrivingMovement_Movement_Loop_100ms.png", "03_Drone_ArmoredTruck_Death_5Frames1Row_VehicleDestructionExplosion_Death_PlayOnce_120ms.png"};
     }
-
-    public static class HelicopterProperties {
+public class HelicopterProperties {
         public static final String DRONE_NAME = "Helicopter Drone";
         public static final String DRONE_TYPE = "helicopter";
         public static final String DIRECTORY = "Resources/industrial-zone/characters/enemies/drones/4";
@@ -57,8 +52,7 @@ public static class AnimationAndSpriteLoader.DroneEnemyAssetProperties {
         public static final int LANDING_FRAMES = 16;
         public static final String[] ANIMATION_CONFIGS = new String[]{"01_Drone_Helicopter_Idle_4Frames1Row_RotorSpinningHovering_DefaultIdle_Loop_150ms.png", "02_Drone_Helicopter_Patrol_4Frames1Row_PatrolFlightMovement_Movement_Loop_100ms.png", "03_Drone_Helicopter_Landing_16Frames1Row_ExtendedLandingSequenceDescend_Special_PlayOnce_80ms.png", "04_Drone_Helicopter_Death_1Frames1Row_GhostSilhouetteDeath_Death_PlayOnce_120ms.png"};
     }
-
-    public static class HoverShooterProperties {
+public class HoverShooterProperties {
         public static final String DRONE_NAME = "Hover Shooter";
         public static final String DRONE_TYPE = "hovershooter";
         public static final String DIRECTORY = "Resources/industrial-zone/characters/enemies/drones/3";
@@ -71,8 +65,7 @@ public static class AnimationAndSpriteLoader.DroneEnemyAssetProperties {
         public static final int RAPID_FIRE_INTERVAL_MS = 50;
         public static final String[] ANIMATION_CONFIGS = new String[]{"01_Drone_HoverShooter_Idle_4Frames1Row_HoveringIdleFloat_DefaultIdle_Loop_150ms.png", "02_Drone_HoverShooter_Forward_4Frames1Row_MovingForward Movement_Loop_100ms.png", "03_Drone_HoverShooter_Back_4Frames1Row_MovingBackwardRetreat_Movement_Loop_100ms.png", "04_Drone_HoverShooter_Fire1_16Frames1Row_RapidFireBurstMode1_Attack_PlayOnce_50ms.png", "05_Drone_HoverShooter_Fire2_16Frames1Row_RapidFireBurstMode2_Attack_PlayOnce_50ms.png", "06_Drone_HoverShooter_Fire3_16Frames1Row_RapidFireBurstMode3_Attack_PlayOnce_50ms.png", "07_Drone_HoverShooter_Death_8Frames1Row_ExplosionDeathSequence_Death_PlayOnce_80ms.png"};
     }
-
-    public static class JetDroneProperties {
+public class JetDroneProperties {
         public static final String DRONE_NAME = "Jet Drone";
         public static final String DRONE_TYPE = "jet_drone";
         public static final String DIRECTORY = "Resources/industrial-zone/characters/enemies/drones/2";
@@ -84,8 +77,7 @@ public static class AnimationAndSpriteLoader.DroneEnemyAssetProperties {
         public static final int ANIMATION_COUNT = 2;
         public static final String[] ANIMATION_CONFIGS = new String[]{"01_Drone_JetDrone_Fly_6Frames1Row_AerialFighterFlyingVariant_Movement_Loop_80ms.png", "02_Drone_JetDrone_Bomb_8Frames1Row_BombPayloadProjectile_Attack_Loop_80ms.png"};
     }
-
-    public static class UfoSaucerProperties {
+public class UfoSaucerProperties {
         public static final String DRONE_NAME = "UFO Saucer";
         public static final String DRONE_TYPE = "ufo_saucer";
         public static final String DIRECTORY = "Resources/industrial-zone/characters/enemies/drones/1";

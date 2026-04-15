@@ -1,4 +1,5 @@
 package managers;
+import game2D.*;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

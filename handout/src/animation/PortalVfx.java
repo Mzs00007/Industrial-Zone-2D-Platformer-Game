@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.AmbientParticleVfx.PortalVfx {
+public class PortalVfx {
     public static final String EFFECT_NAME = "Teleport Portal";
     public static final String EFFECT_TYPE = "portal";
     public static final String DIRECTORY = "Resources/industrial-zone/vfx/5 Other";

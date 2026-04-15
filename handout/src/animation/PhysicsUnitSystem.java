@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.PhysicsUnitSystem {
+public class PhysicsUnitSystem {
     public static final float PIXELS_PER_METER = 32.0f;
     public static final float METERS_PER_PIXEL = 0.03125f;
     public static final float TILE_SIZE_METERS = 1.0f;
@@ -14,11 +13,11 @@ public static class AnimationAndSpriteLoader.PhysicsUnitSystem {
     public static final float ANGULAR_DAMPING = 0.1f;
     public static final float AIR_DAMPING = 0.15f;
     public static final float STANDARD_JUMP_HEIGHT = 2.0f;
-    public static final float STANDARD_JUMP_VELOCITY = AnimationAndSpriteLoader.PhysicsUnitSystem.jumpVelocity(2.0f);
+    public static final float STANDARD_JUMP_VELOCITY = PhysicsUnitSystem.jumpVelocity(2.0f);
     public static final float SMALL_JUMP_HEIGHT = 0.75f;
-    public static final float SMALL_JUMP_VELOCITY = AnimationAndSpriteLoader.PhysicsUnitSystem.jumpVelocity(0.75f);
+    public static final float SMALL_JUMP_VELOCITY = PhysicsUnitSystem.jumpVelocity(0.75f);
     public static final float HIGH_JUMP_HEIGHT = 4.0f;
-    public static final float HIGH_JUMP_VELOCITY = AnimationAndSpriteLoader.PhysicsUnitSystem.jumpVelocity(4.0f);
+    public static final float HIGH_JUMP_VELOCITY = PhysicsUnitSystem.jumpVelocity(4.0f);
 
     public static float toMeters(float f) {
         return f * 0.03125f;
@@ -46,8 +45,7 @@ public static class AnimationAndSpriteLoader.PhysicsUnitSystem {
         float f2 = Math.abs(-9.81f);
         return -((float)Math.sqrt(2.0f * f2 * f));
     }
-
-    public static class PhysicsBody {
+public class PhysicsBody {
         public Vector2D position;
         public Vector2D velocity;
         public Vector2D acceleration;
@@ -148,8 +146,7 @@ public static class AnimationAndSpriteLoader.PhysicsUnitSystem {
             return String.format("PhysicsBody{pos:%s, vel:%s, mass:%.1fkg, radius:%.2fm}", this.position, this.velocity, Float.valueOf(this.mass), Float.valueOf(this.radius));
         }
     }
-
-    public static class Vector2D {
+public class Vector2D {
         public float x;
         public float y;
 

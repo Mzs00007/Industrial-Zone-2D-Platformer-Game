@@ -4,8 +4,7 @@
 package animation;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class AnimationAndSpriteLoader.MusicAudioRegistry {
+public class MusicAudioRegistry {
     public static final String TYPE_MUSIC = "music_audio_system";
     public static final String DIRECTORY_MIDI = "Resources/industrial-zone/audio/music_midi";
     public static final String DIRECTORY_WAV = "Resources/industrial-zone/audio/music_wav";

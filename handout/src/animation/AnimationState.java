@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static enum AnimationAndSpriteLoader.AnimationState {
+public enum AnimationState {
     IDLE("idle", 1, 0),
     WALK_LEFT("walk_left", 8, 100),
     WALK_RIGHT("walk_right", 8, 100),
@@ -47,7 +46,7 @@ public static enum AnimationAndSpriteLoader.AnimationState {
     public final int frameCount;
     public final int frameTimingMs;
 
-    private AnimationAndSpriteLoader.AnimationState(String string2, int n2, int n3) {
+    private AnimationState(String string2, int n2, int n3) {
         this.filename = string2;
         this.frameCount = n2;
         this.frameTimingMs = n3;

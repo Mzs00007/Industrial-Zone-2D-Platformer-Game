@@ -4,13 +4,12 @@
 package ai;
 
 import ai.AI;
-
-public static abstract class AI.AIBehavior.SimpleAction
+public abstract class SimpleAction
 implements AI.AIBehavior.AIAction {
     protected String name;
     protected boolean complete = false;
 
-    public AI.AIBehavior.SimpleAction(String string) {
+    public SimpleAction(String string) {
         this.name = string;
     }
 

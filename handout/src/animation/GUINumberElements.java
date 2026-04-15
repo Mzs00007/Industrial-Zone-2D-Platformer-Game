@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.GUINumberElements {
+public class GUINumberElements {
     public static final String UI_TYPE = "number_element";
     public static final String DIRECTORY = "Resources/industrial-zone/gui/7 Numbers";
     public static final int DIGIT_COUNT = 10;

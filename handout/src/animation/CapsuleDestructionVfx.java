@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.DestructibleObjectVfx.CapsuleDestructionVfx {
+public class CapsuleDestructionVfx {
     public static final String OBJECT_NAME = "Capsule Destruction";
     public static final String OBJECT_TYPE = "capsule";
     public static final String DIRECTORY = "Resources/industrial-zone/vfx/6 Extra/Objects";

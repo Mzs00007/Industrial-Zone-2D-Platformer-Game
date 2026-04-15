@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package managers;
-
-public static class Core.InputHandler {
+public class InputHandler {
     public boolean left;
     public boolean right;
     public boolean up;

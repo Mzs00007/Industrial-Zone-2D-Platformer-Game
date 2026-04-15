@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.WeaponHandPoses.CyborgHands {
+public class CyborgHands {
     public static final String CHARACTER = "Cyborg";
     public static final String DIRECTORY = "Resources/industrial-zone/weapons/1/3 Hands/3 Cyborg";
     public static final String GRIP_VERTICAL = "01_Weapon_Hand_Cyborg_GripVertical_WeaponHoldPose_StaticSprite.png";

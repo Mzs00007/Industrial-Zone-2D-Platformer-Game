@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.BulletProperties {
+public class BulletProperties {
     public static final String PROJECTILE_TYPE = "bullet";
     public static final String DIRECTORY = "Resources/industrial-zone/weapons/1/5 Bullets";
     public static final int TOTAL_BULLET_TYPES = 13;

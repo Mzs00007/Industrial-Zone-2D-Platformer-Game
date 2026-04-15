@@ -4,8 +4,7 @@
 package animation;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class AnimationAndSpriteLoader.GunsExtendedProperties {
+public class GunsExtendedProperties {
     public static final String TYPE_GUNS_EXTENDED = "guns_extended_system";
     public static final String DIRECTORY = "Resources/industrial-zone/weapons/2/2 Guns";
     public static final int TOTAL_GUN_TYPES = 10;

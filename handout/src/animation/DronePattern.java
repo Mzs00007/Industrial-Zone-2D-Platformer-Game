@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static enum AnimationAndSpriteLoader.DroneAIBehavior.DronePattern {
+public enum DronePattern {
     HOVER,
     SWEEP,
     SPIRAL,

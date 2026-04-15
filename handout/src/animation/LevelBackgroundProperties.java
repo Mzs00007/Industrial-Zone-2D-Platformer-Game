@@ -2,10 +2,8 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.LevelBackgroundProperties {
-
-    public static class PowerStationLevel2Background {
+public class LevelBackgroundProperties {
+public class PowerStationLevel2Background {
         public static final String LEVEL_NAME = "Power Station Level 2";
         public static final String LEVEL_TYPE = "power_station_level_2";
         public static final String DIRECTORY = "Resources/industrial-zone/1 Tiles/power-station-level-2/2 Background_level_2";
@@ -20,8 +18,7 @@ public static class AnimationAndSpriteLoader.LevelBackgroundProperties {
         public static final String[] LAYER_NAMES = new String[]{"Sky", "Far Tower", "Mid Tower", "Near Structure", "Foreground"};
         public static final String[] LAYER_DESCRIPTIONS = new String[]{"Static sky background - no parallax (0.0x)", "Distant tower silhouette - slow parallax (0.15x)", "Mid-ground structure - medium parallax (0.30x)", "Near structure detail - faster parallax (0.45x)", "Foreground element - fastest parallax (0.60x)"};
     }
-
-    public static class IndustrialZoneLevel1Background {
+public class IndustrialZoneLevel1Background {
         public static final String LEVEL_NAME = "Industrial Zone Level 1";
         public static final String LEVEL_TYPE = "industrial_zone_level_1";
         public static final String DIRECTORY = "Resources/industrial-zone/1 Tiles/Industrial_zone_level_1/2 Background_level_1";

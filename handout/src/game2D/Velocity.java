@@ -1,4 +1,5 @@
 package game2D;
+import game2D.*;
 
 /**
 	The Velocity class provides the ability to manipulate and specify a

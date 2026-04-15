@@ -4,8 +4,7 @@
 package animation;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class AnimationAndSpriteLoader.AdvancedBulletProperties {
+public class AdvancedBulletProperties {
     public static final String TYPE_BULLETS = "advanced_bullets";
     public static final String DIRECTORY = "Resources/industrial-zone/weapons/2/5 Bullets";
     public static final int TOTAL_BULLET_TYPES = 10;

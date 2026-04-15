@@ -1,4 +1,4 @@
-package ui;
+package controllers;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 import java.util.HashMap;
 import java.util.Map;
 import animation.InputController.PixelCopyHelper;
-import ui.ManifestLoader;
+import controllers.ManifestLoader;
 
 /**
  * ════════════════════════════════════════════════════════════════════════════

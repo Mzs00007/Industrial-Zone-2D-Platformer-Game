@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.InteractiveObjectProperties.CollectibleMoney {
+public class CollectibleMoney {
     public static final String OBJECT_NAME = "Money Collectible";
     public static final String OBJECT_TYPE = "collectible_money";
     public static final String DIRECTORY = "Resources/industrial-zone/1 Tiles/Industrial_zone_level_1/4 Animated objects";

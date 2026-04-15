@@ -1,4 +1,4 @@
-package ui.components.game2D;
+package controllers;
 
 import java.awt.event.KeyEvent;
 import java.io.File;

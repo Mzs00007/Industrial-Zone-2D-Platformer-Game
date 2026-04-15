@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.DamageCalculationSystem {
+public class DamageCalculationSystem {
     public static int calculateDamage(int n, double d, double d2, HitLocation hitLocation, DifficultyLevel difficultyLevel) {
         double d3 = (double)n * d * Math.max(0.25, d2) * hitLocation.damageMultiplier * difficultyLevel.damageMultiplier;
         return (int)d3;
@@ -15,8 +14,7 @@ public static class AnimationAndSpriteLoader.DamageCalculationSystem {
         }
         return 1.0 - Math.pow(d / d2, 2.0);
     }
-
-    public static enum HitLocation {
+public enum HitLocation {
         HEAD(1.5, "Critical"),
         TORSO(1.0, "Standard"),
         LIMB(0.75, "Reduced");
@@ -29,8 +27,7 @@ public static class AnimationAndSpriteLoader.DamageCalculationSystem {
             this.description = string2;
         }
     }
-
-    public static enum DifficultyLevel {
+public enum DifficultyLevel {
         EASY(0.7),
         NORMAL(1.0),
         HARD(1.3),

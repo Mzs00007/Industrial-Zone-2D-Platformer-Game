@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package entities;
-
-public static enum Enemies.EnemyPhysicsProfile.EnemyCategory {
+public enum EnemyCategory {
     DRONE,
     ANTAGONIST;
 

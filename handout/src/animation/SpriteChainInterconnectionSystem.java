@@ -5,8 +5,7 @@ package animation;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-public static class AnimationAndSpriteLoader.SpriteChainInterconnectionSystem {
+public class SpriteChainInterconnectionSystem {
     public static final String TYPE_SPRITE_CHAINS = "complete_sprite_chains";
     public static final int CHAIN_LAYERS_ARMED = 4;
     public static final String[] ARM_SEQUENCE = new String[]{"Load_Base_Animation", "Check_Armed_Status", "Load_Overlay_Animation", "Fetch_Gun_Sprite", "Get_Hand_Grip_Pose", "Render_4_Layer_Composite"};

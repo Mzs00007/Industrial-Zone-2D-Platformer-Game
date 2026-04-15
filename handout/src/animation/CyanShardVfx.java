@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.ImpactBurstVfx.CyanShardVfx {
+public class CyanShardVfx {
     public static final String EFFECT_NAME = "Cyan Energy Shard";
     public static final String EFFECT_TYPE = "cyan_shard";
     public static final String DIRECTORY = "Resources/industrial-zone/vfx/5 Other";

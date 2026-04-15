@@ -2,10 +2,11 @@
  * Decompiled with CFR 0.152.
  * UPDATED: 2026-04-14 - Production asset integration
  */
+package entities;
+
 import animation.AnimationAndSpriteLoader;
 import game2D.TileMap;
-import utils.Config;
-import enums.TileAssets;
+import important.Config;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -18,8 +19,7 @@ import java.util.Map;
 import controllers.AnimatedObjectManager;
 import controllers.ComprehensiveTileMapLoader;
 
-public class Level1
-extends AnimationAndSpriteLoader {
+public class Level1 {
     private static final boolean VERBOSE_LOGGING = true;
     public static final int LEVEL_ID = 1;
     public static final String LEVEL_NAME = "Industrial Zone Entry";

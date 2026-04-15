@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package core_game_entities.effects;
-
-public static class VFXChainReaction.ParticleEffect {
+public class ParticleEffect {
     public float x;
     public float y;
     public float vx;
@@ -13,7 +12,7 @@ public static class VFXChainReaction.ParticleEffect {
     public String spriteFrame;
     public long createdMs;
 
-    public VFXChainReaction.ParticleEffect(float f, float f2, float f3, float f4, String string) {
+    public ParticleEffect(float f, float f2, float f3, float f4, String string) {
         this.x = f;
         this.y = f2;
         this.vx = f3;

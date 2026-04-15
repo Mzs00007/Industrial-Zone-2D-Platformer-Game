@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.BossCharacterAssetProperties.GolfCartSoldierBoss {
+public class GolfCartSoldierBoss {
     public static final String BOSS_NAME = "Golf Cart Soldier";
     public static final String BOSS_TYPE = "golf_cart_soldier";
     public static final String DIRECTORY = "Resources/industrial-zone/characters/bosses/GolfCartSoldier";

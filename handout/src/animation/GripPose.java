@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static enum AnimationAndSpriteLoader.WeaponSystemCore.GripPose {
+public enum GripPose {
     HORIZONTAL(0, "Horizontal", 35, 15),
     DIAGONAL_DOWN(1, "DiagonalDown", 30, 25),
     VERTICAL_UP(2, "VerticalUp", 28, 5),
@@ -20,7 +19,7 @@ public static enum AnimationAndSpriteLoader.WeaponSystemCore.GripPose {
     public final int muzzleOffsetX;
     public final int muzzleOffsetY;
 
-    private AnimationAndSpriteLoader.WeaponSystemCore.GripPose(int n2, String string2, int n3, int n4) {
+    private GripPose(int n2, String string2, int n3, int n4) {
         this.index = n2;
         this.name = string2;
         this.muzzleOffsetX = n3;

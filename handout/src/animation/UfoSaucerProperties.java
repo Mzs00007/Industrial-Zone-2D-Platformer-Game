@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.DroneEnemyAssetProperties.UfoSaucerProperties {
+public class UfoSaucerProperties {
     public static final String DRONE_NAME = "UFO Saucer";
     public static final String DRONE_TYPE = "ufo_saucer";
     public static final String DIRECTORY = "Resources/industrial-zone/characters/enemies/drones/1";

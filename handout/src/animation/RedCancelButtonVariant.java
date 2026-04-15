@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static final class AnimationAndSpriteLoader.ButtonVariants.RedCancelButtonVariant {
+public final class RedCancelButtonVariant {
     public static final String VARIANT_NAME = "Cancel (Red)";
     public static final String SPRITESHEET = "10_GUI_Button_RedCancel_4StatesVertical_CancelColor.png";
     public static final int NORMAL_STATE = 0;

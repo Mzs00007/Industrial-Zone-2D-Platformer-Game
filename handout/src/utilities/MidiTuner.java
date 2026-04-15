@@ -203,6 +203,18 @@ public class MidiTuner {
         }
     }
 
+    public MidiTuner() {
+        this("", PLAY_ONCE);
+    }
+
+    public void setPath(String path) {
+        this.audioPath = path;
+    }
+
+    public void setLoop(int n) {
+        this.loopCount = n;
+    }
+
     public static void printAvailableAudio() {
         System.out.println("\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550");
         System.out.println("MidiTuner - Available Audio Files");

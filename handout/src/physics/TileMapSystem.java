@@ -1,12 +1,13 @@
 /*
  * Decompiled with CFR 0.152.
  */
-package tiles;
+package physics;
+import game2D.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import tiles.Level1TileRegistry;
-import tiles.Level2TileRegistry;
+import important.Level1TileRegistry;
+import important.Level2TileRegistry;
 
 public class TileMapSystem {
     private int currentLevel;

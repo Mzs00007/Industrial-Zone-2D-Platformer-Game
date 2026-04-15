@@ -3,14 +3,13 @@
  */
 package entities;
 
-import entities.enemies.Enemies;
-
-public static class Enemies.EnemyEntities.EnemyDrone_JetDroneVariant {
+import entities.Enemies;
+public class EnemyDrone_JetDroneVariant {
     private Enemies.EnemyFactory.EnemyInstance instance;
     private float x;
     private float y;
 
-    public Enemies.EnemyEntities.EnemyDrone_JetDroneVariant(float f, float f2) {
+    public EnemyDrone_JetDroneVariant(float f, float f2) {
         this.x = f;
         this.y = f2;
         this.instance = Enemies.EnemyFactory.createEnemy(Enemies.EnemyPhysicsProfile.EnemyType.JET_DRONE, f, f2);

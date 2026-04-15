@@ -2,17 +2,17 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
+import game2D.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
-public static class AnimationAndSpriteLoader.LevelWeaponPlacementSystem {
+public class LevelWeaponPlacementSystem {
     private int[][] tileMap;
     private int mapWidth;
     private int mapHeight;
     private List<WeaponPlacement> placements;
 
-    public AnimationAndSpriteLoader.LevelWeaponPlacementSystem(int[][] nArray, int n, int n2) {
+    public LevelWeaponPlacementSystem(int[][] nArray, int n, int n2) {
         this.tileMap = nArray;
         this.mapWidth = n;
         this.mapHeight = n2;
@@ -94,8 +94,7 @@ public static class AnimationAndSpriteLoader.LevelWeaponPlacementSystem {
         }
         return String.format("Weapon Placements: %d total, %d valid (%.1f%% success)", n, n2, Float.valueOf(100.0f * (float)n2 / (float)Math.max(1, n)));
     }
-
-    public static class WeaponPlacement {
+public class WeaponPlacement {
         public String gunFile;
         public int screenX;
         public int screenY;

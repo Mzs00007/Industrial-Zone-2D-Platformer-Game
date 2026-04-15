@@ -6,10 +6,8 @@ package animation;
 import animation.AnimationAndSpriteLoader;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-public static class AnimationAndSpriteLoader.DroneAnimationConfigs {
-
-    public static class HoverPlatform {
+public class DroneAnimationConfigs {
+public class HoverPlatform {
         public static final String DRONE_TYPE = "hover_platform";
         public static final String BASE_PATH = "Resources/industrial-zone/characters/enemies/drones/6";
         public static final Map<String, AnimationAndSpriteLoader.AnimationConfig> ANIMATIONS = new LinkedHashMap<String, AnimationAndSpriteLoader.AnimationConfig>(){
@@ -31,8 +29,7 @@ public static class AnimationAndSpriteLoader.DroneAnimationConfigs {
             return gridFrameAnimationLoader;
         }
     }
-
-    public static class ArmoredTruckVariant {
+public class ArmoredTruckVariant {
         public static final String DRONE_TYPE = "armored_truck_variant";
         public static final String BASE_PATH = "Resources/industrial-zone/characters/enemies/drones/5_2";
         public static final Map<String, AnimationAndSpriteLoader.AnimationConfig> ANIMATIONS = new LinkedHashMap<String, AnimationAndSpriteLoader.AnimationConfig>(){
@@ -53,8 +50,7 @@ public static class AnimationAndSpriteLoader.DroneAnimationConfigs {
             return gridFrameAnimationLoader;
         }
     }
-
-    public static class ArmoredTruck {
+public class ArmoredTruck {
         public static final String DRONE_TYPE = "armored_truck";
         public static final String BASE_PATH = "Resources/industrial-zone/characters/enemies/drones/5";
         public static final Map<String, AnimationAndSpriteLoader.AnimationConfig> ANIMATIONS = new LinkedHashMap<String, AnimationAndSpriteLoader.AnimationConfig>(){
@@ -75,8 +71,7 @@ public static class AnimationAndSpriteLoader.DroneAnimationConfigs {
             return gridFrameAnimationLoader;
         }
     }
-
-    public static class HelicopterDrone {
+public class HelicopterDrone {
         public static final String DRONE_TYPE = "helicopter";
         public static final String BASE_PATH = "Resources/industrial-zone/characters/enemies/drones/4";
         public static final Map<String, AnimationAndSpriteLoader.AnimationConfig> ANIMATIONS = new LinkedHashMap<String, AnimationAndSpriteLoader.AnimationConfig>(){
@@ -98,8 +93,7 @@ public static class AnimationAndSpriteLoader.DroneAnimationConfigs {
             return gridFrameAnimationLoader;
         }
     }
-
-    public static class HoverShooterDrone {
+public class HoverShooterDrone {
         public static final String DRONE_TYPE = "hovershooter";
         public static final String BASE_PATH = "Resources/industrial-zone/characters/enemies/drones/3";
         public static final Map<String, AnimationAndSpriteLoader.AnimationConfig> ANIMATIONS = new LinkedHashMap<String, AnimationAndSpriteLoader.AnimationConfig>(){
@@ -124,8 +118,7 @@ public static class AnimationAndSpriteLoader.DroneAnimationConfigs {
             return gridFrameAnimationLoader;
         }
     }
-
-    public static class JetDrone {
+public class JetDrone {
         public static final String DRONE_TYPE = "jet_drone";
         public static final String BASE_PATH = "Resources/industrial-zone/characters/enemies/drones/2";
         public static final Map<String, AnimationAndSpriteLoader.AnimationConfig> ANIMATIONS = new LinkedHashMap<String, AnimationAndSpriteLoader.AnimationConfig>(){
@@ -145,8 +138,7 @@ public static class AnimationAndSpriteLoader.DroneAnimationConfigs {
             return gridFrameAnimationLoader;
         }
     }
-
-    public static class UfoSaucerDrone {
+public class UfoSaucerDrone {
         public static final String DRONE_TYPE = "ufo_saucer";
         public static final String BASE_PATH = "Resources/industrial-zone/characters/enemies/drones/1";
         public static final Map<String, AnimationAndSpriteLoader.AnimationConfig> ANIMATIONS = new LinkedHashMap<String, AnimationAndSpriteLoader.AnimationConfig>(){

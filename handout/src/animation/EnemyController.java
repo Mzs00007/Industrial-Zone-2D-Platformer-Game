@@ -4,14 +4,13 @@
 package animation;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class AnimationAndSpriteLoader.EnemyController
+public class EnemyController
 extends AnimationAndSpriteLoader.EntityAnimationController {
     private float detectionRadius;
     private boolean isAlerted;
     private AnimationAndSpriteLoader.AIBehavior aiBehavior;
 
-    public AnimationAndSpriteLoader.EnemyController(AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody physicsBody, float f) {
+    public EnemyController(AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody physicsBody, float f) {
         super(physicsBody);
         this.detectionRadius = f;
         this.isAlerted = false;
@@ -92,22 +91,22 @@ extends AnimationAndSpriteLoader.EntityAnimationController {
     public static String getEnemyAssetPath(EnemyType enemyType, String string) {
         switch (enemyType.ordinal()) {
             case 0: {
-                return "Resources/industrial-zone/characters/enemies/drones/1/" + AnimationAndSpriteLoader.EnemyController.getUfoSaucerAsset(string);
+                return "Resources/industrial-zone/characters/enemies/drones/1/" + EnemyController.getUfoSaucerAsset(string);
             }
             case 1: {
-                return "Resources/industrial-zone/characters/enemies/drones/2/" + AnimationAndSpriteLoader.EnemyController.getJetDroneAsset(string);
+                return "Resources/industrial-zone/characters/enemies/drones/2/" + EnemyController.getJetDroneAsset(string);
             }
             case 2: {
-                return "Resources/industrial-zone/characters/enemies/drones/3/" + AnimationAndSpriteLoader.EnemyController.getTransportDroneAsset(string);
+                return "Resources/industrial-zone/characters/enemies/drones/3/" + EnemyController.getTransportDroneAsset(string);
             }
             case 3: {
-                return "Resources/industrial-zone/characters/enemies/punks/" + AnimationAndSpriteLoader.EnemyController.getPunkAsset(string);
+                return "Resources/industrial-zone/characters/enemies/punks/" + EnemyController.getPunkAsset(string);
             }
             case 4: {
-                return "Resources/industrial-zone/characters/enemies/rugby/" + AnimationAndSpriteLoader.EnemyController.getRugbyPlayerAsset(string);
+                return "Resources/industrial-zone/characters/enemies/rugby/" + EnemyController.getRugbyPlayerAsset(string);
             }
         }
-        return "Resources/industrial-zone/characters/enemies/drones/1/" + AnimationAndSpriteLoader.EnemyController.getUfoSaucerAsset(string);
+        return "Resources/industrial-zone/characters/enemies/drones/1/" + EnemyController.getUfoSaucerAsset(string);
     }
 
     private static String getUfoSaucerAsset(String string) {
@@ -229,8 +228,7 @@ extends AnimationAndSpriteLoader.EntityAnimationController {
         }
         return "01_Enemy_RugbyPlayer_Idle_3Frames_PowerStance_ReadyCharge_Loop_150ms.png";
     }
-
-    public static enum EnemyType {
+public enum EnemyType {
         UFO_SAUCER,
         JET_DRONE,
         TRANSPORT_DRONE,

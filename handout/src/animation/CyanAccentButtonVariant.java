@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static final class AnimationAndSpriteLoader.ButtonVariants.CyanAccentButtonVariant {
+public final class CyanAccentButtonVariant {
     public static final String VARIANT_NAME = "Cyan Accent";
     public static final String SPRITESHEET = "04_GUI_Button_CyanAccent_4StatesVertical_BlueHighlight.png";
     public static final int NORMAL_STATE = 0;

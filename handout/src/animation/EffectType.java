@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package core_game_entities.effects;
-
-public static enum VFXChainReaction.EffectType {
+public enum EffectType {
     BOMB_EXPLOSION,
     SHOCKWAVE,
     DEBRIS_SCATTER,

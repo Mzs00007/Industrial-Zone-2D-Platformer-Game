@@ -1,7 +1,8 @@
 package levels;
+import game2D.*;
 
 import animation.InputController;
-import ui.UISystem;
+import controllers.UISystem;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;

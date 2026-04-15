@@ -6,8 +6,7 @@ package ai;
 import ai.AI;
 import java.util.ArrayList;
 import java.util.List;
-
-public static class AI.AISystem {
+public class AISystem {
     private List<AI.AIAgent> agents = new ArrayList<AI.AIAgent>();
     private AI.AIPathfinder pathfinder = new AI.AIPathfinder();
     private AI.AIDecisionMaker decisionMaker = new AI.AIDecisionMaker();

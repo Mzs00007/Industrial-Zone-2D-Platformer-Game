@@ -9,14 +9,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import physics.CollisionDetector;
-
-public static class AI.AIBehaviorSystem {
+public class AIBehaviorSystem {
     private Map<Integer, AIAgent> agents = new HashMap<Integer, AIAgent>();
     private int agentIdCounter = 0;
     private Random random = new Random();
     private CollisionDetector collisionDetector;
 
-    public AI.AIBehaviorSystem(CollisionDetector collisionDetector) {
+    public AIBehaviorSystem(CollisionDetector collisionDetector) {
         this.collisionDetector = collisionDetector;
     }
 
@@ -191,8 +190,7 @@ public static class AI.AIBehaviorSystem {
     public int getActiveAgentCount() {
         return (int)this.agents.values().stream().filter(aIAgent -> aIAgent.isActive()).count();
     }
-
-    public static class AIAgent {
+public class AIAgent {
         public int agentId;
         public AIState state = AIState.IDLE;
         public AIState previousState = AIState.IDLE;
@@ -249,8 +247,7 @@ public static class AI.AIBehaviorSystem {
             return this.currentHealth / this.maxHealth;
         }
     }
-
-    public static enum Difficulty {
+public enum Difficulty {
         EASY(0.5f, 200.0f, 5000L),
         NORMAL(0.75f, 300.0f, 3000L),
         HARD(0.95f, 500.0f, 1000L);
@@ -265,8 +262,7 @@ public static class AI.AIBehaviorSystem {
             this.reactionTimeMs = l;
         }
     }
-
-    public static enum AIState {
+public enum AIState {
         IDLE(0),
         PATROL(1),
         CHASE(2),

@@ -2,12 +2,10 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.ParallaxBackgroundSystem.Phase6FactorUpdate {
+public class Phase6FactorUpdate {
     public static final String PHASE_NAME = "PHASE 6: PARALLAX FACTOR UPDATE";
     public static final String FREQUENCY = "Every frame (60 FPS = every 16.67ms)";
-
-    public static final class UpdateProcess {
+public final class UpdateProcess {
         public static final String STEP1 = "GET current camera X (player position)";
         public static final String STEP2 = "FOR each layer: newOffset = cameraX \u00d7 parallaxFactor";
         public static final String STEP3 = "WRAP: newOffset = newOffset % layerWidth (seamless)";

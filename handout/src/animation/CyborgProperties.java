@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.PlayerCharacterAssetProperties.CyborgProperties {
+public class CyborgProperties {
     public static final String CHARACTER_NAME = "Cyborg";
     public static final String CHARACTER_TYPE = "cyborg";
     public static final String BASE_DIRECTORY = "Resources/industrial-zone/characters/player/cyborg";

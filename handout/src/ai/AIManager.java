@@ -4,8 +4,7 @@
 package ai;
 
 import java.util.List;
-
-public static class AI.AIManager {
+public class AIManager {
     private static final float MAX_FORCE = 1.5f;
     private static final float MAX_VELOCITY = 3.0f;
     private static final float MAX_WANDER_DISTANCE = 100.0f;
@@ -42,21 +41,21 @@ public static class AI.AIManager {
         float f9 = 0.5f;
         float f10 = f5 + f7 * f9;
         float f11 = f6 + f8 * f9;
-        return AI.AIManager.seek(f, f2, f10, f11);
+        return AIManager.seek(f, f2, f10, f11);
     }
 
     public static float[] evade(float f, float f2, float f3, float f4, float f5, float f6, float f7, float f8) {
         float f9 = 0.5f;
         float f10 = f5 + f7 * f9;
         float f11 = f6 + f8 * f9;
-        return AI.AIManager.flee(f, f2, f10, f11);
+        return AIManager.flee(f, f2, f10, f11);
     }
 
     public static float[] wander(float f, float f2, float f3, float f4) {
         wanderAngle = (float)((double)wanderAngle + (Math.random() - 0.5) * 2.0);
         float f5 = (float)(Math.cos(wanderAngle) * 100.0);
         float f6 = (float)(Math.sin(wanderAngle) * 100.0);
-        return AI.AIManager.seek(f, f2, f + f5, f2 + f6);
+        return AIManager.seek(f, f2, f + f5, f2 + f6);
     }
 
     public static float[] avoidObstacle(float f, float f2, float f3, float f4, float f5, float f6, float f7) {
@@ -120,6 +119,6 @@ public static class AI.AIManager {
             f3 += fArray[0];
             f4 += fArray[1];
         }
-        return AI.AIManager.seek(f, f2, f3 /= (float)(list.size() + 1), f4 /= (float)(list.size() + 1));
+        return AIManager.seek(f, f2, f3 /= (float)(list.size() + 1), f4 /= (float)(list.size() + 1));
     }
 }

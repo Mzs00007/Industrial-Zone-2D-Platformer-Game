@@ -5,8 +5,7 @@ package animation;
 
 import animation.AnimationAndSpriteLoader;
 import java.awt.image.BufferedImage;
-
-public static class AnimationAndSpriteLoader.InteractionZoneLoader
+public class InteractionZoneLoader
 extends AnimationAndSpriteLoader.AssetType {
     private float centerX;
     private float centerY;
@@ -17,7 +16,7 @@ extends AnimationAndSpriteLoader.AssetType {
     private char interactionKey;
     private boolean isActive;
 
-    public AnimationAndSpriteLoader.InteractionZoneLoader(String string, float f, float f2, float f3, ZoneShape zoneShape, char c) {
+    public InteractionZoneLoader(String string, float f, float f2, float f3, ZoneShape zoneShape, char c) {
         super(string, "");
         this.centerX = f;
         this.centerY = f2;
@@ -97,8 +96,7 @@ extends AnimationAndSpriteLoader.AssetType {
     public int getFrameHeight() {
         return (int)this.radius;
     }
-
-    public static enum ZoneShape {
+public enum ZoneShape {
         CIRCLE("Circular interaction zone"),
         RECTANGLE("Rectangular interaction zone"),
         POLYGON("Complex polygon zone");

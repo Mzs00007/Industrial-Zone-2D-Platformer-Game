@@ -1,4 +1,5 @@
-package ui;
+package controllers;
+import game2D.*;
 import animation.InputController;
 import animation.InputController.VerticalSpritesheetLoader;
 import physics.PhysicsSystem;

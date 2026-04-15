@@ -1,80 +1,123 @@
-import java.awt.Graphics2D;
-import java.awt.Color;
+package entities;
 
-/**
- * Projectile - Simple bullet/projectile entity
- * 
- * Tracks position, velocity, damage, and lifetime
- * Rendered as simple colored rectangle (can be upgraded to sprites later)
+/*
+ * Projectile - Bullet / energy shot fired by the player
+ *
+ * Renders as a glowing cyan rectangle (upgradeable to a sprite later).
+ * Gravity is applied so shots arc slightly downwards.
+ * The projectile expires after a fixed lifetime or when kill() is called.
  */
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+
 public class Projectile {
-    private float x;
-    private float y;
-    private float velocityX;
-    private float velocityY;
-    private float damage;
-    private long spawnTime;
-    private float lifetime;
-    private static final float GRAVITY = 300.0f;
-    private static final int PROJECTILE_WIDTH = 8;
-    private static final int PROJECTILE_HEIGHT = 4;
-    
+
+    // =========================================================================
+    //  Constants
+    // =========================================================================
+    private static final int   W         = 10;
+    private static final int   H         = 5;
+    private static final float GRAVITY   = 120f;   // gentle arc (px/s²)
+    private static final float MAX_SPEED = 620f;
+
+    // =========================================================================
+    //  Fields
+    // =========================================================================
+    private float x, y;
+    private float velX, velY;
+    private final float damage;
+    private final long  spawnMs;
+    private final float lifetimeSec;
+    private boolean alive = true;
+
+    // =========================================================================
+    //  Constructor
+    // =========================================================================
     /**
-     * Create a projectile fired from the player
+     * @param startX      world-space origin X
+     * @param startY      world-space origin Y
+     * @param velX        horizontal velocity (px/s)
+     * @param velY        vertical velocity (px/s, negative = up)
+     * @param damage      damage dealt on hit
+     * @param lifetimeSec seconds before auto-expiry
      */
-    public Projectile(float startX, float startY,  float velocityX, float velocityY, float damage, float lifetime) {
-        this.x = startX;
-        this.y = startY;
-        this.velocityX = velocityX;
-        this.velocityY = velocityY;
-        this.damage = damage;
-        this.lifetime = lifetime;
-        this.spawnTime = System.currentTimeMillis();
+    public Projectile(float startX, float startY,
+                      float velX, float velY,
+                      float damage, float lifetimeSec) {
+        this.x           = startX;
+        this.y           = startY;
+        this.velX        = velX;
+        this.velY        = velY;
+        this.damage      = damage;
+        this.lifetimeSec = lifetimeSec;
+        this.spawnMs     = System.currentTimeMillis();
     }
-    
-    /**
-     * Update projectile physics
-     */
-    public void update(float deltaTime) {
-        // Apply gravity
-        this.velocityY += GRAVITY * deltaTime;
-        
-        // Update position
-        this.x += this.velocityX * deltaTime;
-        this.y += this.velocityY * deltaTime;
+
+    // =========================================================================
+    //  Update (delta in SECONDS)
+    // =========================================================================
+    public void update(float delta) {
+        if (!alive) return;
+
+        // Light gravity arc
+        velY += GRAVITY * delta;
+        if (velY > MAX_SPEED) velY = MAX_SPEED;
+
+        x += velX * delta;
+        y += velY * delta;
+
+        // Expire if out-of-bounds vertically
+        if (y > 1600 || y < -200) alive = false;
     }
-    
-    /**
-     * Check if projectile is still alive
-     */
+
+    // =========================================================================
+    //  Render
+    // =========================================================================
+    public void render(Graphics2D g, int camX, int camY) {
+        if (!alive) return;
+
+        int sx = (int)(x - camX);
+        int sy = (int)(y - camY);
+
+        // Glow: outer halo
+        g.setColor(new Color(0, 200, 255, 60));
+        g.fillOval(sx - 4, sy - 4, W + 8, H + 8);
+
+        // Core shot
+        g.setColor(new Color(0, 230, 255));
+        g.fillRoundRect(sx, sy, W, H, 3, 3);
+
+        // Bright centre highlight
+        g.setColor(new Color(180, 255, 255, 200));
+        g.fillRect(sx + 2, sy + 1, W - 4, H - 2);
+    }
+
+    // =========================================================================
+    //  Lifetime check
+    // =========================================================================
     public boolean isAlive() {
-        long elapsedMs = System.currentTimeMillis() - spawnTime;
-        return elapsedMs < (lifetime * 1000.0f) && this.y < 2000;
+        if (!alive) return false;
+        long elapsedMs = System.currentTimeMillis() - spawnMs;
+        if (elapsedMs >= (long)(lifetimeSec * 1000f)) {
+            alive = false;
+            return false;
+        }
+        return true;
     }
-    
-    /**
-     * Render projectile
-     */
-    public void render(Graphics2D g, int cameraOffsetX, int cameraOffsetY) {
-        int screenX = (int)(this.x - cameraOffsetX);
-        int screenY = (int)(this.y - cameraOffsetY);
-        
-        // Draw projectile as yellow rectangle
-        g.setColor(Color.YELLOW);
-        g.fillRect(screenX, screenY, PROJECTILE_WIDTH, PROJECTILE_HEIGHT);
-    }
-    
-    // Getters
-    public float getX() { return x; }
-    public float getY() { return y; }
+
+    /** Immediately destroy the projectile (e.g. on hit). */
+    public void kill()    { alive = false; }
+
+    /** Alias for kill() — kept for compatibility. */
+    public void destroy() { alive = false; }
+
+    // =========================================================================
+    //  Getters
+    // =========================================================================
+    public float getX()      { return x; }
+    public float getY()      { return y; }
     public float getDamage() { return damage; }
-    public float getWidth() { return PROJECTILE_WIDTH; }
-    public float getHeight() { return PROJECTILE_HEIGHT; }
-    
-    /**
-     * Kill projectile immediately (used on collision)
-     */
-    public void kill() {
-        this.lifetime = -1; // Negative lifetime makes isAlive() return false
-    }
+    public int   getW()      { return W; }
+    public int   getH()      { return H; }
 }

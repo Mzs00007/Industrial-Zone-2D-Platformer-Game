@@ -1,4 +1,5 @@
 package camera;
+import game2D.*;
 import utilities.AudioSystem;
 
 import java.util.Random;

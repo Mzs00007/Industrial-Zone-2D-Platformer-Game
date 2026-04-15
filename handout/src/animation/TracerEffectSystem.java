@@ -4,8 +4,7 @@
 package animation;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class AnimationAndSpriteLoader.TracerEffectSystem {
+public class TracerEffectSystem {
     public static TracerType getTracerForGunType(AnimationAndSpriteLoader.WeaponSystemCore.GunType gunType) {
         switch (gunType.ordinal()) {
             case 0: 
@@ -33,8 +32,7 @@ public static class AnimationAndSpriteLoader.TracerEffectSystem {
         }
         return TracerType.STANDARD_A;
     }
-
-    public static enum TracerType {
+public enum TracerType {
         STANDARD_A("Narrow"),
         STANDARD_SCATTER("Scatter"),
         DOTTED("Dotted"),

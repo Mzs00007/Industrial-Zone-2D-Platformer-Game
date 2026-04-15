@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.ProjectileTracerEffectChain {
+public class ProjectileTracerEffectChain {
     public static final String PHASE_NAME = "PHASE 5: PROJECTILE TRACERS";
     public static final String TRACER_A_NARROW = "Resources/industrial-zone/weapons/1/4 Shoot_effects/01_Weapon_ShootFX_Tracer_TypeA_VariantNarrow_StaticSprite.png";
     public static final String TRACER_B_DOTTED = "Resources/industrial-zone/weapons/1/4 Shoot_effects/03_Weapon_ShootFX_Tracer_TypeB_VariantDotted_StaticSprite.png";

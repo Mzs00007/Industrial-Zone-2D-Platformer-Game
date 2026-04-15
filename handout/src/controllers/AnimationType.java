@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package controllers;
-
-public static enum GUIAnimationManager.AnimationType {
+public enum AnimationType {
     FADE_IN,
     FADE_OUT,
     SLIDE_LEFT,

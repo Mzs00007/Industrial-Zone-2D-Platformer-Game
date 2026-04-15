@@ -2,15 +2,14 @@
  * Decompiled with CFR 0.152.
  */
 package ai;
-
-public static class AI.Waypoint {
+public class Waypoint {
     public float x;
     public float y;
     public String type;
     public float radius;
     public long stayTime;
 
-    public AI.Waypoint(float f, float f2) {
+    public Waypoint(float f, float f2) {
         this.x = f;
         this.y = f2;
         this.type = "patrol";
@@ -18,7 +17,7 @@ public static class AI.Waypoint {
         this.stayTime = 0L;
     }
 
-    public AI.Waypoint(float f, float f2, String string, float f3, long l) {
+    public Waypoint(float f, float f2, String string, float f3, long l) {
         this.x = f;
         this.y = f2;
         this.type = string;

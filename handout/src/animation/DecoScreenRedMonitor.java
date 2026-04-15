@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.InteractiveObjectProperties.DecoScreenRedMonitor {
+public class DecoScreenRedMonitor {
     public static final String OBJECT_NAME = "Deco Screen Red";
     public static final String OBJECT_TYPE = "deco_screen_red";
     public static final String DIRECTORY = "Resources/industrial-zone/1 Tiles/Industrial_zone_level_1/4 Animated objects";

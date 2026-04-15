@@ -3,9 +3,9 @@
  */
 package controllers;
 
-import controllers.screens.Phase13MainMenuScreen;
-import controllers.screens.Phase14PauseMenuScreen;
-import controllers.screens.Phase15SettingsScreen;
+import controllers.Phase13MainMenuScreen;
+import controllers.Phase14PauseMenuScreen;
+import controllers.Phase15SettingsScreen;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 

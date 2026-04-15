@@ -1,0 +1,36 @@
+package important;
+
+/**
+ * Mouse Key Assets
+ * Auto-generated from assets-manifest.json
+ * Total: 21 assets
+ * Date: 2026-04-14
+ */
+public enum MouseKeyAssets {
+
+    ASSET_MOUSE_LEFTCLICK_BLUE_LEVEL1TUTORIALDISPLAY_PRIMARYACTION("Resources/industrial-zone/Mouse_keys/Mouse_LeftClick_Blue_Level1TutorialDisplay_PrimaryAction.png"),
+    ASSET_MOUSE_LEFTCLICK_RED_LEVEL2COMBATDISPLAY_PRIMARYATTACK("Resources/industrial-zone/Mouse_keys/Mouse_LeftClick_Red_Level2CombatDisplay_PrimaryAttack.png"),
+    ASSET_MOUSE_MIDDLECLICK_BLUE_LEVEL1TUTORIALDISPLAY_SECONDARYACTION("Resources/industrial-zone/Mouse_keys/Mouse_MiddleClick_Blue_Level1TutorialDisplay_SecondaryAction.png"),
+    ASSET_MOUSE_MIDDLECLICK_RED_LEVEL2COMBATDISPLAY_SECONDARYACTION("Resources/industrial-zone/Mouse_keys/Mouse_MiddleClick_Red_Level2CombatDisplay_SecondaryAction.png"),
+    ASSET_MOUSE_MOVEDIAGONAL_FOURDIAGONALS_DIAGONALAIMMOVE_TUTORIAL("Resources/industrial-zone/Mouse_keys/Mouse_MoveDiagonal_FourDiagonals_DiagonalAimMove_Tutorial.png"),
+    ASSET_MOUSE_MOVEDOWN_ARROWDOWN_SCROLLDOWNORAIMDOWN_TUTORIAL("Resources/industrial-zone/Mouse_keys/Mouse_MoveDown_ArrowDown_ScrollDownOrAimDown_Tutorial.png"),
+    ASSET_MOUSE_MOVELEFTRIGHT_BOTHARROWS_HORIZONTALSCROLLORAIM_TUTORIAL("Resources/industrial-zone/Mouse_keys/Mouse_MoveLeftRight_BothArrows_HorizontalScrollOrAim_Tutorial.png"),
+    ASSET_MOUSE_MOVELEFT_ARROWLEFT_SCROLLLEFTORAIMLEFT_TUTORIAL("Resources/industrial-zone/Mouse_keys/Mouse_MoveLeft_ArrowLeft_ScrollLeftOrAimLeft_Tutorial.png"),
+    ASSET_MOUSE_MOVERIGHT_ARROWRIGHT_SCROLLRIGHTORAIMRIGHT_TUTORIAL("Resources/industrial-zone/Mouse_keys/Mouse_MoveRight_ArrowRight_ScrollRightOrAimRight_Tutorial.png"),
+    ASSET_MOUSE_MOVEUPDOWN_BOTHARROWS_VERTICALSCROLLORAIM_TUTORIAL("Resources/industrial-zone/Mouse_keys/Mouse_MoveUpDown_BothArrows_VerticalScrollOrAim_Tutorial.png"),
+    ASSET_MOUSE_MOVEUP_ARROWUP_SCROLLUPORAIMUP_TUTORIAL("Resources/industrial-zone/Mouse_keys/Mouse_MoveUp_ArrowUp_ScrollUpOrAimUp_Tutorial.png"),
+    ASSET_MOUSE_MOVE_FOURDIRECTIONS_CAMERAORCROSSHAIRMOVE_TUTORIAL("Resources/industrial-zone/Mouse_keys/Mouse_Move_FourDirections_CameraOrCrosshairMove_Tutorial.png"),
+    ASSET_MOUSE_NEUTRAL_NOHIGHLIGHT_DEFAULTIDLESTATE_DISPLAY("Resources/industrial-zone/Mouse_keys/Mouse_Neutral_NoHighlight_DefaultIdleState_Display.png"),
+    ASSET_MOUSE_RIGHTCLICK_BLUE_LEVEL1TUTORIALDISPLAY_AIMORCONTEXT("Resources/industrial-zone/Mouse_keys/Mouse_RightClick_Blue_Level1TutorialDisplay_AimOrContext.png"),
+    ASSET_MOUSE_RIGHTCLICK_RED_LEVEL2COMBATDISPLAY_AIMORSPECIALATTACK("Resources/industrial-zone/Mouse_keys/Mouse_RightClick_Red_Level2CombatDisplay_AimOrSpecialAttack.png"),
+    ASSET_MOUSE_SCROLLDOWN_BLUE_LEVEL1TUTORIALDISPLAY_ZOOMOUTORPREVITEM("Resources/industrial-zone/Mouse_keys/Mouse_ScrollDown_Blue_Level1TutorialDisplay_ZoomOutOrPrevItem.png"),
+    ASSET_MOUSE_SCROLLDOWN_RED_LEVEL2COMBATDISPLAY_ZOOMOUTORPREVWEAPON("Resources/industrial-zone/Mouse_keys/Mouse_ScrollDown_Red_Level2CombatDisplay_ZoomOutOrPrevWeapon.png"),
+    ASSET_MOUSE_SCROLLUP_BLUE_LEVEL1TUTORIALDISPLAY_ZOOMINORNEXTITEM("Resources/industrial-zone/Mouse_keys/Mouse_ScrollUp_Blue_Level1TutorialDisplay_ZoomInOrNextItem.png"),
+    ASSET_MOUSE_SCROLLUP_RED_LEVEL2COMBATDISPLAY_ZOOMINORNEXTWEAPON("Resources/industrial-zone/Mouse_keys/Mouse_ScrollUp_Red_Level2CombatDisplay_ZoomInOrNextWeapon.png"),
+    ASSET_MOUSE_SCROLLWHEEL_BLUE_LEVEL1TUTORIALDISPLAY_ZOOMORWEAPONSWAP("Resources/industrial-zone/Mouse_keys/Mouse_ScrollWheel_Blue_Level1TutorialDisplay_ZoomOrWeaponSwap.png"),
+    ASSET_MOUSE_SCROLLWHEEL_RED_LEVEL2COMBATDISPLAY_ZOOMORWEAPONSWAP("Resources/industrial-zone/Mouse_keys/Mouse_ScrollWheel_Red_Level2CombatDisplay_ZoomOrWeaponSwap.png")
+;
+    private final String path;
+    MouseKeyAssets(String path) { this.path = path; }
+    public String getPath() { return path; }
+}

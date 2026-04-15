@@ -3,7 +3,7 @@
  */
 package controllers;
 
-import controllers.screens.Screen;
+import controllers.Screen;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;

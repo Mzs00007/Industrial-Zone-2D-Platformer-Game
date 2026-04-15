@@ -2,10 +2,8 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.ProjectilePhysicsSystem {
-
-    public static class HomingTrajectory {
+public class ProjectilePhysicsSystem {
+public class HomingTrajectory {
         public double velocityX;
         public double velocityY;
         public double speed = 8.0;
@@ -36,8 +34,7 @@ public static class AnimationAndSpriteLoader.ProjectilePhysicsSystem {
             }
         }
     }
-
-    public static class ArcTrajectory {
+public class ArcTrajectory {
         public double velocityX;
         public double velocityY;
         public double gravity = 0.3;
@@ -53,8 +50,7 @@ public static class AnimationAndSpriteLoader.ProjectilePhysicsSystem {
             n2 += (int)this.velocityY;
         }
     }
-
-    public static class StraightTrajectory {
+public class StraightTrajectory {
         public double velocityX;
         public double velocityY;
 

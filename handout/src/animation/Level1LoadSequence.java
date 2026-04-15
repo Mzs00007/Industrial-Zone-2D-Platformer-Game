@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static final class AnimationAndSpriteLoader.ParallaxBackgroundSystem.Phase1Initialization.Level1LoadSequence {
+public final class Level1LoadSequence {
     public static final String LEVEL = "Industrial Zone Level 1";
     public static final int LAYER_COUNT = 5;
     public static final String LOAD_TYPE = "Single Static Variant";

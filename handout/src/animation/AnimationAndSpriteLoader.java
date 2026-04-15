@@ -3,7 +3,6 @@
  */
 package animation;
 
-import game2D.GameCore;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -11,7 +10,6 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
-import java.lang.invoke.CallSite;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -25,9 +23,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 
-public class AnimationAndSpriteLoader
-extends GameCore {
-    private static final long serialVersionUID = 1L;
+public class AnimationAndSpriteLoader {
     public static final String PLAYER_BASE = "Resources/industrial-zone/characters/player/";
     public static final String BOSS_BASE = "Resources/industrial-zone/characters/bosses/";
     public static final String ENEMY_BASE = "Resources/industrial-zone/characters/enemies/";
@@ -184,9 +180,9 @@ extends GameCore {
         L2_BACKGROUND_DAY("Level 2 Background Day", L2_BG_DAY),
         L2_BACKGROUND_NIGHT("Level 2 Background Night", L2_BG_NIGHT),
         L2_OBJECTS("Level 2 Objects", L2_OBJECTS_BASE),
-        L2_OBJECTS_TUBE("Level 2 Objects Tubes", L2_OBJECTS_TUBE),
-        L2_OBJECTS_DECOR("Level 2 Objects Decoration", L2_OBJECTS_DECOR),
-        L2_OBJECTS_LINES("Level 2 Objects Power Lines", L2_OBJECTS_LINES),
+        L2_OBJECTS_TUBE("Level 2 Objects Tubes", AnimationAndSpriteLoader.L2_OBJECTS_TUBE),
+        L2_OBJECTS_DECOR("Level 2 Objects Decoration", AnimationAndSpriteLoader.L2_OBJECTS_DECOR),
+        L2_OBJECTS_LINES("Level 2 Objects Power Lines", AnimationAndSpriteLoader.L2_OBJECTS_LINES),
         L2_ANIMATED("Level 2 Animated Objects", L2_ANIMATED_BASE);
 
         private final String displayName;
@@ -275,30 +271,30 @@ extends GameCore {
      */
     public enum WeaponAssetType {
         BASE("Weapons Base", WEAPONS_BASE),
-        WEAPON_1("Weapon 1", WEAPON_1),
-        WEAPON_1_CHAR("Weapon 1 Characters", WEAPON_1_CHAR),
-        WEAPON_1_CHAR_BIKER("Weapon 1 Biker", WEAPON_1_CHAR_BIKER),
-        WEAPON_1_CHAR_PUNK("Weapon 1 Punk", WEAPON_1_CHAR_PUNK),
-        WEAPON_1_CHAR_CYBER("Weapon 1 Cyborg", WEAPON_1_CHAR_CYBER),
-        WEAPON_1_GUNS("Weapon 1 Guns", WEAPON_1_GUNS),
-        WEAPON_1_HANDS("Weapon 1 Hands", WEAPON_1_HANDS),
-        WEAPON_1_HANDS_BIKER("Weapon 1 Hands Biker", WEAPON_1_HANDS_BIKER),
-        WEAPON_1_HANDS_PUNK("Weapon 1 Hands Punk", WEAPON_1_HANDS_PUNK),
-        WEAPON_1_HANDS_CYBER("Weapon 1 Hands Cyborg", WEAPON_1_HANDS_CYBER),
-        WEAPON_1_EFFECTS("Weapon 1 Effects", WEAPON_1_EFFECTS),
-        WEAPON_1_BULLETS("Weapon 1 Bullets", WEAPON_1_BULLETS),
-        WEAPON_2("Weapon 2", WEAPON_2),
-        WEAPON_2_CHAR("Weapon 2 Characters", WEAPON_2_CHAR),
-        WEAPON_2_CHAR_BIKER("Weapon 2 Biker", WEAPON_2_CHAR_BIKER),
-        WEAPON_2_CHAR_PUNK("Weapon 2 Punk", WEAPON_2_CHAR_PUNK),
-        WEAPON_2_CHAR_CYBER("Weapon 2 Cyborg", WEAPON_2_CHAR_CYBER),
-        WEAPON_2_GUNS("Weapon 2 Guns", WEAPON_2_GUNS),
-        WEAPON_2_HANDS("Weapon 2 Hands", WEAPON_2_HANDS),
-        WEAPON_2_HANDS_BIKER("Weapon 2 Hands Biker", WEAPON_2_HANDS_BIKER),
-        WEAPON_2_HANDS_PUNK("Weapon 2 Hands Punk", WEAPON_2_HANDS_PUNK),
-        WEAPON_2_HANDS_CYBER("Weapon 2 Hands Cyborg", WEAPON_2_HANDS_CYBER),
-        WEAPON_2_EFFECTS("Weapon 2 Effects", WEAPON_2_EFFECTS),
-        WEAPON_2_BULLETS("Weapon 2 Bullets", WEAPON_2_BULLETS);
+        WEAPON_1("Weapon 1", AnimationAndSpriteLoader.WEAPON_1),
+        WEAPON_1_CHAR("Weapon 1 Characters", AnimationAndSpriteLoader.WEAPON_1_CHAR),
+        WEAPON_1_CHAR_BIKER("Weapon 1 Biker", AnimationAndSpriteLoader.WEAPON_1_CHAR_BIKER),
+        WEAPON_1_CHAR_PUNK("Weapon 1 Punk", AnimationAndSpriteLoader.WEAPON_1_CHAR_PUNK),
+        WEAPON_1_CHAR_CYBER("Weapon 1 Cyborg", AnimationAndSpriteLoader.WEAPON_1_CHAR_CYBER),
+        WEAPON_1_GUNS("Weapon 1 Guns", AnimationAndSpriteLoader.WEAPON_1_GUNS),
+        WEAPON_1_HANDS("Weapon 1 Hands", AnimationAndSpriteLoader.WEAPON_1_HANDS),
+        WEAPON_1_HANDS_BIKER("Weapon 1 Hands Biker", AnimationAndSpriteLoader.WEAPON_1_HANDS_BIKER),
+        WEAPON_1_HANDS_PUNK("Weapon 1 Hands Punk", AnimationAndSpriteLoader.WEAPON_1_HANDS_PUNK),
+        WEAPON_1_HANDS_CYBER("Weapon 1 Hands Cyborg", AnimationAndSpriteLoader.WEAPON_1_HANDS_CYBER),
+        WEAPON_1_EFFECTS("Weapon 1 Effects", AnimationAndSpriteLoader.WEAPON_1_EFFECTS),
+        WEAPON_1_BULLETS("Weapon 1 Bullets", AnimationAndSpriteLoader.WEAPON_1_BULLETS),
+        WEAPON_2("Weapon 2", AnimationAndSpriteLoader.WEAPON_2),
+        WEAPON_2_CHAR("Weapon 2 Characters", AnimationAndSpriteLoader.WEAPON_2_CHAR),
+        WEAPON_2_CHAR_BIKER("Weapon 2 Biker", AnimationAndSpriteLoader.WEAPON_2_CHAR_BIKER),
+        WEAPON_2_CHAR_PUNK("Weapon 2 Punk", AnimationAndSpriteLoader.WEAPON_2_CHAR_PUNK),
+        WEAPON_2_CHAR_CYBER("Weapon 2 Cyborg", AnimationAndSpriteLoader.WEAPON_2_CHAR_CYBER),
+        WEAPON_2_GUNS("Weapon 2 Guns", AnimationAndSpriteLoader.WEAPON_2_GUNS),
+        WEAPON_2_HANDS("Weapon 2 Hands", AnimationAndSpriteLoader.WEAPON_2_HANDS),
+        WEAPON_2_HANDS_BIKER("Weapon 2 Hands Biker", AnimationAndSpriteLoader.WEAPON_2_HANDS_BIKER),
+        WEAPON_2_HANDS_PUNK("Weapon 2 Hands Punk", AnimationAndSpriteLoader.WEAPON_2_HANDS_PUNK),
+        WEAPON_2_HANDS_CYBER("Weapon 2 Hands Cyborg", AnimationAndSpriteLoader.WEAPON_2_HANDS_CYBER),
+        WEAPON_2_EFFECTS("Weapon 2 Effects", AnimationAndSpriteLoader.WEAPON_2_EFFECTS),
+        WEAPON_2_BULLETS("Weapon 2 Bullets", AnimationAndSpriteLoader.WEAPON_2_BULLETS);
 
         private final String displayName;
         private final String basePath;
@@ -515,14 +511,14 @@ extends GameCore {
                 try {
                     object = ImageIO.read(new File(string2));
                     if (object != null) {
-                        void string7;
+                        int string7 = 0;
                         int n = object.getWidth();
                         int n2 = object.getHeight();
                         int[] nArray = new int[]{2, 4, 6, 8, 10, 12, 14, 16, 20, 24};
                         int n3 = 4;
                         int n4 = n / 4;
                         double d = Double.MAX_VALUE;
-                        ArrayList<CallSite> arrayList = new ArrayList<CallSite>();
+                        ArrayList<String> arrayList = new ArrayList<String>();
                         int[] nArray2 = nArray;
                         int n5 = nArray2.length;
                         boolean bl = false;
@@ -537,7 +533,7 @@ extends GameCore {
                                     double d4 = d3 * 1000.0;
                                     String string5 = String.format("%.2f:1", d2);
                                     String string6 = String.format("%.1f", d4);
-                                    arrayList.add((CallSite)((Object)(n6 + " frames \u2192 " + n7 + "x" + n8 + "px (aspect: " + string5 + ", score: " + string6 + ")")));
+                                    arrayList.add((String)((Object)(n6 + " frames \u2192 " + n7 + "x" + n8 + "px (aspect: " + string5 + ", score: " + string6 + ")")));
                                     if (d4 < d) {
                                         d = d4;
                                         n3 = n6;
@@ -596,7 +592,7 @@ extends GameCore {
         return null;
     }
 
-    private static int getAnimationIndex(String string) {
+    public static int getAnimationIndex(String string) {
         HashMap<String, Integer> hashMap = new HashMap<String, Integer>(){
             {
                 this.put("idle", 0);
@@ -643,7 +639,7 @@ extends GameCore {
         return hashMap.getOrDefault(string, 0);
     }
 
-    private static String formatAnimationName(String string) {
+    public static String formatAnimationName(String string) {
         return string.substring(0, 1).toUpperCase() + string.substring(1).replaceAll("([A-Z])", "_$1").replaceAll("^_", "").toUpperCase();
     }
 
@@ -683,11 +679,11 @@ extends GameCore {
         return stringBuilder.toString();
     }
 
-    private static void log(String string) {
+    public static void log(String string) {
         System.out.println("[AnimationLoader] " + string);
     }
 
-    private static void logError(String string) {
+    public static void logError(String string) {
         System.err.println("[AnimationLoader ERROR] " + string);
     }
 
@@ -704,7 +700,6 @@ extends GameCore {
         }
     }
 
-    @Override
     public void draw(Graphics2D graphics2D) {
     }
 

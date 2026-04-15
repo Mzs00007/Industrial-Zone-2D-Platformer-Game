@@ -4,8 +4,7 @@
 package animation;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class AnimationAndSpriteLoader.HandGripSelector {
+public class HandGripSelector {
     public static final String SYSTEM_TYPE = "hand_grip_selector";
 
     public static String selectGripPose(String string, int n) {

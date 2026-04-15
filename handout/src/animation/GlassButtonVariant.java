@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static final class AnimationAndSpriteLoader.ButtonVariants.GlassButtonVariant {
+public final class GlassButtonVariant {
     public static final String VARIANT_NAME = "Glass Panel";
     public static final String SPRITESHEET = "06_GUI_Button_Glass_4StatesVertical_TranslucentReflective.png";
     public static final int NORMAL_STATE = 0;

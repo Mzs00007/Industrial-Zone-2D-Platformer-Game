@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.CharacterBaseAnimationChain {
+public class CharacterBaseAnimationChain {
     public static final String PHASE_NAME = "PHASE 1: CHARACTER BASE ANIMATIONS";
     public static final String BIKER_IDLE = "Resources/industrial-zone/characters/player/biker/01_Player_Biker_Idle_4Frames1Row_StandingBreathLoop_DefaultIdle_Loop_150ms.png";
     public static final String BIKER_WALK = "Resources/industrial-zone/characters/player/biker/03_Player_Biker_Walk_5Frames1Row_WalkingCycleForward_Movement_Loop_100ms.png";

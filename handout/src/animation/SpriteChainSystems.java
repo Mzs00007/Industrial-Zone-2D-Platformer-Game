@@ -2,11 +2,10 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.SpriteChainSystems {
+import game2D.*;
+public class SpriteChainSystems {
     public static final String REGISTRY_TYPE = "sprite_chain";
-
-    public static class InteractiveObjectChain {
+public class InteractiveObjectChain {
         public static final String CHAIN_NAME = "interactive_object";
         public static final String STEP_1_COLLISION = "Character collides with collectible";
         public static final String STEP_1_EXAMPLE = "   Example: CollectibleMoney at position (100, 50)";
@@ -23,8 +22,7 @@ public static class AnimationAndSpriteLoader.SpriteChainSystems {
         public static final String STEP_6_AUDIO = "Play pickup sound effect";
         public static final String STEP_6_EXAMPLE = "   Different sounds for money vs cards (coming in audio batch)";
     }
-
-    public static class CharacterVisualChain {
+public class CharacterVisualChain {
         public static final String CHAIN_NAME = "character_visual";
         public static final String START_POINT = "PlayerCharacterProperties.BIKER/CYBORG/PUNK";
         public static final String STEP_1_BASE = "PlayerCharacterAnimations - Load character movement animations";
@@ -44,8 +42,7 @@ public static class AnimationAndSpriteLoader.SpriteChainSystems {
         public static final String STEP_7_RENDER = "Render: Base Animation + Weapon Animation + Hand Pose + Gun Sprite";
         public static final String STEP_7_DETAIL = "   Composite renders all 4 layers";
     }
-
-    public static class WeaponFireChain {
+public class WeaponFireChain {
         public static final String CHAIN_NAME = "weapon_fire";
         public static final String START_POINT = "GunProperties.GUN_[TYPE]_[VARIANT]";
         public static final String STEP_1_WEAPON_SELECT = "GunProperties - Select specific gun file";

@@ -2,10 +2,10 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
+import game2D.*;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class AnimationAndSpriteLoader.SoundEffectsRegistry {
+public class SoundEffectsRegistry {
     public static final String TYPE_SFX = "sound_effects_system";
     public static final String DIRECTORY = "Resources/industrial-zone/audio/sfx";
     public static final String CATEGORY_IMPACT = "impact";

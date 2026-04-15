@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.AmbientParticleVfx.StarbustVfx {
+public class StarbustVfx {
     public static final String EFFECT_NAME = "Starburst Effect";
     public static final String EFFECT_TYPE = "starburst";
     public static final String DIRECTORY = "Resources/industrial-zone/vfx/5 Other";

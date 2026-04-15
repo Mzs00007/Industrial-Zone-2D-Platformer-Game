@@ -3,10 +3,9 @@
  */
 package entities;
 
-import entities.enemies.Enemies;
+import entities.Enemies;
 import game2D.Animation;
-
-public static class Enemies.EnemyFactory.EnemyInstance {
+public class EnemyInstance {
     private Enemies.EnemyPhysicsProfile.EnemyType type;
     private String enemyName;
     private Enemies.EnemyPhysicsProfile physicsProfile;
@@ -28,7 +27,7 @@ public static class Enemies.EnemyFactory.EnemyInstance {
     private float targetY = 0.0f;
     private int attackRotation = 0;
 
-    public Enemies.EnemyFactory.EnemyInstance(Enemies.EnemyPhysicsProfile.EnemyType enemyType, float f, float f2) {
+    public EnemyInstance(Enemies.EnemyPhysicsProfile.EnemyType enemyType, float f, float f2) {
         this.x = f;
         this.y = f2;
         this.type = enemyType;

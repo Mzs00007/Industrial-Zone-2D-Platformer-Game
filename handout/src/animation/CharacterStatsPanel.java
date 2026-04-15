@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class CharacterSelectionAnimationSystem.CharacterStatsPanel {
+public class CharacterStatsPanel {
     public String characterName;
     public String characterDescription;
     public int health;
@@ -12,13 +11,13 @@ public static class CharacterSelectionAnimationSystem.CharacterStatsPanel {
     public int defense;
     public String specialAbility;
 
-    public CharacterSelectionAnimationSystem.CharacterStatsPanel(String string, String string2) {
+    public CharacterStatsPanel(String string, String string2) {
         this.characterName = string;
         this.characterDescription = string2;
     }
 
-    public static CharacterSelectionAnimationSystem.CharacterStatsPanel getBikerStats() {
-        CharacterSelectionAnimationSystem.CharacterStatsPanel characterStatsPanel = new CharacterSelectionAnimationSystem.CharacterStatsPanel("Biker", "Speed-focused melee fighter");
+    public static CharacterStatsPanel getBikerStats() {
+        CharacterStatsPanel characterStatsPanel = new CharacterStatsPanel("Biker", "Speed-focused melee fighter");
         characterStatsPanel.health = 80;
         characterStatsPanel.speed = 95;
         characterStatsPanel.attack = 85;
@@ -27,8 +26,8 @@ public static class CharacterSelectionAnimationSystem.CharacterStatsPanel {
         return characterStatsPanel;
     }
 
-    public static CharacterSelectionAnimationSystem.CharacterStatsPanel getCyborgStats() {
-        CharacterSelectionAnimationSystem.CharacterStatsPanel characterStatsPanel = new CharacterSelectionAnimationSystem.CharacterStatsPanel("Cyborg", "Tank-style defensive character");
+    public static CharacterStatsPanel getCyborgStats() {
+        CharacterStatsPanel characterStatsPanel = new CharacterStatsPanel("Cyborg", "Tank-style defensive character");
         characterStatsPanel.health = 120;
         characterStatsPanel.speed = 50;
         characterStatsPanel.attack = 70;
@@ -37,8 +36,8 @@ public static class CharacterSelectionAnimationSystem.CharacterStatsPanel {
         return characterStatsPanel;
     }
 
-    public static CharacterSelectionAnimationSystem.CharacterStatsPanel getPunkStats() {
-        CharacterSelectionAnimationSystem.CharacterStatsPanel characterStatsPanel = new CharacterSelectionAnimationSystem.CharacterStatsPanel("Punk", "Magic-focused caster character");
+    public static CharacterStatsPanel getPunkStats() {
+        CharacterStatsPanel characterStatsPanel = new CharacterStatsPanel("Punk", "Magic-focused caster character");
         characterStatsPanel.health = 70;
         characterStatsPanel.speed = 80;
         characterStatsPanel.attack = 90;

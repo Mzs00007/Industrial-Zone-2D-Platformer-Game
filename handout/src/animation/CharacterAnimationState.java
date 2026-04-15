@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.CharacterAnimationStateMachine.CharacterAnimationState {
+public class CharacterAnimationState {
     public int currentState = 0;
     public String characterId;
     public boolean isArmed;
@@ -13,7 +12,7 @@ public static class AnimationAndSpriteLoader.CharacterAnimationStateMachine.Char
     public long lastFireTime = 0L;
     public int fireRateMs = 200;
 
-    public AnimationAndSpriteLoader.CharacterAnimationStateMachine.CharacterAnimationState(String string) {
+    public CharacterAnimationState(String string) {
         this.characterId = string;
     }
 

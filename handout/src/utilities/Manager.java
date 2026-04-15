@@ -6,8 +6,7 @@ package utilities;
 import utilities.AudioSystem;
 import java.util.ArrayList;
 import java.util.List;
-
-public static class AudioSystem.Manager {
+public class Manager {
     private AudioSystem.VolumeController volumeController = new AudioSystem.VolumeController();
     private AudioSystem.AudioLibrary audioLibrary = new AudioSystem.AudioLibrary();
     private AudioSystem.MusicPlayer musicPlayer = new AudioSystem.MusicPlayer();
@@ -15,7 +14,7 @@ public static class AudioSystem.Manager {
     private List<AudioSystem.SoundEffect> activeSounds = new ArrayList<AudioSystem.SoundEffect>();
     private boolean audioEnabled = true;
 
-    public AudioSystem.Manager() {
+    public Manager() {
         this.audioLibrary.loadDefaultSounds();
     }
 

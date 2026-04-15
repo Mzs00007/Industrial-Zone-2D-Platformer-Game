@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static final class AnimationAndSpriteLoader.ButtonVariants.MetalButtonVariant {
+public final class MetalButtonVariant {
     public static final String VARIANT_NAME = "Industrial Metal";
     public static final String SPRITESHEET = "03_GUI_Button_Metal_4StatesVertical_RivetedSteelLook.png";
     public static final int NORMAL_STATE = 0;

@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static final class AnimationAndSpriteLoader.ParallaxRenderingPipeline.Phase1Initialization.Level2Init {
+public final class Level2Init {
     public static final String LEVEL_TYPE = "Power Station Level 2 (Day/Night)";
     public static final int TOTAL_LAYERS = 5;
     public static final String DAY_DIRECTORY = "Resources/industrial-zone/1 Tiles/power-station-level-2/2 Background_level_2/Day";

@@ -6,8 +6,7 @@ package animation;
 import animation.AnimationAndSpriteLoader;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-public static class AnimationAndSpriteLoader.DroneAnimationConfigs.JetDrone {
+public class JetDrone {
     public static final String DRONE_TYPE = "jet_drone";
     public static final String BASE_PATH = "Resources/industrial-zone/characters/enemies/drones/2";
     public static final Map<String, AnimationAndSpriteLoader.AnimationConfig> ANIMATIONS = new LinkedHashMap<String, AnimationAndSpriteLoader.AnimationConfig>(){

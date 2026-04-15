@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.PhysicsCollisionSystem.CollisionResult {
+public class CollisionResult {
     public boolean hasCollided = false;
     public String targetType = "none";
     public Object target = null;

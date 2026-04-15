@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class GUIComponentsSystem.UIElementProperties.DigitDisplayElements {
+public class DigitDisplayElements {
     public static final String UI_TYPE = "digit_display";
     public static final String DIRECTORY = "Resources/industrial-zone/1 Tiles/Industrial_zone_level_1/3 Objects";
     public static final String FONT_NAME = "Pixel Font Grey";

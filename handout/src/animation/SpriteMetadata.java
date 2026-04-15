@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.SpriteMetadata {
+public class SpriteMetadata {
     public int imageWidth;
     public int imageHeight;
     public int frameCount;
@@ -13,7 +12,7 @@ public static class AnimationAndSpriteLoader.SpriteMetadata {
     public String complexity;
     public int suggestedMs;
 
-    public AnimationAndSpriteLoader.SpriteMetadata(int n, int n2, int n3, int n4, int n5) {
+    public SpriteMetadata(int n, int n2, int n3, int n4, int n5) {
         this.imageWidth = n;
         this.imageHeight = n2;
         this.frameCount = n3;

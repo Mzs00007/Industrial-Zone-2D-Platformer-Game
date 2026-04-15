@@ -8,8 +8,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-public static class AI.AIPathfinder {
+public class AIPathfinder {
     private Map<String, Path> paths = new HashMap<String, Path>();
     private float pathfindingDistance = 50.0f;
     private float stoppingDistance = 10.0f;
@@ -96,8 +95,7 @@ public static class AI.AIPathfinder {
     public void setStoppingDistance(float f) {
         this.stoppingDistance = f;
     }
-
-    public static class Path {
+public class Path {
         public List<Waypoint> waypoints = new ArrayList<Waypoint>();
         public boolean loop = false;
         public String name;
@@ -125,8 +123,7 @@ public static class AI.AIPathfinder {
             return this.waypoints.size();
         }
     }
-
-    public static class Waypoint {
+public class Waypoint {
         public float x;
         public float y;
         public String name;

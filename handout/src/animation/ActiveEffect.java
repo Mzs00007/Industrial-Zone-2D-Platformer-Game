@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-public static class VFXChainReaction.ActiveEffect {
+public class ActiveEffect {
     public VFXChainReaction.EffectType type;
     public float x;
     public float y;
@@ -20,7 +19,7 @@ public static class VFXChainReaction.ActiveEffect {
     public Set<String> entitiesDamaged = new HashSet<String>();
     public List<VFXChainReaction.ParticleEffect> particles = new ArrayList<VFXChainReaction.ParticleEffect>();
 
-    public VFXChainReaction.ActiveEffect(VFXChainReaction.EffectType effectType, float f, float f2, float f3) {
+    public ActiveEffect(VFXChainReaction.EffectType effectType, float f, float f2, float f3) {
         this.type = effectType;
         this.x = f;
         this.y = f2;

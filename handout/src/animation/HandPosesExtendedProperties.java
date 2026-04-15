@@ -4,8 +4,7 @@
 package animation;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class AnimationAndSpriteLoader.HandPosesExtendedProperties {
+public class HandPosesExtendedProperties {
     public static final String TYPE_HAND_POSES = "hand_poses_extended";
     public static final String DIRECTORY_BASE = "Resources/industrial-zone/weapons/2/3 Hands";
     public static final int HAND_POSES_PER_CHARACTER = 10;

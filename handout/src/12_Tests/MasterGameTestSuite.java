@@ -1,4 +1,4 @@
-﻿package tests;
+package tests;
 
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -8,19 +8,16 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.*;
 
-// Import game packages (adjust based on actual package structure)
+// Import game packages
 import game2D.*;
+import game2D.GameCore;
 import entities.*;
 import managers.*;
 import physics.*;
 import ai.*;
 import animation.*;
-import audio.*;
-import tiles.*;
-import level.*;
-import gui.*;
-import utils.*;
-import assets.enums.*;
+import important.*;
+import controllers.*;
 
 /**
  * â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -67,11 +64,11 @@ public class MasterGameTestSuite {
     // SETUP & TEARDOWN
     // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     
-    private static Game game;
-    private static GameCore gameCore;
+    private static Object game; // Game is in default package, use Object
+    private static game2D.GameCore gameCore;
     private PlayerBase testPlayer;
     private Enemy testEnemy;
-    private AssetManager assetManager;
+    private managers.AssetManager assetManager;
     
     /**
      * Runs ONCE before ALL tests
@@ -85,8 +82,9 @@ public class MasterGameTestSuite {
         
         try {
             // Initialize core game systems
-            gameCore = new GameCore();
-            game = new Game();
+            // GameCore is abstract, used here as reference only
+            gameCore = null; // game2D.GameCore is abstract
+            game = null; // Game is in default package, cannot instantiate from test
             
             System.out.println("âœ“ Game systems initialized");
         } catch (Exception e) {

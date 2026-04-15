@@ -6,8 +6,7 @@ package animation;
 import animation.AnimationAndSpriteLoader;
 import java.util.HashMap;
 import java.util.Map;
-
-public static abstract class AnimationAndSpriteLoader.EntityAnimationController {
+public abstract class EntityAnimationController {
     protected AnimationAndSpriteLoader.AnimationState currentState;
     protected AnimationAndSpriteLoader.AnimationState previousState;
     protected long stateStartTime;
@@ -17,7 +16,7 @@ public static abstract class AnimationAndSpriteLoader.EntityAnimationController 
     protected Map<AnimationAndSpriteLoader.AnimationState, String> stateToAssetPath;
     protected Map<AnimationAndSpriteLoader.AnimationState, AnimationAndSpriteLoader.StateTransition> validTransitions;
 
-    public AnimationAndSpriteLoader.EntityAnimationController(AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody physicsBody) {
+    public EntityAnimationController(AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody physicsBody) {
         this.physics = physicsBody;
         this.currentState = AnimationAndSpriteLoader.AnimationState.IDLE;
         this.previousState = AnimationAndSpriteLoader.AnimationState.IDLE;

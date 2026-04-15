@@ -5,8 +5,7 @@ package animation;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-public static class AnimationAndSpriteLoader.ObjectPlacementRulesEngine {
+public class ObjectPlacementRulesEngine {
     public static final String TYPE_PLACEMENT_RULES = "object_placement_rules_engine";
     public static final Map<String, PlacementRule> PLACEMENT_MATRIX = new LinkedHashMap<String, PlacementRule>(){
         {
@@ -23,18 +22,17 @@ public static class AnimationAndSpriteLoader.ObjectPlacementRulesEngine {
         if (placementRule != null) {
             return placementRule.filePaths;
         }
-        return AnimationAndSpriteLoader.ObjectPlacementRulesEngine.PLACEMENT_MATRIX.get((Object)"ANY").filePaths;
+        return ObjectPlacementRulesEngine.PLACEMENT_MATRIX.get((Object)"ANY").filePaths;
     }
 
     public static String getRandomObjectForTileset(String string) {
-        String[] stringArray = AnimationAndSpriteLoader.ObjectPlacementRulesEngine.getObjectsForTileset(string);
+        String[] stringArray = ObjectPlacementRulesEngine.getObjectsForTileset(string);
         if (stringArray.length > 0) {
             return stringArray[(int)(Math.random() * (double)stringArray.length)];
         }
         return null;
     }
-
-    public static class PlacementRule {
+public class PlacementRule {
         public String tileColor;
         public String[] objectTypes;
         public String[] filePaths;

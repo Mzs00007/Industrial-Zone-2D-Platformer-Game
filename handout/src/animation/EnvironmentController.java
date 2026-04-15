@@ -6,8 +6,7 @@ package animation;
 import animation.AnimationAndSpriteLoader;
 import java.util.HashMap;
 import java.util.Map;
-
-public static class AnimationAndSpriteLoader.EnvironmentController {
+public class EnvironmentController {
     private Map<Integer, AnimationAndSpriteLoader.AnimationState> tileStates = new HashMap<Integer, AnimationAndSpriteLoader.AnimationState>();
     private Map<String, String> tileAssets = new HashMap<String, String>();
     private Map<String, String> backgroundAssets = new HashMap<String, String>();
@@ -16,7 +15,7 @@ public static class AnimationAndSpriteLoader.EnvironmentController {
     private float parallaxOffset = 0.0f;
     private int currentLevel;
 
-    public AnimationAndSpriteLoader.EnvironmentController(int n) {
+    public EnvironmentController(int n) {
         this.currentLevel = n;
         this.initializeAssets();
     }

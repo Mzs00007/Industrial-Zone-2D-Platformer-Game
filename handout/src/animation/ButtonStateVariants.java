@@ -2,8 +2,8 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class GUIComponentsSystem.GUIButtonSystemProperties.ButtonStateVariants {
+import game2D.*;
+public class ButtonStateVariants {
     public static final String UI_TYPE = "toggle_switch";
     public static final String DIRECTORY = "Resources/industrial-zone/gui/3 Icons/Buttons2";
     public static final int TOTAL_VARIANTS = 10;

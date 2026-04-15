@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static final class AnimationAndSpriteLoader.GUITilesetSystem.TileAdjacencyRules.CornerBRAdjacency {
+public final class CornerBRAdjacency {
     public static final String TILE_TYPE = "CORNER-BOTTOM-RIGHT";
     public static final String TOP_NEIGHBOR_VALID = "EDGE-RIGHT or CORNER-TR";
     public static final String LEFT_NEIGHBOR_VALID = "EDGE-BOTTOM or CORNER-BL";

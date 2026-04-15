@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.CharacterHandPositionSystem.FemaleSoldierHandProfile {
+public class FemaleSoldierHandProfile {
     public static final String CHARACTER_TYPE = "female_soldier";
     public static final String CHARACTER_DESC = "Elite soldier - agile with precise hand control";
     public static final float HAND_SPEED_MULTIPLIER = 1.15f;
@@ -13,16 +12,14 @@ public static class AnimationAndSpriteLoader.CharacterHandPositionSystem.FemaleS
     public static final int LEFT_HAND_Y = -8;
     public static final int RIGHT_HAND_X = 18;
     public static final int RIGHT_HAND_Y = -8;
-
-    public static class HandJoints {
+public class HandJoints {
         public static final int WRIST_OFFSET_X = 5;
         public static final int WRIST_OFFSET_Y = 3;
         public static final int PALM_OFFSET_X = 8;
         public static final int PALM_OFFSET_Y = 5;
         public static final int FINGER_SPREAD = 4;
     }
-
-    public static class AnimationOffsets {
+public class AnimationOffsets {
         public static final int REACH_X_OFFSET = 25;
         public static final int REACH_Y_OFFSET = -5;
         public static final int REACH_DURATION_MS = 300;

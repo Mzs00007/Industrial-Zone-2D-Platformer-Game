@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.VfxAssetProperties.BloodVfx {
+public class BloodVfx {
     public static final String VFX_NAME = "Blood Splatter";
     public static final String VFX_TYPE = "blood";
     public static final String DIRECTORY = "Resources/industrial-zone/vfx/2 Blood";

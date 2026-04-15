@@ -6,13 +6,12 @@ package ai;
 import ai.AI;
 import java.util.ArrayList;
 import java.util.List;
-
-public static class AI.AIPathfinder.Path {
+public class Path {
     public List<AI.AIPathfinder.Waypoint> waypoints = new ArrayList<AI.AIPathfinder.Waypoint>();
     public boolean loop = false;
     public String name;
 
-    public AI.AIPathfinder.Path(String string) {
+    public Path(String string) {
         this.name = string;
     }
 

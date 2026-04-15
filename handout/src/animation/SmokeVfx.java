@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.VfxAssetProperties.SmokeVfx {
+public class SmokeVfx {
     public static final String VFX_NAME = "Smoke Cloud";
     public static final String VFX_TYPE = "smoke";
     public static final String DIRECTORY = "Resources/industrial-zone/vfx/1 Smoke";

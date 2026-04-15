@@ -4,10 +4,9 @@
 package ai;
 
 import ai.AI;
-
-private class AI.EnemyAI.EnemyBehavior
+class EnemyBehavior
 implements AI.AIBehavior {
-    private AI.EnemyAI.EnemyBehavior(AI.EnemyAI enemyAI) {
+    private EnemyBehavior(AI.EnemyAI enemyAI) {
     }
 
     @Override

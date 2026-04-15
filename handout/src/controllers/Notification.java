@@ -3,16 +3,15 @@
  */
 package controllers;
 
-import controllers.screens.Phase11NotificationScreen;
-
-public static class Phase11NotificationScreen.Notification {
+import controllers.Phase11NotificationScreen;
+public class Notification {
     public String title;
     public String message;
     public Phase11NotificationScreen.NotificationType type;
     public long createdAt;
     public float slideProgress;
 
-    public Phase11NotificationScreen.Notification(String string, String string2, Phase11NotificationScreen.NotificationType notificationType) {
+    public Notification(String string, String string2, Phase11NotificationScreen.NotificationType notificationType) {
         this.title = string;
         this.message = string2;
         this.type = notificationType;

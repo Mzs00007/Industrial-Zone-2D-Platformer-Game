@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package entities;
-
-public static enum AudioEntities.MusicTrack {
+public enum MusicTrack {
     MENU_THEME("menu", "Resources/industrial-zone/audio/music/menu_theme.wav", true),
     LEVEL_1_THEME("level_1", "Resources/industrial-zone/audio/music/level_1_theme.wav", true),
     LEVEL_2_THEME("level_2", "Resources/industrial-zone/audio/music/level_2_theme.wav", true),
@@ -14,7 +13,7 @@ public static enum AudioEntities.MusicTrack {
     public final String filePath;
     public final boolean isLooping;
 
-    private AudioEntities.MusicTrack(String string2, String string3, boolean bl) {
+    private MusicTrack(String string2, String string3, boolean bl) {
         this.id = string2;
         this.filePath = string3;
         this.isLooping = bl;

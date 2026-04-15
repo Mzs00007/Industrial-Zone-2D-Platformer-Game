@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.BossCharacterAssetProperties.RugbyGuyBoss {
+public class RugbyGuyBoss {
     public static final String BOSS_NAME = "Rugby Guy";
     public static final String BOSS_TYPE = "rugby_guy";
     public static final String DIRECTORY = "Resources/industrial-zone/characters/bosses/RugbyGuy";

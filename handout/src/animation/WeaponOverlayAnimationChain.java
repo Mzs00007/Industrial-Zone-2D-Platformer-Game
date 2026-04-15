@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.WeaponOverlayAnimationChain {
+public class WeaponOverlayAnimationChain {
     public static final String PHASE_NAME = "PHASE 2: WEAPON OVERLAY ANIMATIONS";
     public static final String BIKER_WEAPON_IDLE_VA = "Resources/industrial-zone/weapons/1/1 Characters/1 Biker/01_Weapon_Biker_Idle_VariantA_4Frames1Row_WeaponIdleStand_Loop_150ms.png";
     public static final String BIKER_WEAPON_IDLE_VB = "Resources/industrial-zone/weapons/1/1 Characters/1 Biker/02_Weapon_Biker_Idle_VariantB_4Frames1Row_WeaponIdleStand_Loop_150ms.png";

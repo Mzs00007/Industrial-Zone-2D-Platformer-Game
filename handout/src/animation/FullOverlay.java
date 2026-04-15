@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.SplashLogoProperties.LogoTextOverlays.FullOverlay {
+public class FullOverlay {
     public static final String TEXT_CONTENT = "3359098";
     public static final int OVERLAY_X = 10;
     public static final int OVERLAY_Y = 10;

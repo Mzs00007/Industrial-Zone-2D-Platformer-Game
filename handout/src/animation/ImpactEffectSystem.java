@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.ImpactEffectSystem {
+public class ImpactEffectSystem {
     public static double[] calculateKnockback(int n, int n2, int n3, int n4, double d, double d2) {
         double d3 = d / d2;
         double d4 = n3 - n;
@@ -19,8 +18,7 @@ public static class AnimationAndSpriteLoader.ImpactEffectSystem {
     public static int[] getExplosionDamageInRadius(int n, int n2, int n3, int n4) {
         return new int[0];
     }
-
-    public static enum ImpactType {
+public enum ImpactType {
         SPLAT("Blood splatter effects"),
         EXPLOSION("Area damage explosion"),
         RICOCHET("Bounce off surfaces"),

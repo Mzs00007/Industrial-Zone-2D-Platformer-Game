@@ -1,4 +1,5 @@
 package controllers;
+import game2D.*;
 
 import java.awt.event.KeyEvent;
 import java.util.HashSet;

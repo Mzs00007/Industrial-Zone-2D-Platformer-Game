@@ -6,8 +6,7 @@ package animation;
 import animation.AnimationAndSpriteLoader;
 import java.util.ArrayList;
 import java.util.List;
-
-public static class AnimationAndSpriteLoader.GameStateManager {
+public class GameStateManager {
     private AnimationAndSpriteLoader.PlayerController player;
     private List<AnimationAndSpriteLoader.EnemyController> enemies = new ArrayList<AnimationAndSpriteLoader.EnemyController>();
     private AnimationAndSpriteLoader.BossController boss;
@@ -16,7 +15,7 @@ public static class AnimationAndSpriteLoader.GameStateManager {
     private List<AnimationAndSpriteLoader.VFXController> vfxEffects = new ArrayList<AnimationAndSpriteLoader.VFXController>();
     private AnimationAndSpriteLoader.InputHandler input = new AnimationAndSpriteLoader.InputHandler();
 
-    public AnimationAndSpriteLoader.GameStateManager() {
+    public GameStateManager() {
         this.environment = new AnimationAndSpriteLoader.EnvironmentController(1);
     }
 

@@ -4,8 +4,7 @@
 package animation;
 
 import animation.AnimationAndSpriteLoader;
-
-public static class AnimationAndSpriteLoader.PlayerController
+public class PlayerController
 extends AnimationAndSpriteLoader.EntityAnimationController {
     private AnimationAndSpriteLoader.InputHandler baseInput;
     private AnimationAndSpriteLoader.InputController inputController;
@@ -13,7 +12,7 @@ extends AnimationAndSpriteLoader.EntityAnimationController {
     private boolean isInAir;
     private int jumpCount;
 
-    public AnimationAndSpriteLoader.PlayerController(AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody physicsBody, AnimationAndSpriteLoader.InputHandler inputHandler) {
+    public PlayerController(AnimationAndSpriteLoader.PhysicsUnitSystem.PhysicsBody physicsBody, AnimationAndSpriteLoader.InputHandler inputHandler) {
         super(physicsBody);
         this.baseInput = inputHandler;
         this.inputController = new AnimationAndSpriteLoader.InputController(inputHandler);

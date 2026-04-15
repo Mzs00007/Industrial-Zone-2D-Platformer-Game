@@ -13,15 +13,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
-
-public static class AnimationAndSpriteLoader.StateVariantLoader
+public class StateVariantLoader
 extends AnimationAndSpriteLoader.AssetType {
     private String[] stateKeys;
     private Map<String, BufferedImage> variantMap;
     private List<BufferedImage> variantList;
     private String dirPath;
 
-    public AnimationAndSpriteLoader.StateVariantLoader(String string, String string2, String[] stringArray) {
+    public StateVariantLoader(String string, String string2, String[] stringArray) {
         super(string, string2);
         this.dirPath = string2;
         this.stateKeys = stringArray;

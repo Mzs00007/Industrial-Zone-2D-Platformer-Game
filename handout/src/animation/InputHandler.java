@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.InputHandler {
+public class InputHandler {
     private boolean[] keyPressed = new boolean[256];
     private boolean[] keyReleased = new boolean[256];
     private long[] lastKeyTime = new long[256];

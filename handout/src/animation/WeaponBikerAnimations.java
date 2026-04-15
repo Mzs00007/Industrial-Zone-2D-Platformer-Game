@@ -6,8 +6,7 @@ package animation;
 import animation.AnimationAndSpriteLoader;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-public static class AnimationAndSpriteLoader.WeaponBikerAnimations {
+public class WeaponBikerAnimations {
     public static final String CHARACTER = "Biker";
     public static final String ANIMATION_TYPE = "weapon_held";
     public static final String DIRECTORY = "Resources/industrial-zone/weapons/1/1 Characters/1 Biker";

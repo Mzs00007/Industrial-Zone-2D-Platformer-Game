@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package utilities;
-
-public static class AudioSystem.VolumeController {
+public class VolumeController {
     private float masterVolume = 1.0f;
     private float sfxVolume = 0.8f;
     private float musicVolume = 0.7f;

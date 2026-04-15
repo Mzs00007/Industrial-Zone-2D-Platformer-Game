@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static final class AnimationAndSpriteLoader.ParallaxRenderingPipeline.Phase2VariantSelection.TransitionMechanic {
+public final class TransitionMechanic {
     public static final String TRIGGER = "When time crosses 6:00 or 18:00";
     public static final String APPLIES_TO = "Level 2 (Power Station) ONLY";
     public static final String DURATION = "45 seconds smooth blend";

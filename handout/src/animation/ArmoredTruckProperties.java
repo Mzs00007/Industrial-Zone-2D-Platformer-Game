@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static class AnimationAndSpriteLoader.DroneEnemyAssetProperties.ArmoredTruckProperties {
+public class ArmoredTruckProperties {
     public static final String DRONE_NAME = "Armored Truck";
     public static final String DRONE_TYPE = "armored_truck";
     public static final String DIRECTORY = "Resources/industrial-zone/characters/enemies/drones/5";

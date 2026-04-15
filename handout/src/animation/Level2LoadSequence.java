@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static final class AnimationAndSpriteLoader.ParallaxBackgroundSystem.Phase1Initialization.Level2LoadSequence {
+public final class Level2LoadSequence {
     public static final String LEVEL = "Power Station Level 2";
     public static final int LAYER_COUNT_PER_VARIANT = 5;
     public static final int TOTAL_VARIANT_SETS = 2;

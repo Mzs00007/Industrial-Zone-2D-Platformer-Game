@@ -2,8 +2,7 @@
  * Decompiled with CFR 0.152.
  */
 package animation;
-
-public static final class AnimationAndSpriteLoader.ParallaxBackgroundSystem.Phase2VariantSelection.Level2VariantLogic {
+public final class Level2VariantLogic {
     public static final String LEVEL = "Power Station Level 2";
     public static final String LOGIC = "SELECT based on game time";
     public static final String DAY_PERIOD = "6:00 AM to 6:00 PM \u2192 Use Day variant";

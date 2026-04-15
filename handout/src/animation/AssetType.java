@@ -7,15 +7,14 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-
-public static abstract class AnimationAndSpriteLoader.AssetType {
+public abstract class AssetType {
     protected String assetName;
     protected String filePath;
     protected BufferedImage image;
     protected int width;
     protected int height;
 
-    public AnimationAndSpriteLoader.AssetType(String string, String string2) {
+    public AssetType(String string, String string2) {
         this.assetName = string;
         this.filePath = string2;
     }
