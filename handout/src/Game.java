@@ -277,6 +277,10 @@ public class Game extends GameCore {
     // Skill / HUD icons [hp=crosshair, en=shield, star=score, skull=enemies]
     private BufferedImage iconHp, iconEn, iconStar, iconSkull;
 
+    // Key-binding overlay PNGs (controls strip at bottom of gameplay HUD).
+    // Keys: A, D, W, Space, E, H, F, Shift (Shift missing → synthesized).
+    private BufferedImage keyA, keyD, keyW, keySpace, keyE, keyH, keyF;
+
     // =========================================================================
     //  WEAPON ASSETS  — gun sprites for in-hand rendering and HUD slots
     // =========================================================================
@@ -616,6 +620,18 @@ public class Game extends GameCore {
         iconEn    = tryLoad(SKILL_DIR + "18_GUI_SkillIcon_Shield_DefenceOrBlock_SkillIcon.png");
         iconStar  = tryLoad(SKILL_DIR + "13_GUI_SkillIcon_Tick_ConfirmOrSelect_SkillIcon.png");
         iconSkull = tryLoad(SKILL_DIR + "19_GUI_SkillIcon_Skull_DeathOrDanger_SkillIcon.png");
+
+        // KEY-BINDING PNGs for the controls strip at the bottom of the HUD.
+        // These let the player see which keys drive movement/interaction
+        // without hunting through a pause menu.
+        final String KEY_DIR = "Resources/industrial-zone/KeyBoard_Keys/";
+        keyA     = tryLoad(KEY_DIR + "Key_A_Letter_MoveLeftOrStrafeLeft_MovementTutorial.png");
+        keyD     = tryLoad(KEY_DIR + "Key_D_Letter_MoveRightOrStrafeRight_MovementTutorial.png");
+        keyW     = tryLoad(KEY_DIR + "Key_W_Letter_MoveUpOrForward_MovementTutorial.png");
+        keySpace = tryLoad(KEY_DIR + "Key_Spacebar_Special_JumpOrConfirm_MovementTutorial.png");
+        keyE     = tryLoad(KEY_DIR + "Key_E_Letter_InteractOrUseObject_ActionTutorial.png");
+        keyH     = tryLoad(KEY_DIR + "Key_H_Letter_HealOrHelp_CombatAction.png");
+        keyF     = tryLoad(KEY_DIR + "Key_F_Letter_ActionOrFireWeapon_CombatAction.png");
 
         // CHARACTER IDLE SPRITE SHEETS
         loadCharIdleFrames();
@@ -1688,6 +1704,10 @@ public class Game extends GameCore {
             g.drawString("CHECKPTS  " + Math.max(0, lastCheckpointIdx + 1) + " / " + checkpointCount, pbX + 10, pbY + 20 + 2 * rowH);
         }
 
+        // ── Controls strip (top-right) — shows key icons so the player can
+        //    always see what every action key does without opening a menu. ──
+        renderControlsStrip(g, W);
+
         // ── Enhanced HUD Renderer (modern multi-panel display) ──
         if (enhancedHUDRenderer != null) {
             enhancedHUDRenderer.render(g, W, H);
@@ -1892,6 +1912,58 @@ public class Game extends GameCore {
         // Reset screen shake translation
         if (shakeTimer > 0) {
             g.translate(-(int) shakeOffsetX, -(int) shakeOffsetY);
+        }
+    }
+
+    // -------------------------------------------------------------------------
+    //  Controls strip — key-icon legend in the top-right of gameplay HUD.
+    //  Uses the real Key_*.png assets so the visuals match the tutorial set.
+    // -------------------------------------------------------------------------
+    private void renderControlsStrip(Graphics2D g, int W) {
+        // Key icons are ~88x88 in the source assets; render at 28px square
+        // with a small label underneath.
+        final int keyPx = 28;
+        final int gap   = 6;
+        final int labelH = 12;
+        BufferedImage[] imgs   = { keyA, keyD, keyW, keySpace, keyE, keyH, keyF };
+        String[]        labels = { "Left", "Right", "Up", "Jump", "Use", "Heal", "Fire" };
+
+        // Spacebar is wider — give it ~1.6x width
+        int totalW = 0;
+        int[] widths = new int[imgs.length];
+        for (int i = 0; i < imgs.length; i++) {
+            widths[i] = (imgs[i] == keySpace) ? (int)(keyPx * 1.6) : keyPx;
+            totalW += widths[i] + gap;
+        }
+        totalW -= gap;
+
+        int x0 = W - totalW - 14;
+        int y0 = 14;
+
+        // Subtle panel backdrop
+        g.setColor(new Color(8, 14, 22, 150));
+        g.fillRoundRect(x0 - 8, y0 - 6, totalW + 16, keyPx + labelH + 12, 8, 8);
+        g.setColor(new Color(60, 140, 200, 160));
+        g.drawRoundRect(x0 - 8, y0 - 6, totalW + 16, keyPx + labelH + 12, 8, 8);
+
+        g.setFont(new Font("Consolas", Font.BOLD, 10));
+        int cx = x0;
+        for (int i = 0; i < imgs.length; i++) {
+            int w = widths[i];
+            if (imgs[i] != null) {
+                g.drawImage(imgs[i], cx, y0, w, keyPx, null);
+            } else {
+                // Fallback: draw a stylised key placeholder so the strip still
+                // conveys the binding even if the PNG failed to load.
+                g.setColor(new Color(40, 60, 80));
+                g.fillRoundRect(cx, y0, w, keyPx, 6, 6);
+                g.setColor(new Color(180, 220, 255));
+                g.drawRoundRect(cx, y0, w, keyPx, 6, 6);
+            }
+            g.setColor(new Color(200, 230, 255));
+            int labelW = g.getFontMetrics().stringWidth(labels[i]);
+            g.drawString(labels[i], cx + (w - labelW) / 2, y0 + keyPx + 10);
+            cx += w + gap;
         }
     }
 

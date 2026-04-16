@@ -16,7 +16,31 @@ import javax.imageio.ImageIO;
 public class AnimatedObject {
 
     // =========================================================================
-    //  Object types
+    //  Object types  (rules: score, loop, auto-collect)
+    //
+    //  OBJECT-INTERACTION CONTRACT (authoritative rules — keep in sync):
+    //
+    //   TYPE                | COLLISION | REACT TO PLAYER        | SFX
+    //   --------------------+-----------+------------------------+--------------
+    //   COLLECTIBLE_CARD    | AABB      | auto-pickup, +1 card   | unlocked_chest
+    //   COLLECTIBLE_MONEY   | AABB      | auto-pickup, +cash     | click_digital_1
+    //   CHEST               | AABB      | E-key opens → spawns 1 | unlocked_chest
+    //                       |           | COLLECTIBLE_CARD above |
+    //   CONVEYOR            | AABB      | pushes player +100 px/s| (ambient)
+    //   CONVEYOR_REVERSE    | AABB      | pushes player −100 px/s| (ambient)
+    //   PORTAL              | AABB      | checkpoint save + heal | portal_1
+    //   SCREEN_DECO         | AABB-vis  | none (decor)           | (none)
+    //   HAZARD_HAMMER       | AABB      | damage 15 when frameIdx| impact_hit
+    //                       |           | in [2..4] (mid-swing)  |
+    //   HAZARD_TURRET       | AABB      | damage 20 when frameIdx| turret_fire
+    //                       |           | ≥ frames/2 (fire half) |
+    //   MOVING_PLATFORM     | visual    | rideable (future work) | (ambient)
+    //
+    //  INVARIANTS enforced by Game.startGame():
+    //    • # CHEST    == # PORTAL   (boxes == checkpoints)
+    //    • # CHEST    == # cards the player CAN collect in this level
+    //      (no pre-placed COLLECTIBLE_CARD entries; every card comes from
+    //      opening a chest, so cardsExpected climbs from 0 → chestCount.)
     // =========================================================================
     public enum ObjType {
         COLLECTIBLE_CARD  (50,   true,  true),
