@@ -117,9 +117,10 @@ public class Level1 implements LevelData {
         {1, 350,488, 32,32},{1, 700,488, 32,32},{1,1100,488, 32,32},{1,1600,488, 32,32},
         {1,2200,488, 32,32},{1,2800,488, 32,32},{1,3500,488, 32,32},{1,3900,488, 32,32},
         {1,4700,488, 32,32},{1,5000,488, 32,32},
-        // Cards (high-value collectibles on elevated platforms)
-        {0, 560,368, 32,32},{0,1560,168, 32,32},{0,2640,188, 32,32},{0,3460,208, 32,32},
-        // Chests (on ground in each segment)
+        // NOTE: Cards are NOT pre-placed. They are spawned when the player
+        // opens a chest with E — enforcing the invariant:
+        //     # of boxes (chests)  ==  # of cards  ==  # of checkpoints
+        // Chests (on ground in each segment) — 4 chests → 4 cards → 4 portals.
         {2, 950,472, 48,48},{2,1800,472, 48,48},{2,2850,472, 48,48},{2,3850,472, 48,48},
         // Conveyors
         {3,2600,388, 160,32},{3,3680,368, 160,32},

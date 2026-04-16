@@ -95,6 +95,13 @@ public class Game extends GameCore {
 
     // Checkpoint tracking
     private int   lastCheckpointIdx = -1;
+
+    // Progression counters — # of boxes (chests) should equal # of cards that
+    // the player can collect, and matches the checkpoint count for pacing.
+    private int cardsExpected = 0;   // total cards that CAN be collected this level
+    private int chestCount    = 0;   // total chest/box objects in the level
+    private int chestsOpened  = 0;   // boxes the player has opened so far
+    private int checkpointCount = 0; // total portal checkpoints in the level
     private float checkpointX  = 150f;
     private float checkpointY  = 456f;
 
@@ -1372,6 +1379,20 @@ public class Game extends GameCore {
         spawnAnimatedObjects();
         spawnInteractiveObjects();  // Spawn chests with cards
         weaponPickedUp = new boolean[activeLevel.getWeaponSpawns().length];
+
+        // Tally progression counters: boxes == starting cards == checkpoints.
+        // Every chest will spawn one additional card on interact, so the
+        // `cardsExpected` total climbs by chestCount as the player plays.
+        chestCount = 0; checkpointCount = 0; cardsExpected = 0; chestsOpened = 0;
+        for (AnimatedObject ao : animatedObjects) {
+            if (!ao.isActive()) continue;
+            switch (ao.getType()) {
+                case CHEST:              chestCount++; break;
+                case PORTAL:             checkpointCount++; break;
+                case COLLECTIBLE_CARD:   cardsExpected++; break;
+                default: break;
+            }
+        }
         score = 0; paused = false; gameOver = false;
         levelComplete = false; objectiveText = "DEFEAT ALL ENEMIES";
         cameraX = 0f; cameraY = 0f;
@@ -1647,6 +1668,25 @@ public class Game extends GameCore {
             player != null ? player.getHealth()    : 0,
             player != null ? player.getMaxHealth() : 100,
             score, startTime, currentLevel, enemies.size(), getFPS());
+
+        // ── Progression HUD: boxes / cards / checkpoints (B == C == CP) ──
+        // These three counts are pinned equal at level start; opening a box
+        // spawns an extra card in play, so `cardsExpected` grows dynamically.
+        if (player != null) {
+            int pbX = 16, pbY = 88, rowH = 22;
+            Color bg = new Color(10, 18, 28, 170);
+            Color border = new Color(80, 170, 230, 180);
+            int pbW = 230, pbH = 3 * rowH + 14;
+            g.setColor(bg); g.fillRoundRect(pbX, pbY, pbW, pbH, 10, 10);
+            g.setColor(border); g.drawRoundRect(pbX, pbY, pbW, pbH, 10, 10);
+            g.setFont(new Font("Consolas", Font.BOLD, 14));
+            g.setColor(new Color(255, 200, 80));
+            g.drawString("BOXES     " + chestsOpened + " / " + chestCount,    pbX + 10, pbY + 20);
+            g.setColor(new Color(120, 220, 255));
+            g.drawString("CARDS     " + player.getCards() + " / " + cardsExpected, pbX + 10, pbY + 20 + rowH);
+            g.setColor(new Color(140, 255, 160));
+            g.drawString("CHECKPTS  " + Math.max(0, lastCheckpointIdx + 1) + " / " + checkpointCount, pbX + 10, pbY + 20 + 2 * rowH);
+        }
 
         // ── Enhanced HUD Renderer (modern multi-panel display) ──
         if (enhancedHUDRenderer != null) {
@@ -3057,15 +3097,29 @@ public class Game extends GameCore {
                 } else if (k == KeyEvent.VK_Q) {
                     if (player != null) player.cycleWeaponNext();
                 } else if (k == KeyEvent.VK_E) {
-                    // Interact with nearby chests
+                    // Interact with nearby chests — opens box, spawns a collectible card
+                    // above it so the box→card→HUD chain is visible to the player.
                     for (AnimatedObject ao : animatedObjects) {
                         if (ao.isActive() && ao.getType() == AnimatedObject.ObjType.CHEST
                             && ao.overlaps(player.getX(), player.getY(), 64, 64)) {
                             int pts = ao.interact();
                             if (pts > 0) {
                                 score += pts;
+                                chestsOpened++;
                                 vfx.emitHitSparks(ao.getX() + 24, ao.getY());
                                 audioManager.playSoundEffect("unlocked_chest");
+                                // Spawn a card above the opened chest (auto-collectible)
+                                String cardPath = activeLevel.getAnimAssetPath(
+                                        AnimatedObject.ObjType.COLLECTIBLE_CARD);
+                                if (cardPath != null) {
+                                    AnimatedObject card = new AnimatedObject(
+                                        AnimatedObject.ObjType.COLLECTIBLE_CARD,
+                                        cardPath,
+                                        ao.getX() + 8, ao.getY() - 36,
+                                        32, 32);
+                                    animatedObjects.add(card);
+                                    cardsExpected++;  // another card now in play
+                                }
                             }
                         }
                     }
