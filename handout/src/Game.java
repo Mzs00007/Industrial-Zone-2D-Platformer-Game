@@ -31,10 +31,17 @@ import game2D.Animation;
 import animation.HorizontalSpritesheetLoader;
 import entities.*;
 import managers.AudioManager;
+import managers.ImpactSystem;
+import managers.CollisionResolver;
 import rendering.VfxSystem;
 import rendering.ParallaxRenderer;
 import rendering.HudRenderer;
 import rendering.PanelRenderer;
+import managers.HUDManager;
+import managers.EmoteManager;
+import managers.HealSystem;
+import controllers.EnhancedHUDRenderer;
+import controllers.InteractionSystem;
 import tiles.TileMap;
 import assets.SpriteAsset;
 import assets.weapons.WeaponSet1GunAssets;
@@ -84,6 +91,7 @@ public class Game extends GameCore {
     private List<Enemy>      enemies     = new ArrayList<>();
     private List<Projectile> projectiles = new ArrayList<>();
     private List<AnimatedObject> animatedObjects = new ArrayList<>();
+    private InteractionSystem interactionSystem;  // handles E-key interactions (chests, cards)
 
     // Checkpoint tracking
     private int   lastCheckpointIdx = -1;
@@ -127,6 +135,10 @@ public class Game extends GameCore {
 
     // Ladder PNG images (loaded from 3 Objects/ folder)
     private BufferedImage ladderTall, ladderTallAlt, ladderShort;
+    
+    // Interactive object animations (cards, chests)
+    private BufferedImage[] cardFrames;      // Card floating animation (6 frames)
+    private BufferedImage[] chestFrames;     // Chest opening animation (8 frames)
 
     // OTF font loaded from Resources
     private Font hudFont;
@@ -206,12 +218,22 @@ public class Game extends GameCore {
 
     // Rendering subsystems — created in initRenderers() once all assets are loaded
     private VfxSystem        vfx;           // particle VFX (sparks + smoke)
+    
+    // Collision and impact systems — enhance enemy/trap interactions
+    private ImpactSystem impactSystem;      // unified damage/sound/knockback/vfx
+    private CollisionResolver collisionResolver; // enhanced collision detection
+    
     private ParallaxRenderer parallaxGame1; // gameplay level-1 background
     private ParallaxRenderer parallaxGame2; // gameplay level-2 background (day)
     private ParallaxRenderer parallaxGame2Night; // gameplay level-2 background (night)
     private ParallaxRenderer parallaxMenu;  // menu screens background
     private HudRenderer      hudRenderer;   // HUD bars, score, timer
     private PanelRenderer    panelRenderer; // nine-patch panels + buttons
+    private HUDManager       hudManager;    // unified HUD state management
+    private EnhancedHUDRenderer enhancedHUDRenderer; // modern HUD rendering
+    private EmoteManager     emoteManager;  // emote key binding and display
+    private HealSystem       healSystem;    // heal system with cooldown tracking
+    private List<GreenHealVFX> healVFXList = new ArrayList<>();  // active heal particles
     // cursor image index: 0=default, 1=aim crosshair, 2=adjust, 3=hover
     private int   activeCursorIdx = 0;
 
@@ -453,6 +475,9 @@ public class Game extends GameCore {
         ladderTallAlt = tryLoad(objDir + "Prop_Ladder_TallAltSpacing_BlueGreyRungs_ShaftWallClimb_ClimbableB.png");
         ladderShort   = tryLoad(objDir + "Prop_Ladder_ShortHorizontalRung_BlueCrossbar_PlatformConnector_Short.png");
 
+        // --- Load interactive object animations (cards, chests) ---
+        loadInteractiveAssets();
+
         // Load OTF font
         try {
             hudFont = Font.createFont(Font.TRUETYPE_FONT,
@@ -475,6 +500,39 @@ public class Game extends GameCore {
     private void loadTileMaps() {
         tileMap1 = new TileMap(level1Data.getMapFilePath(), level1Data.getTileMapDirs(), level1Data.getTileMapOffsetY());
         tileMap2 = new TileMap(level2Data.getMapFilePath(), level2Data.getTileMapDirs(), level2Data.getTileMapOffsetY());
+    }
+
+    // -------------------------------------------------------------------------
+    //  Interactive asset loading (cards, chests)
+    // -------------------------------------------------------------------------
+    private void loadInteractiveAssets() {
+        String animDir = "Resources/industrial-zone/1 Tiles/Industrial_zone_level_1/4 Animated objects/";
+        
+        // Load card animation (6 frames, 1 row)
+        BufferedImage cardSheet = tryLoad(animDir + "Anim_Collectible_Card_6Frames1Row_WhiteBlueSpinningFloat_PickupItem_Loop80ms.png");
+        if (cardSheet != null) {
+            cardFrames = new BufferedImage[6];
+            int frameWidth = cardSheet.getWidth() / 6;
+            int frameHeight = cardSheet.getHeight();
+            for (int i = 0; i < 6; i++) {
+                cardFrames[i] = cardSheet.getSubimage(i * frameWidth, 0, frameWidth, frameHeight);
+            }
+        } else {
+            cardFrames = new BufferedImage[0];
+        }
+        
+        // Load chest animation (8 frames, 1 row)
+        BufferedImage chestSheet = tryLoad(animDir + "Anim_Interactive_Chest_8Frames1Row_OrangeRedLidOpenSequence_PlayOnce100ms.png");
+        if (chestSheet != null) {
+            chestFrames = new BufferedImage[8];
+            int frameWidth = chestSheet.getWidth() / 8;
+            int frameHeight = chestSheet.getHeight();
+            for (int i = 0; i < 8; i++) {
+                chestFrames[i] = chestSheet.getSubimage(i * frameWidth, 0, frameWidth, frameHeight);
+            }
+        } else {
+            chestFrames = new BufferedImage[0];
+        }
     }
 
     // -------------------------------------------------------------------------
@@ -601,6 +659,10 @@ public class Game extends GameCore {
     private void initRenderers() {
         // VFX particle system (loads its own smoke sprite frames internally)
         vfx = new VfxSystem();
+        
+        // Initialize impact and collision systems
+        impactSystem = new ImpactSystem(vfx, audioManager);
+        collisionResolver = new CollisionResolver(impactSystem);
 
         // Parallax renderers — one per context (menu, level-1 gameplay, level-2 gameplay)
         parallaxMenu  = new ParallaxRenderer(bgLayers1, level1Data.getScrollFactors(), new Color(18, 12, 36));
@@ -626,6 +688,15 @@ public class Game extends GameCore {
             frmFillNavy,
             btnColors, btnNormal, btnHover, btnPressed,
             hudFont);
+
+        // HUD Manager (unified state, created only during gameplay initialization)
+        if (player != null) {
+            hudManager = new HUDManager(player, currentLevel, "INDUSTRIAL ZONE", "START ZONE");
+            emoteManager = new EmoteManager(player);
+            healSystem = new HealSystem(player);
+            healVFXList.clear();
+            enhancedHUDRenderer = new EnhancedHUDRenderer(hudManager, emoteManager, healSystem, hudRenderer);
+        }
 
         System.out.println("[Game] Rendering subsystems initialised.");
     }
@@ -693,6 +764,30 @@ public class Game extends GameCore {
         checkpointX = activeLevel.getPlayerStartX();
         checkpointY = activeLevel.getPlayerStartY();
         System.out.println("[Game] Spawned " + animatedObjects.size() + " animated objects.");
+    }
+
+    // -------------------------------------------------------------------------
+    //  Interactive object spawning (chests)
+    // -------------------------------------------------------------------------
+    private void spawnInteractiveObjects() {
+        if (interactionSystem == null) {
+            interactionSystem = new InteractionSystem();
+        }
+        interactionSystem = new InteractionSystem();  // Clear and recreate
+        
+        float[][] objects = activeLevel.getAnimatedObjects();
+        
+        for (float[] d : objects) {
+            int typeId = (int) d[0];
+            
+            // Type 2 = CHEST
+            if (typeId == 2) {
+                float x = d[1];
+                float y = d[2];
+                InteractiveBox chest = new InteractiveBox(x, y, chestFrames);
+                interactionSystem.registerInteractiveBox(chest);
+            }
+        }
     }
 
     // =========================================================================
@@ -875,6 +970,29 @@ public class Game extends GameCore {
         if (paused || gameOver) return;
         float delta = Math.min(elapsedTime / 1000.0f, 0.10f);
 
+        // Update HUD state every frame
+        if (hudManager != null) {
+            hudManager.update(delta);
+        }
+        if (enhancedHUDRenderer != null) {
+            enhancedHUDRenderer.update(delta);
+        }
+        if (emoteManager != null) {
+            emoteManager.update(delta);
+        }
+        if (healSystem != null) {
+            healSystem.update(delta);
+        }
+        
+        // Update and cleanup heal VFX
+        for (int i = healVFXList.size() - 1; i >= 0; i--) {
+            GreenHealVFX vfx = healVFXList.get(i);
+            vfx.update(delta);
+            if (!vfx.isAlive()) {
+                healVFXList.remove(i);
+            }
+        }
+
         // Cinematic scene: freeze gameplay while active
         if (activeCinematic != null) {
             cinematicCharTimer += delta;
@@ -892,6 +1010,24 @@ public class Game extends GameCore {
         }
 
         player.update(delta);
+        // Fire player state-change SFX
+        if (player.pollJumped())     audioManager.playSoundEffect("samurai_footstep_1");
+        if (player.pollDoubleJump()) audioManager.playSoundEffect("samurai_footstep_2");
+        if (player.pollLanded())     audioManager.playSoundEffect("samurai_footstep_1");
+        if (player.pollDashed())     audioManager.playSoundEffect("zipline_loopable");
+        if (player.pollHit())        audioManager.playSoundEffect("karateka_attack");
+        if (player.pollDied())       audioManager.playSoundEffect("samurai_death");
+        if (player.pollAttacked())   audioManager.playSoundEffect("laser_sword_1");
+
+        // Pit-fall respawn: if player falls below world ground, teleport to checkpoint
+        if (player.isAlive() && player.getY() > 700) {
+            player.takeDamage(15);
+            if (player.isAlive()) {
+                player.respawnAt(checkpointX, checkpointY);
+                addNotification("RESPAWNED AT CHECKPOINT", new Color(200, 200, 255), 1.5f);
+                audioManager.playSoundEffect("portal_1");
+            }
+        }
         updateCamera();
 
         // Screen shake decay
@@ -933,7 +1069,12 @@ public class Game extends GameCore {
         Projectile fired = player.getProjectileToFire();
         if (fired != null) {
             projectiles.add(fired);
-            audioManager.playSoundEffect("laser_sword_1");
+            // Fire SFX based on weapon type
+            PlayerBase.WeaponType w = player.getActiveWeapon();
+            if (w == PlayerBase.WeaponType.SHOTGUN)      audioManager.playSoundEffect("explosion");
+            else if (w == PlayerBase.WeaponType.RIFLE)   audioManager.playSoundEffect("laser_sword_2");
+            else if (w == PlayerBase.WeaponType.SMG)     audioManager.playSoundEffect("laser_sword_1");
+            else                                          audioManager.playSoundEffect("laser_sword_1");
         }
 
         for (int i = projectiles.size() - 1; i >= 0; i--) {
@@ -979,20 +1120,16 @@ public class Game extends GameCore {
             Projectile ep = e.getPendingProjectile();
             if (ep != null) projectiles.add(ep);
 
-            // Contact damage
-            float ew = e.getWidth(), eh = e.getHeight();
-            if (e.isAlive() && aabbOverlap(
-                    player.getX() + 8, player.getY() + 8, 48, 54,
-                    e.getX() + 4, e.getY() + 4, ew - 8, eh - 8)) {
-                e.attackPlayer(player);
-                audioManager.playSoundEffect("karateka_attack");
+            // Contact damage — now integrated with impact system for unified effects
+            if (e.isAlive() && player.isAlive()) {
+                collisionResolver.checkPlayerEnemyCollision(player, e);
             }
 
             // Award score based on enemy type
             if (!e.isAlive()) {
                 score += e.getScoreValue();
                 gameOverEnemiesKilled++;
-                vfx.emitHitSparks(e.getX() + ew/2, e.getY() + eh/2);
+                vfx.emitHitSparks(e.getX() + e.getWidth()/2, e.getY() + e.getHeight()/2);
                 audioManager.playSoundEffect("explosion");
                 enemies.remove(i);
             }
@@ -1060,36 +1197,40 @@ public class Game extends GameCore {
                 player.setPosition(plX + push * delta, plY);
             }
 
-            // Hazard damage
+            // Hazard damage — now integrated with impact system for unified effects
             if (ao.isDamaging() && player.isAlive()) {
-                player.takeDamage(ao.getDamage());
-                vfx.emitHitSparks(plX + 32, plY + 32);
-                audioManager.playSoundEffect("bomb_drop");
+                collisionResolver.checkPlayerObjectCollision(player, ao);
             }
 
-            // Checkpoint portal — requires E-key press + card count
+            // Checkpoint portal — auto-save on walk-in (no E key, no card cost)
             if (ot == AnimatedObject.ObjType.PORTAL) {
                 int portalIdx = i;
                 if (portalIdx > lastCheckpointIdx) {
-                    // Show interaction prompt when near
-                    if (PlayerBase.isKeyDown(KeyEvent.VK_E)) {
-                        int cardsNeeded = getCheckpointCardCost(portalIdx);
-                        if (player.getCards() >= cardsNeeded) {
-                            lastCheckpointIdx = portalIdx;
-                            checkpointX = ao.getX();
-                            checkpointY = ao.getY() - 16f;
-                            if (cardsNeeded > 0) player.spendCards(cardsNeeded);
-                            vfx.emitHitSparks(ao.getX() + 32, ao.getY());
-                            addNotification("CHECKPOINT SAVED!", new Color(80, 255, 80), 2f);
-                            triggerShake(2f, 0.3f);
-                            audioManager.playSoundEffect("portal_1");
-                            System.out.println("[Game] Checkpoint saved at x=" + (int) checkpointX);
-                        } else {
-                            addNotification("Need " + (cardsNeeded - player.getCards()) + " more cards!",
-                                new Color(255, 80, 80), 1.5f);
-                        }
-                    }
+                    lastCheckpointIdx = portalIdx;
+                    checkpointX = ao.getX();
+                    checkpointY = ao.getY() - 16f;
+                    vfx.emitHitSparks(ao.getX() + 32, ao.getY());
+                    addNotification("CHECKPOINT " + (portalIdx + 1) + " ACTIVATED",
+                        new Color(80, 255, 80), 2f);
+                    triggerShake(2f, 0.3f);
+                    audioManager.playSoundEffect("portal_1");
+                    // Heal on checkpoint as reward
+                    player.tryHeal();
+                    System.out.println("[Game] Checkpoint " + portalIdx + " at x=" + (int) checkpointX);
                 }
+            }
+        }
+
+        // ------ Interactive objects (chests, cards) ------
+        if (interactionSystem != null) {
+            interactionSystem.update(delta, plX, plY);
+            
+            // Collect nearby cards
+            int cardsCollected = interactionSystem.collectNearbyCards(plX, plY);
+            for (int i = 0; i < cardsCollected; i++) {
+                score += 25;  // Card worth 25 points
+                player.addCard();
+                audioManager.playSoundEffect("unlocked_chest");
             }
         }
 
@@ -1186,10 +1327,19 @@ public class Game extends GameCore {
         // §15.2 screen-based background music
         if (screen == GameScreen.MAIN_MENU) {
             audioManager.stopAllSounds();
+            audioManager.stopMidi();
             audioManager.playSoundEffect("main_theme_chinese_street");
+            audioManager.playMidi("Track 3.mid", true);
         } else if (screen == GameScreen.CHARACTER_SELECT) {
             audioManager.stopAllSounds();
+            audioManager.stopMidi();
             audioManager.playSoundEffect("melody_of_attraction_loopable");
+            audioManager.playMidi("Track 4.mid", true);
+        } else if (screen == GameScreen.GAME_OVER) {
+            audioManager.stopMidi();
+        } else if (screen == GameScreen.LEVEL_COMPLETE) {
+            audioManager.stopMidi();
+            audioManager.playMidi("Track 5.mid", false);
         }
         if (screen == GameScreen.CREDITS) {
             creditsScrollY = 700f; creditsAutoReturn = -1f;
@@ -1206,13 +1356,21 @@ public class Game extends GameCore {
         }
         activeLevel = (levelSelectIndex == 0) ? level1Data : level2Data;
         float[][] platforms = activeLevel.getPlatforms();
+        int[] platformTypes = activeLevel.getPlatformTypes();
         float[][] enemyData = activeLevel.getEnemySpawns();
         currentLevel = activeLevel.getLevelId();
         PlayerBase.setPlatforms(platforms);
+        PlayerBase.setPlatformTypes(platformTypes);  // Set platform type information for one-way/moving platforms
+        Enemy.setPlatforms(platforms); // share platforms so enemies respect cliffs
+        lastCheckpointIdx = -1;
+        checkpointX = activeLevel.getPlayerStartX();
+        checkpointY = activeLevel.getPlayerStartY();
         player = new PlayerBase(type, activeLevel.getPlayerStartX(), activeLevel.getPlayerStartY());
+        emoteManager = new EmoteManager(player);
         enemies.clear(); projectiles.clear(); animatedObjects.clear();
         spawnEnemies(enemyData);
         spawnAnimatedObjects();
+        spawnInteractiveObjects();  // Spawn chests with cards
         weaponPickedUp = new boolean[activeLevel.getWeaponSpawns().length];
         score = 0; paused = false; gameOver = false;
         levelComplete = false; objectiveText = "DEFEAT ALL ENEMIES";
@@ -1224,13 +1382,17 @@ public class Game extends GameCore {
         activeCinematic = null;
         dayNightNotified = false; // reset day/night notification flag each game start
         startTime = System.currentTimeMillis();
-        // Play level-appropriate background music (WAV SFX, not MIDI)
-        // Plan §15.2: Level 1 → stealthy_theme_loopable; Level 2 → alternative_theme_chinese_street
+        // Play level-appropriate background music:
+        //   - Try WAV SFX loop (original plan)
+        //   - Also start MIDI background track (real .mid files in audio/music_midi)
         audioManager.stopAllSounds();
+        audioManager.stopMidi();
         if (currentLevel == 1) {
             audioManager.playSoundEffect("stealthy_theme_loopable");
+            audioManager.playMidi("Track 1.mid", true);
         } else {
             audioManager.playSoundEffect("alternative_theme_chinese_street");
+            audioManager.playMidi("Track 2.mid", true);
         }
         goTo(GameScreen.GAMEPLAY);
         System.out.println("[Game] Starting: " + type + " on Level " + currentLevel);
@@ -1436,10 +1598,20 @@ public class Game extends GameCore {
 
         // Animated objects (collectibles, chests, conveyors, portals, hazards)
         for (AnimatedObject ao : animatedObjects) ao.render(g, cameraX, cameraY);
+        
+        // ── Interactive object prompts (chests with E-key) ──
+        if (interactionSystem != null && player != null) {
+            interactionSystem.render(g, (int) cameraX, (int) cameraY, player.getX(), player.getY());
+        }
 
         if (player != null) {
             for (Enemy e : enemies)      e.render(g, (int) cameraX, (int) cameraY);
             player.render(g, (int) cameraX, (int) cameraY);
+            
+            // Render heal VFX effects
+            for (GreenHealVFX vfx : healVFXList) {
+                vfx.render(g, (int) cameraX, (int) cameraY);
+            }
 
             // ── Gun-in-hand: drawn on top of the player sprite, rotated toward mouse ──
             if (player.isAlive() && gunImages.length > 0) {
@@ -1475,6 +1647,11 @@ public class Game extends GameCore {
             player != null ? player.getHealth()    : 0,
             player != null ? player.getMaxHealth() : 100,
             score, startTime, currentLevel, enemies.size(), getFPS());
+
+        // ── Enhanced HUD Renderer (modern multi-panel display) ──
+        if (enhancedHUDRenderer != null) {
+            enhancedHUDRenderer.render(g, W, H);
+        }
 
         // ── Weapon HUD bar (bottom-right, 4 slots with real gun thumbnail images) ──
         if (player != null) {
@@ -1749,6 +1926,56 @@ public class Game extends GameCore {
             float[][] plats = activeLevel.getPlatforms();
             map.renderGroundFill(g, cameraX, cameraY, W, H,
                 (int)(plats[0][1] + plats[0][3]));
+            
+            // === 1b. Render pit hazard overlays (dots on ground row 3) ===
+            g.setColor(new Color(255, 100, 50, 180));  // Semi-transparent orange for pits
+            int TILE_SIZE = 32;
+            int GROUND_ROW = 3;  // Row 3 is ground surface in map.txt
+            int mapOffsetY = activeLevel.getTileMapOffsetY();
+            
+            // Iterate through visible ground tiles and highlight pits (dots)
+            int startCol = Math.max(0, (int)(cameraX / TILE_SIZE) - 1);
+            int endCol = Math.min(512, (int)((cameraX + W) / TILE_SIZE) + 2);  // 500 for L1, 900 for L2
+            
+            for (int col = startCol; col < endCol; col++) {
+                // Check if this tile is a pit (empty dot)
+                if (col >= 0 && col < 500 && currentLevel == 1) {
+                    // Level 1: 500 columns
+                    // Row 3 pit ranges: cols 60-65, 103-108, 144-149
+                    if ((col >= 60 && col <= 65) || (col >= 103 && col <= 108) || (col >= 144 && col <= 149)) {
+                        int worldX = col * TILE_SIZE;
+                        int worldY = GROUND_ROW * TILE_SIZE + mapOffsetY;
+                        int screenX = (int)(worldX - cameraX);
+                        int screenY = (int)(worldY - cameraY);
+                        if (screenX >= -32 && screenX <= W && screenY >= -32 && screenY <= H) {
+                            g.fillRect(screenX, screenY, TILE_SIZE, TILE_SIZE);
+                            // Draw diagonal hazard indicator
+                            g.setColor(new Color(200, 50, 0, 180));
+                            g.setStroke(new java.awt.BasicStroke(2));
+                            g.drawLine(screenX, screenY, screenX + TILE_SIZE, screenY + TILE_SIZE);
+                            g.drawLine(screenX + TILE_SIZE, screenY, screenX, screenY + TILE_SIZE);
+                            g.setColor(new Color(255, 100, 50, 180));  // Reset for next pit
+                        }
+                    }
+                } else if (col >= 0 && col < 900 && currentLevel == 2) {
+                    // Level 2: 900 columns with repeating pattern (8 solid + 8 dots)
+                    if ((col % 16) >= 8) {  // Dots appear at positions 8-15 in each 16-cycle
+                        int worldX = col * TILE_SIZE;
+                        int worldY = GROUND_ROW * TILE_SIZE + mapOffsetY;
+                        int screenX = (int)(worldX - cameraX);
+                        int screenY = (int)(worldY - cameraY);
+                        if (screenX >= -32 && screenX <= W && screenY >= -32 && screenY <= H) {
+                            g.fillRect(screenX, screenY, TILE_SIZE, TILE_SIZE);
+                            // Draw diagonal hazard indicator
+                            g.setColor(new Color(200, 50, 0, 180));
+                            g.setStroke(new java.awt.BasicStroke(2));
+                            g.drawLine(screenX, screenY, screenX + TILE_SIZE, screenY + TILE_SIZE);
+                            g.drawLine(screenX + TILE_SIZE, screenY, screenX, screenY + TILE_SIZE);
+                            g.setColor(new Color(255, 100, 50, 180));  // Reset for next pit
+                        }
+                    }
+                }
+            }
         }
 
         // === 2. Render floating platforms (above tile map area) with tile images ===
@@ -2799,10 +3026,25 @@ public class Game extends GameCore {
                 if (k == KeyEvent.VK_ESCAPE) {
                     paused = true; goTo(GameScreen.PAUSE);
                 } else if (k == KeyEvent.VK_H) {
-                    // Heal — §15.2: bell_on_the_door SFX on heal
+                    // Heal — §15.2: bell_on_the_door SFX + HAPPY animation
                     if (player != null && player.isAlive()) {
                         boolean healed = player.tryHeal();
-                        if (healed) audioManager.playSoundEffect("bell_on_the_door");
+                        if (healed) {
+                            audioManager.playSoundEffect("bell_on_the_door");
+                            // Create green heal VFX at player position
+                            healVFXList.add(new GreenHealVFX(player.getX() + 16, player.getY()));
+                        }
+                    }
+                } else if (k == KeyEvent.VK_P || k == KeyEvent.VK_Z || k == KeyEvent.VK_X || 
+                           k == KeyEvent.VK_C || k == KeyEvent.VK_V) {
+                    // Emote keys: P (Pose), Z (Thumbs Up), X (Peace), C (Clap), V (Wave)
+                    if (emoteManager != null) {
+                        emoteManager.triggerEmoteByKey(k);
+                    }
+                } else if (k == KeyEvent.VK_E) {
+                    // E-key: Interact with chests
+                    if (interactionSystem != null) {
+                        interactionSystem.onKeyDown(k);
                     }
                 } else if (k == KeyEvent.VK_1) {
                     if (player != null) player.switchWeaponSlot(0);
@@ -2895,8 +3137,13 @@ public class Game extends GameCore {
     @Override
     public void keyReleased(KeyEvent e) {
         int k = e.getKeyCode();
-        if (currentScreen == GameScreen.GAMEPLAY)
+        if (currentScreen == GameScreen.GAMEPLAY) {
             PlayerBase.setKeyPressed(k, false);
+            // Handle E-key release for interaction system
+            if (k == KeyEvent.VK_E && interactionSystem != null) {
+                interactionSystem.onKeyUp(k);
+            }
+        }
         if (k == KeyEvent.VK_SPACE && currentScreen == GameScreen.CREDITS)
             creditsSpeedUp = false;
         // Do NOT call super.keyReleased() — prevents ESC from quitting the JFrame

@@ -174,6 +174,12 @@ public class Enemy {
     public float getHeight()  { return height; }
     public int   getHealth()  { return health; }
     public boolean isAlive()  { return alive; }
+    
+    /**
+     * Get enemy type for impact system classification
+     * Default type is "DRONE" - can be overridden by subclasses
+     */
+    public String getType() { return "DRONE"; }
 
     // Setters
     public void setPosition(float x, float y) {

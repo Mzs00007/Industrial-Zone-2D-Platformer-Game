@@ -30,47 +30,47 @@ public class AssetMetadata {
         // Weapon Animations - Biker
         public static final int WEAPON_BIKER_IDLE_A = 4;
         public static final int WEAPON_BIKER_IDLE_B = 4;
-        public static final int WEAPON_BIKER_JUMP_A = 3;
-        public static final int WEAPON_BIKER_JUMP_B = 3;
-        public static final int WEAPON_BIKER_RUN_A = 5;
-        public static final int WEAPON_BIKER_RUN_B = 5;
+        public static final int WEAPON_BIKER_JUMP_A = 4;
+        public static final int WEAPON_BIKER_JUMP_B = 4;
+        public static final int WEAPON_BIKER_RUN_A = 6;
+        public static final int WEAPON_BIKER_RUN_B = 6;
         public static final int WEAPON_BIKER_WALK_A = 4;
         public static final int WEAPON_BIKER_WALK_B = 4;
         
         // Weapon Animations - Punk
         public static final int WEAPON_PUNK_IDLE_A = 4;
         public static final int WEAPON_PUNK_IDLE_B = 4;
-        public static final int WEAPON_PUNK_JUMP_A = 3;
-        public static final int WEAPON_PUNK_JUMP_B = 3;
-        public static final int WEAPON_PUNK_RUN_A = 5;
-        public static final int WEAPON_PUNK_RUN_B = 5;
+        public static final int WEAPON_PUNK_JUMP_A = 4;
+        public static final int WEAPON_PUNK_JUMP_B = 4;
+        public static final int WEAPON_PUNK_RUN_A = 6;
+        public static final int WEAPON_PUNK_RUN_B = 6;
         public static final int WEAPON_PUNK_WALK_A = 4;
         public static final int WEAPON_PUNK_WALK_B = 4;
         
         // Weapon Animations - Cyborg
-        public static final int WEAPON_CYBORG_IDLE_A = 3;
-        public static final int WEAPON_CYBORG_IDLE_B = 3;
-        public static final int WEAPON_CYBORG_JUMP_A = 3;
-        public static final int WEAPON_CYBORG_JUMP_B = 3;
-        public static final int WEAPON_CYBORG_RUN_A = 5;
-        public static final int WEAPON_CYBORG_RUN_B = 5;
+        public static final int WEAPON_CYBORG_IDLE_A = 4;
+        public static final int WEAPON_CYBORG_IDLE_B = 4;
+        public static final int WEAPON_CYBORG_JUMP_A = 4;
+        public static final int WEAPON_CYBORG_JUMP_B = 4;
+        public static final int WEAPON_CYBORG_RUN_A = 6;
+        public static final int WEAPON_CYBORG_RUN_B = 6;
         public static final int WEAPON_CYBORG_WALK_A = 4;
         public static final int WEAPON_CYBORG_WALK_B = 4;
         
         // Boss Animations - Golf Soldier
         public static final int BOSS_GOLF_SOLDIER_IDLE = 4;
-        public static final int BOSS_GOLF_SOLDIER_ATTACK = 5;
+        public static final int BOSS_GOLF_SOLDIER_ATTACK = 6;
         public static final int BOSS_GOLF_SOLDIER_DEATH = 6;
         
         // Boss Animations - Green Mech
         public static final int BOSS_GREEN_MECH_IDLE = 4;
         public static final int BOSS_GREEN_MECH_ATTACK = 6;
-        public static final int BOSS_GREEN_MECH_DEATH = 7;
+        public static final int BOSS_GREEN_MECH_DEATH = 8;
         
         // Boss Animations - Rugby Guy
         public static final int BOSS_RUGBY_GUY_IDLE = 4;
-        public static final int BOSS_RUGBY_GUY_ATTACK = 5;
-        public static final int BOSS_RUGBY_GUY_DEATH = 5;
+        public static final int BOSS_RUGBY_GUY_ATTACK = 6;
+        public static final int BOSS_RUGBY_GUY_DEATH = 6;
     }
     
     /**

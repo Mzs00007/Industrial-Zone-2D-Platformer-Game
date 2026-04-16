@@ -16,9 +16,16 @@ public class Level1 implements LevelData {
     public static final float  START_Y     = 456f;   // ground(520) - 64
 
     // ── platforms  [x, y, width, height] ──
+    // Ground floor is broken into segments — cliffs (pits) between them.
+    // Pit ranges:  [1900..2100], [3100..3300], [4400..4600]
+    //   Player falls through → triggers respawn at checkpoint.
+    //   Ground enemies use cliff-edge detection so they don't walk into pits.
     private static final float[][] PLATFORMS = {
-        // Ground
-        {   0,  520, 16000, 800 },
+        // Ground segments (NOT continuous — cliffs in between)
+        {   0,  520, 1900, 800 },   // Segment A: start zone
+        {2100,  520, 1000, 800 },   // Segment B: mid zone
+        {3300,  520, 1100, 800 },   // Segment C: zigzag base
+        {4600,  520, 11400, 800 },  // Segment D: boss + endgame (long)
         // Section 1: Gentle start
         { 250,  440,  200,  20 },
         { 520,  400,  180,  20 },
@@ -29,6 +36,8 @@ public class Level1 implements LevelData {
         {1520,  200,  180,  20 },
         {1520,  440,  250,  20 },
         {1780,  280,  220,  20 },
+        // Pit-A bridge platforms (help cross 1900..2100 gap) — ONE-WAY
+        {1920,  460,  160,  20 },
         // Section 3: Gap challenge
         {2100,  350,  150,  20 },
         {2350,  280,  150,  20 },
@@ -36,6 +45,8 @@ public class Level1 implements LevelData {
         {2600,  420,  300,  20 },
         // Section 4: Zigzag ascent
         {2950,  380,  180,  20 },
+        // Pit-B bridge platforms — ONE-WAY
+        {3130,  470,  150,  20 },
         {3200,  310,  160,  20 },
         {3420,  240,  200,  20 },
         {3680,  180,  180,  20 },
@@ -43,47 +54,93 @@ public class Level1 implements LevelData {
         // Section 5: Boss arena
         {4000,  350,  400,  20 },
         {4100,  200,  140,  20 },
+        // Pit-C bridge platforms — ONE-WAY
+        {4420,  460,  160,  20 },
         {4500,  280,  250,  20 },
         {4800,  480,  600,  20 },
         {4950,  320,  120,  20 },
     };
 
+    // ── platform types  0=normal, 1=one-way (passable from below), 2=moving ──
+    // Type mapping by platform index:
+    //   0-3:  ground segments — NORMAL
+    //   4-11: small platforms — NORMAL
+    //   12:   Pit-A bridge — ONE-WAY
+    //   13-16: gap challenge platforms — NORMAL
+    //   17:   zigzag ascent — NORMAL
+    //   18:   Pit-B bridge — ONE-WAY
+    //   19-22: remaining platforms — NORMAL
+    //   23-24: boss arena platforms — NORMAL
+    //   25:   Pit-C bridge — ONE-WAY
+    //   26-28: final platforms — NORMAL
+    private static final int[] PLATFORM_TYPES = {
+        0, 0, 0, 0,  // Ground segments: NORMAL
+        0, 0, 0,     // Section 1: NORMAL
+        0, 0, 0, 0, 0,  // Section 2: NORMAL
+        1,           // Pit-A bridge: ONE-WAY
+        0, 0, 0, 0,  // Gap challenge: NORMAL
+        0,           // Zigzag: NORMAL
+        1,           // Pit-B bridge: ONE-WAY
+        0, 0, 0, 0,  // Remaining: NORMAL
+        0, 0,        // Boss arena: NORMAL
+        1,           // Pit-C bridge: ONE-WAY
+        0, 0, 0,     // Final platforms: NORMAL
+    };
+
     // ── enemies  [x, y, typeId]  0=UFO 1=JET 2=HOVER 3=LAND_TANK 4=LAND_KNIGHT 5=LAND_WARRIOR 6=BOSS_GOLF_CART 7=BOSS_GREEN_MECH 8=BOSS_RUGBY_GUY ──
+    // RULE: air enemies (UFO/JET) are sparse in ground-enemy zones to avoid overwhelm.
+    //       HOVER drones and LAND enemies are paired on the ground floor.
+    //       Enemies are positioned BETWEEN pits so they don't fall in.
     private static final float[][] ENEMIES = {
-        // Drones
-        { 480, 360, 0}, { 850, 300, 1}, {1150, 260, 0},
-        {1780, 280, 0}, {2080, 220, 1}, {2720, 240, 0},
-        {3080, 300, 1}, {3430, 250, 0}, {4150, 280, 1},
-        // Ground enemies (hovering drones)
-        {1480, 472, 2}, {2400, 472, 2}, {3780, 472, 2},
-        // Land enemies (sci-fi-antagonists)
-        {1300, 456, 3},   // CombatTank patrolling section 2
-        {2900, 456, 4},   // ArmouredKnight guarding section 4
-        {3600, 456, 5},   // WingedWarrior at zigzag ascent
-        // BOSS: GolfCartSoldier at boss arena
+        // Air drones (thinned out — only where no ground troops)
+        { 480, 360, 0}, { 850, 300, 1},
+        {1780, 280, 0}, {2720, 240, 0},
+        {3430, 250, 0},
+        // Ground floor HOVER drones (skim low)
+        { 680, 472, 2}, {1480, 472, 2}, {2650, 472, 2}, {3780, 472, 2},
+        // Land troops — patrol BETWEEN pits
+        { 400, 456, 5},   // WingedWarrior early scout (Segment A)
+        {1300, 456, 3},   // CombatTank mid-Segment A
+        {1680, 456, 4},   // ArmouredKnight near Pit-A
+        {2400, 456, 3},   // CombatTank in Segment B
+        {2900, 456, 4},   // ArmouredKnight before Pit-B
+        {3600, 456, 5},   // WingedWarrior in Segment C
+        {4050, 456, 4},   // Knight at boss ramp
+        // BOSS: GolfCartSoldier at boss arena (Segment D)
         {4800, 424, 6},
     };
 
     // ── animated objects  [typeId, x, y, w, h] ──
+    // Traps (hammers + turrets) placed near pits and on ground floor.
     private static final float[][] OBJECTS = {
-        // Money
+        // Money — placed in each ground segment (avoid pits)
         {1, 350,488, 32,32},{1, 700,488, 32,32},{1,1100,488, 32,32},{1,1600,488, 32,32},
-        {1,2200,488, 32,32},{1,2800,488, 32,32},{1,3300,488, 32,32},{1,3900,488, 32,32},
-        {1,4300,488, 32,32},{1,4600,488, 32,32},
-        // Cards
+        {1,2200,488, 32,32},{1,2800,488, 32,32},{1,3500,488, 32,32},{1,3900,488, 32,32},
+        {1,4700,488, 32,32},{1,5000,488, 32,32},
+        // Cards (high-value collectibles on elevated platforms)
         {0, 560,368, 32,32},{0,1560,168, 32,32},{0,2640,188, 32,32},{0,3460,208, 32,32},
-        // Chests
-        {2, 950,472, 48,48},{2,1900,472, 48,48},{2,2850,472, 48,48},{2,3850,472, 48,48},
+        // Chests (on ground in each segment)
+        {2, 950,472, 48,48},{2,1800,472, 48,48},{2,2850,472, 48,48},{2,3850,472, 48,48},
         // Conveyors
         {3,2600,388, 160,32},{3,3680,368, 160,32},
-        // Portals (checkpoints + exit)
-        {5,3200,440, 64,80},{5,5200,440, 64,80},
-        // Screens
-        {6, 200,456, 48,64},{6,1400,456, 48,64},
-        // Hammer hazards
-        {7,2150,472, 48,48},{7,3050,472, 48,48},
-        // Moving platform
-        {9,2350,280, 96,24},
+        // Portals (checkpoints) — placed in each ground segment
+        {5, 700,440, 64,80},   // Checkpoint 1 — early (free save)
+        {5,2650,440, 64,80},   // Checkpoint 2 — mid (after Pit-A)
+        {5,3850,440, 64,80},   // Checkpoint 3 — before boss ramp
+        {5,5200,440, 64,80},   // Level exit portal
+        // Screens (decor)
+        {6, 200,456, 48,64},{6,1400,456, 48,64},{6,3700,456, 48,64},
+        // Hammer hazards — at pit edges to punish bad jumps
+        {7,1870,472, 48,48},   // edge of Pit-A
+        {7,2080,472, 48,48},   // other side of Pit-A
+        {7,3080,472, 48,48},   // edge of Pit-B
+        {7,3300,472, 48,48},   // other side of Pit-B
+        {7,4380,472, 48,48},   // edge of Pit-C
+        // Turret hazards — ground-mounted gunners
+        {8,2450,472, 48,48},
+        {8,3600,472, 48,48},
+        // Moving platform (crosses Pit-A)
+        {9,1880,440, 96,24},
     };
 
     // ── animated-asset directory ──
@@ -136,6 +193,7 @@ public class Level1 implements LevelData {
     @Override public float  getPlayerStartY()  { return START_Y; }
 
     @Override public float[][] getPlatforms()       { return PLATFORMS; }
+    @Override public int[]     getPlatformTypes()   { return PLATFORM_TYPES; }
     @Override public float[][] getEnemySpawns()     { return ENEMIES; }
     @Override public float[][] getAnimatedObjects() { return OBJECTS; }
 

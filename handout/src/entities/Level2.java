@@ -16,9 +16,18 @@ public class Level2 implements LevelData {
     public static final float  START_Y     = 456f;   // ground(520) - 64
 
     // ── platforms  [x, y, width, height] ──
+    // Ground is BROKEN into segments (cliffs/pits between them).
+    // Pit ranges:  [1170..1290], [2430..2580], [3640..3780], [4720..4860], [5680..5780]
+    //   Player falls → auto-respawn at last checkpoint.
+    //   Ground enemies stop at cliff edges (Enemy.wouldFallOffEdge).
     private static final float[][] PLATFORMS = {
-        // Ground
-        {   0,  520, 28800, 800 },
+        // Ground segments (cliffs between each pair)
+        {   0,  520, 1170,  800 },
+        {1290,  520, 1140,  800 },
+        {2580,  520, 1060,  800 },
+        {3780,  520,  940,  800 },
+        {4860,  520,  820,  800 },
+        {5780,  520, 23020, 800 },  // final long stretch
         // Section 1: Power station entrance
         { 200,  440,  250,  20 },
         { 500,  370,  200,  20 },
@@ -57,21 +66,42 @@ public class Level2 implements LevelData {
         {6100,  200,  120,  20 },
     };
 
+    // ── platform types  0=normal, 1=one-way, 2=moving ──
+    // Level 2 currently uses only normal platforms
+    private static final int[] PLATFORM_TYPES = {
+        0, 0, 0, 0, 0, 0,  // Ground segments: NORMAL
+        0, 0, 0, 0,        // Section 1: NORMAL
+        0, 0, 0, 0, 0,     // Section 2: NORMAL
+        0, 0, 0, 0, 0,     // Section 3: NORMAL
+        0, 0, 0, 0, 0, 0,  // Section 4: NORMAL
+        0, 0,              // Section 5: NORMAL
+        0, 0, 0, 0,        // Section 6: NORMAL
+        0, 0, 0,           // Section 7: NORMAL
+    };
+
     // ── enemies  [x, y, typeId]  0=UFO 1=JET 2=HOVER 3=LAND_TANK 4=LAND_KNIGHT 5=LAND_WARRIOR 6=BOSS_GOLF_CART 7=BOSS_GREEN_MECH 8=BOSS_RUGBY_GUY ──
+    // RULE: where the ground floor has land enemies, air drones are thinned out.
+    //       Enemies are placed INSIDE ground segments (NOT over pits).
     private static final float[][] ENEMIES = {
-        // Drones
-        { 350, 340, 1}, { 740, 280, 0}, {1510, 300, 1},
-        {1870, 240, 0}, {2250, 200, 1}, {2950, 220, 0},
-        {3300, 280, 1}, {4030, 260, 0}, {4400, 230, 1},
-        {5100, 250, 1}, {5450, 270, 0},
-        // Ground drones
-        {1120, 472, 2}, {2600, 472, 2}, {3680, 472, 2}, {4750, 472, 2},
-        // Land enemies (sci-fi-antagonists)
-        {1600, 456, 3},   // CombatTank in reactor corridor
-        {3200, 456, 4},   // ArmouredKnight at catwalk gauntlet
-        {4900, 456, 5},   // WingedWarrior at final gauntlet
-        {5300, 456, 3},   // CombatTank before final arena
-        // Mid-boss: GreenMech at mini-boss arena
+        // Air drones (thinned — only above non-ground-enemy zones)
+        { 350, 340, 1}, { 740, 280, 0},
+        {1870, 240, 0}, {2250, 200, 1},
+        {3300, 280, 1}, {4030, 260, 0},
+        {5100, 250, 1},
+        // Ground HOVER drones (skim low, between pits)
+        { 900, 472, 2}, {1800, 472, 2}, {2900, 472, 2}, {4100, 472, 2}, {5100, 472, 2},
+        // Land troops — spread across each ground segment
+        { 500, 456, 5},   // WingedWarrior scout (Seg 1)
+        { 950, 456, 3},   // CombatTank end of Seg 1
+        {1450, 456, 4},   // Knight in Seg 2
+        {1900, 456, 5},   // Warrior in Seg 2
+        {2700, 456, 3},   // Tank in Seg 3
+        {3200, 456, 4},   // Knight in Seg 3
+        {3900, 456, 5},   // Warrior in Seg 4
+        {4400, 456, 3},   // Tank in Seg 4
+        {4950, 456, 4},   // Knight in Seg 5
+        {5350, 456, 5},   // Warrior end Seg 5
+        // Mid-boss: GreenMech (final long segment, elevated arena)
         {4300, 424, 7},
         // Final boss: RugbyGuy at final arena
         {5800, 424, 8},
@@ -79,19 +109,32 @@ public class Level2 implements LevelData {
 
     // ── animated objects  [typeId, x, y, w, h] ──
     private static final float[][] OBJECTS = {
-        // Money
+        // Money — spread across each ground segment, avoiding pits
         {1, 300,488, 32,32},{1, 650,488, 32,32},{1,1050,488, 32,32},{1,1500,488, 32,32},
-        {1,2000,488, 32,32},{1,2500,488, 32,32},{1,3000,488, 32,32},{1,3500,488, 32,32},
-        {1,4500,488, 32,32},{1,5200,488, 32,32},{1,5600,488, 32,32},{1,6000,488, 32,32},
-        // Cards
+        {1,2000,488, 32,32},{1,2700,488, 32,32},{1,3200,488, 32,32},{1,3900,488, 32,32},
+        {1,4500,488, 32,32},{1,5200,488, 32,32},{1,5900,488, 32,32},{1,6300,488, 32,32},
+        // Cards (elevated platforms)
         {0, 520,338, 32,32},{0, 810,268, 32,32},{0,1920,228, 32,32},
         {0,2680,268, 32,32},{0,3620,178, 32,32},
         // Chests
-        {2,1200,472, 48,48},{2,2800,472, 48,48},{2,4200,472, 48,48},{2,5500,472, 48,48},
-        // Turret hazards
-        {8,3200,472, 48,48},{8,4800,472, 48,48},
-        // Portals (checkpoints + exit)
-        {5,2400,440, 64,80},{5,4600,440, 64,80},{5,6400,440, 64,80},
+        {2,1050,472, 48,48},{2,2850,472, 48,48},{2,4200,472, 48,48},{2,5500,472, 48,48},
+        // Hammer hazards at pit edges
+        {7,1130,472, 48,48},{7,1310,472, 48,48},   // Pit 1 edges
+        {7,2400,472, 48,48},{7,2600,472, 48,48},   // Pit 2 edges
+        {7,3600,472, 48,48},{7,3800,472, 48,48},   // Pit 3 edges
+        {7,4700,472, 48,48},                        // Pit 4 edge
+        // Turret hazards — ground-mounted
+        {8, 800,472, 48,48},{8,3000,472, 48,48},
+        {8,4100,472, 48,48},{8,5000,472, 48,48},
+        // Screen decor
+        {6, 200,456, 48,64},{6,2700,456, 48,64},{6,5000,456, 48,64},
+        // Portals (checkpoints) — one per ground segment
+        {5, 800,440, 64,80},   // Checkpoint 1 (Seg 1)
+        {5,2000,440, 64,80},   // Checkpoint 2 (Seg 2)
+        {5,3200,440, 64,80},   // Checkpoint 3 (Seg 3)
+        {5,4400,440, 64,80},   // Checkpoint 4 (Seg 4)
+        {5,5300,440, 64,80},   // Checkpoint 5 (Seg 5)
+        {5,6400,440, 64,80},   // Final exit portal
     };
 
     // ── animated-asset directory ──
@@ -157,6 +200,7 @@ public class Level2 implements LevelData {
     @Override public float  getPlayerStartY()  { return START_Y; }
 
     @Override public float[][] getPlatforms()       { return PLATFORMS; }
+    @Override public int[]     getPlatformTypes()   { return PLATFORM_TYPES; }
     @Override public float[][] getEnemySpawns()     { return ENEMIES; }
     @Override public float[][] getAnimatedObjects() { return OBJECTS; }
 

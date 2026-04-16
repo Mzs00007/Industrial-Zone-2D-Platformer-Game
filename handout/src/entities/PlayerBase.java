@@ -94,10 +94,14 @@ public class PlayerBase {
     //  Static: platform data set by Game.java; input key set
     // =========================================================================
     private static float[][]   platforms = new float[0][0];
+    private static int[]       platformTypes = new int[0];  // 0=normal, 1=one-way, 2=moving
     private static Set<Integer> keysDown = new HashSet<>();
 
     /** Called by Game.java before creating the player. */
     public static void setPlatforms(float[][] data) { platforms = data; }
+    
+    /** Called by Game.java to set platform type information (0=normal, 1=one-way, 2=moving). */
+    public static void setPlatformTypes(int[] types) { platformTypes = types; }
 
     /** Sets the aim angle (radians) toward the mouse cursor — called each frame from Game.java. */
     public void setAimAngle(double angle) { this.aimAngle = angle; }
@@ -188,6 +192,18 @@ public class PlayerBase {
     // Aim angle (radians) — set each frame from Game.java using mouse position
     private double aimAngle = 0.0;
 
+    // One-shot SFX event flags (read+cleared by Game each frame)
+    private boolean evtJumped  = false;
+    private boolean evtLanded  = false;
+    private boolean evtDashed  = false;
+    private boolean evtHit     = false;
+    private boolean evtDied    = false;
+    private boolean evtAttack  = false;
+    private boolean evtDoubleJump = false;
+    private boolean prevGrounded = false;
+    private boolean prevJumpKey  = false;
+    private boolean prevAttackKey= false;
+
     // ---- Heal system ----
     private long  lastHealTimeMs  = -5000L;
     private static final long HEAL_COOLDOWN_MS = 5000L;
@@ -198,6 +214,7 @@ public class PlayerBase {
 
     // ---- Ladder climb ----
     private boolean onLadder = false;
+    private boolean wasOnLadder = false;
     private static final float CLIMB_SPEED = 80f;
 
     // ---- Weapon inventory (4 slots) ----
@@ -394,24 +411,43 @@ public class PlayerBase {
             velX = dir * DASH_SPEED;
             lastDashMs = System.currentTimeMillis();
             setState(AnimState.DASH);
+            evtDashed = true;
         }
 
-        // Jump / Double Jump
-        if (key(KeyEvent.VK_SPACE) || key(KeyEvent.VK_UP) || key(KeyEvent.VK_W)) {
+        // Jump / Double Jump — edge-triggered to avoid spamming each frame key is held
+        boolean jumpDown = key(KeyEvent.VK_SPACE) || key(KeyEvent.VK_UP) || key(KeyEvent.VK_W);
+        if (jumpDown && !prevJumpKey) {
             if (grounded) {
                 velY = JUMP_POWER;
                 grounded = false;
                 jumpsRemaining = 1;  // used first jump
+                evtJumped = true;
             } else if (jumpsRemaining > 0) {
                 velY = JUMP_POWER * 0.85f;  // second jump slightly weaker
                 jumpsRemaining = 0;
                 setState(AnimState.DOUBLE_JUMP);
+                evtDoubleJump = true;
             }
         }
+        prevJumpKey = jumpDown;
 
         // Interact (E key)
         if (key(KeyEvent.VK_E) && grounded && state != AnimState.USE) {
             setState(AnimState.USE);
+        }
+
+        // ── Emote & extra-animation key bindings (all 24 animations covered) ──
+        // Only trigger on the ground so they don't interrupt jumps/falls.
+        if (grounded && !isOneShot(state)) {
+            if      (key(KeyEvent.VK_P))      setState(AnimState.PUNCH);
+            else if (key(KeyEvent.VK_Z))      setState(AnimState.SITDOWN);
+            else if (key(KeyEvent.VK_X))      setState(AnimState.ANGRY);
+            else if (key(KeyEvent.VK_C))      setState(AnimState.HAPPY);
+            else if (key(KeyEvent.VK_V))      setState(AnimState.TALK);
+            else if (key(KeyEvent.VK_F))      setState(AnimState.ATTACK2);
+            else if (key(KeyEvent.VK_G))      setState(AnimState.ATTACK3);
+            else if (key(KeyEvent.VK_B))      setState(AnimState.IDLE2);
+            else if (key(KeyEvent.VK_N))      setState(AnimState.PULLUP);
         }
 
         // Shoot / Attack (CTRL or left-mouse via requestShot())
@@ -457,36 +493,57 @@ public class PlayerBase {
     //  Platform collision
     // -------------------------------------------------------------------------
     private void resolveCollisions() {
+        boolean wasGrounded = grounded;
         grounded = false;
 
-        for (float[] plat : platforms) {
+        for (int i = 0; i < platforms.length; i++) {
+            float[] plat = platforms[i];
             float px = plat[0], py = plat[1], pw = plat[2], ph = plat[3];
 
-            // Horizontal overlap (shrink hitbox slightly)
+            // Platform type: 0=normal solid, 1=one-way (pass from below), 2=moving solid
+            int platType = (i < platformTypes.length) ? platformTypes[i] : 0;
+
+            // Horizontal overlap (shrunk hitbox for cleaner edges)
             boolean hOverlap = (x + SPRITE_W - 6 > px) && (x + 6 < px + pw);
             if (!hOverlap) continue;
 
             float bottom = y + SPRITE_H;
 
-            // Landing on top surface
+            if (platType == 1) {
+                // ONE-WAY: only block when falling onto top surface
+                if (velY >= 0 && bottom >= py && bottom <= py + ph + 2) {
+                    float prevBottom = bottom - velY * 0.02f;
+                    if (prevBottom <= py + 1) {  // was above last frame
+                        y = py - SPRITE_H;
+                        velY = 0;
+                        grounded = true;
+                        jumpsRemaining = 2;
+                        break;
+                    }
+                }
+                continue;
+            }
+
+            // NORMAL (0) or MOVING (2): solid top surface
             if (velY >= 0 && bottom >= py && bottom <= py + ph + 2) {
                 y = py - SPRITE_H;
                 velY = 0;
                 grounded = true;
-                jumpsRemaining = 2;  // reset double jump on landing
+                jumpsRemaining = 2;
                 break;
             }
         }
 
-        // Fell out of the world → respawn on first platform at damage cost
-        if (y > 1800) {
-            takeDamage(20);
-            if (platforms.length > 0) {
-                y = platforms[0][1] - SPRITE_H;
-                x = Math.max(x, 20);
-            }
+        // Fell into pit / off world — deep fall is lethal (no double-jump recovery)
+        if (y > 1200) {
+            alive = false;
+            setState(AnimState.DEATH);
+            evtDied = true;
             velY = 0;
-            grounded = true;
+        }
+
+        if (grounded && !wasGrounded && velY == 0) {
+            evtLanded = true;
         }
     }
 
@@ -496,20 +553,33 @@ public class PlayerBase {
     private void updateStateMachine() {
         // One-shot animations: let them finish before transitioning
         if (state == AnimState.DEATH) return;  // death is permanent
+        if (state == AnimState.HANG) return;   // hang is held by external control (transport drone)
         if (state == AnimState.ATTACK1 || state == AnimState.ATTACK2 || state == AnimState.ATTACK3
             || state == AnimState.PUNCH || state == AnimState.WALK_ATTACK || state == AnimState.RUN_ATTACK
             || state == AnimState.HIT || state == AnimState.DASH
             || state == AnimState.USE || state == AnimState.DOUBLE_JUMP
-            || state == AnimState.PULLUP) {
+            || state == AnimState.PULLUP || state == AnimState.ANGRY || state == AnimState.HAPPY
+            || state == AnimState.TALK || state == AnimState.SITDOWN) {
             BufferedImage[] f = currentFrames();
             if (f != null && frameIdx >= f.length - 1) {
                 // One-shot finished → return to appropriate base state
                 if (state == AnimState.HIT || state == AnimState.DASH || state == AnimState.USE
-                    || state == AnimState.PULLUP || state == AnimState.DOUBLE_JUMP) {
+                    || state == AnimState.PULLUP || state == AnimState.DOUBLE_JUMP
+                    || state == AnimState.ANGRY || state == AnimState.HAPPY || state == AnimState.TALK) {
                     setState(AnimState.IDLE);
                 } else {
                     setState(AnimState.IDLE);
                 }
+            }
+            return;
+        }
+
+        // Ladder climbing takes priority
+        if (onLadder) {
+            if (key(KeyEvent.VK_W) || key(KeyEvent.VK_UP) || key(KeyEvent.VK_S) || key(KeyEvent.VK_DOWN)) {
+                setState(AnimState.CLIMB);  // play climb animation while moving on ladder
+            } else {
+                setState(AnimState.HANG);   // idle hang state on ladder
             }
             return;
         }
@@ -525,7 +595,7 @@ public class PlayerBase {
         }
     }
 
-    private void setState(AnimState next) {
+    public void setState(AnimState next) {
         if (state == next) return;
         state    = next;
         frameIdx = 0;
@@ -559,20 +629,20 @@ public class PlayerBase {
         if (frames.containsKey(state)) return frames.get(state);
         // Smart fallbacks for missing animations
         switch (state) {
-            case IDLE2:        return frames.getOrDefault(AnimState.IDLE, null);
-            case RUN:          return frames.getOrDefault(AnimState.WALK, null);
+            case IDLE2:        return frames.getOrDefault(AnimState.IDLE2, null);
+            case RUN:          return frames.getOrDefault(AnimState.RUN, null);
             case DASH:         return frames.getOrDefault(AnimState.RUN, frames.getOrDefault(AnimState.WALK, null));
             case DOUBLE_JUMP:  return frames.getOrDefault(AnimState.JUMP, null);
-            case CLIMB:        return frames.getOrDefault(AnimState.WALK, null);
-            case HANG:         return frames.getOrDefault(AnimState.IDLE, null);
-            case PULLUP:       return frames.getOrDefault(AnimState.JUMP, null);
+            case CLIMB:        return frames.getOrDefault(AnimState.CLIMB, null);
+            case HANG:         return frames.getOrDefault(AnimState.HANG, null);
+            case PULLUP:       return frames.getOrDefault(AnimState.PULLUP, null);
             case PUNCH:        return frames.getOrDefault(AnimState.ATTACK1, null);
-            case ATTACK2:      return frames.getOrDefault(AnimState.ATTACK1, null);
-            case ATTACK3:      return frames.getOrDefault(AnimState.ATTACK1, null);
-            case WALK_ATTACK:  return frames.getOrDefault(AnimState.ATTACK1, null);
-            case RUN_ATTACK:   return frames.getOrDefault(AnimState.ATTACK1, null);
-            case USE:          return frames.getOrDefault(AnimState.IDLE, null);
-            case SITDOWN:      return frames.getOrDefault(AnimState.IDLE, null);
+            case ATTACK2:      return frames.getOrDefault(AnimState.ATTACK2, null);
+            case ATTACK3:      return frames.getOrDefault(AnimState.ATTACK3, null);
+            case WALK_ATTACK:  return frames.getOrDefault(AnimState.WALK_ATTACK, null);
+            case RUN_ATTACK:   return frames.getOrDefault(AnimState.RUN_ATTACK, null);
+            case USE:          return frames.getOrDefault(AnimState.USE, null);
+            case SITDOWN:      return frames.getOrDefault(AnimState.SITDOWN, null);
             case ANGRY:        return frames.getOrDefault(AnimState.IDLE, null);
             case HAPPY:        return frames.getOrDefault(AnimState.IDLE, null);
             case TALK:         return frames.getOrDefault(AnimState.IDLE, null);
@@ -640,9 +710,32 @@ public class PlayerBase {
         if (health <= 0) {
             alive = false;
             setState(AnimState.DEATH);
+            evtDied = true;
         } else {
             setState(AnimState.HIT);
             velY = -180f;  // knockback
+            evtHit = true;
+        }
+    }
+    
+    /**
+     * Apply knockback force to player from impact
+     * @param forceX horizontal knockback force (px/s)
+     * @param forceY vertical knockback force (px/s, negative = up)
+     * @param durationMs duration of knockback effect (unused currently, for future enhancement)
+     */
+    public void applyKnockback(float forceX, float forceY, int durationMs) {
+        if (!alive) return;
+        
+        // Apply horizontal knockback
+        if (Math.abs(forceX) > 1f) {
+            velX = forceX;  // Set velocity to knockback direction
+            System.out.println("[Player] Knockback applied: (" + forceX + ", " + forceY + ")");
+        }
+        
+        // Apply vertical knockback if not already falling
+        if (forceY < 0) {
+            velY = forceY;
         }
     }
 
@@ -653,6 +746,7 @@ public class PlayerBase {
     public Projectile getProjectileToFire() {
         if (!pendingShot) return null;
         pendingShot = false;
+        evtAttack = true;
 
         float projX = facingRight ? x + SPRITE_W : x - 10f;
         float projY = y + SPRITE_H / 2f - 3f;
@@ -672,6 +766,26 @@ public class PlayerBase {
     // =========================================================================
     /** Move player to an absolute world position. */
     public void setPosition(float nx, float ny) { x = nx; y = ny; }
+
+    /** Respawn at a checkpoint: restores position, heals a little, stops motion. */
+    public void respawnAt(float nx, float ny) {
+        this.x = nx; this.y = ny;
+        this.velX = 0; this.velY = 0;
+        this.grounded = false;
+        this.jumpsRemaining = 2;
+        if (alive) {
+            this.health = Math.min(maxHealth, this.health + 25);
+        }
+    }
+
+    // ── One-shot SFX event pollers (Game reads once per frame) ──
+    public boolean pollJumped()     { boolean v = evtJumped;     evtJumped     = false; return v; }
+    public boolean pollDoubleJump() { boolean v = evtDoubleJump; evtDoubleJump = false; return v; }
+    public boolean pollLanded()     { boolean v = evtLanded;     evtLanded     = false; return v; }
+    public boolean pollDashed()     { boolean v = evtDashed;     evtDashed     = false; return v; }
+    public boolean pollHit()        { boolean v = evtHit;        evtHit        = false; return v; }
+    public boolean pollDied()       { boolean v = evtDied;       evtDied       = false; return v; }
+    public boolean pollAttacked()   { boolean v = evtAttack;     evtAttack     = false; return v; }
 
     public float getX()          { return x; }
     public float getY()          { return y; }
@@ -699,9 +813,23 @@ public class PlayerBase {
         if (!alive) return false;
         lastHealTimeMs = now;
         health = Math.min(maxHealth, health + HEAL_AMOUNT);
+        setState(AnimState.HAPPY);  // Play heal animation
         System.out.println("[Player] Healed +" + HEAL_AMOUNT + " HP → " + health);
         return true;
     }
+
+    /** Animations that must play to completion without being interrupted by emote keys. */
+    private boolean isOneShot(AnimState s) {
+        return s == AnimState.ATTACK1 || s == AnimState.ATTACK2 || s == AnimState.ATTACK3
+            || s == AnimState.PUNCH  || s == AnimState.WALK_ATTACK || s == AnimState.RUN_ATTACK
+            || s == AnimState.HIT    || s == AnimState.DASH     || s == AnimState.USE
+            || s == AnimState.DOUBLE_JUMP || s == AnimState.PULLUP
+            || s == AnimState.ANGRY  || s == AnimState.HAPPY    || s == AnimState.TALK
+            || s == AnimState.SITDOWN|| s == AnimState.DEATH;
+    }
+
+    /** Trigger the HANG animation (used for transport drone pickup). */
+    public void triggerHang() { setState(AnimState.HANG); }
 
     public float getHealCooldownPct() {
         long elapsed = System.currentTimeMillis() - lastHealTimeMs;

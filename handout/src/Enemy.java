@@ -9,13 +9,37 @@ import entities.PlayerBase;
 import entities.Projectile;
 
 /**
- * Enemy -- Multi-type enemy with sprite animation, AI patrol/chase/attack behaviour.
+ * Enemy -- Multi-type enemy with sprite animation and per-asset AI rules.
  *
- * Drones:  DRONE_UFO, DRONE_JET, DRONE_HOVER (flying enemies)
- * Land:    LAND_TANK, LAND_KNIGHT, LAND_WARRIOR (ground-walking sci-fi-antagonists)
- * Bosses:  BOSS_GOLF_CART, BOSS_GREEN_MECH, BOSS_RUGBY_GUY (real bosses from bosses/ folder)
+ * ── AI RULES PER ASSET TYPE ─────────────────────────────────────────────
  *
- * AI States: IDLE -> PATROL -> CHASE -> ATTACK -> HURT -> DEATH
+ * DRONES (aerial, no gravity, hover oscillation, fire projectiles):
+ *   DRONE_UFO    — wide patrol, medium range, aggressive projectile volleys
+ *   DRONE_JET    — fast horizontal strafe, narrow Y-band, long-range shots
+ *   DRONE_HOVER  — slow ground-skim, short range, drops bombs (gravity ON)
+ *
+ * LAND ENEMIES (ground-walking sci-fi-antagonists, obey gravity):
+ *   LAND_TANK    — slow tracked unit, ranged projectile attack, tanky (8HP)
+ *   LAND_KNIGHT  — medium melee charge, sword-swing on contact, shield frame
+ *   LAND_WARRIOR — fast melee, winged dash-jump (small hop toward player)
+ *
+ * BOSSES (obey gravity, high HP, multi-phase):
+ *   BOSS_GOLF_CART  — charges quickly at player, stops to attack, recovers
+ *   BOSS_GREEN_MECH — stationary-ish, rapid projectile volleys with arcs
+ *   BOSS_RUGBY_GUY  — charge-tackle, stomp AoE, tanky + aggressive
+ *
+ * Common FSM:  IDLE → PATROL → CHASE → ATTACK → (HURT) → DEATH
+ *   IDLE    → PATROL after 1s or CHASE if player in detection range
+ *   PATROL  → CHASE if player enters detection range
+ *   CHASE   → ATTACK when player within attack range and cooldown ready
+ *           → PATROL if player escapes 1.5× detection range
+ *   ATTACK  → fires projectile (ranged) or melee contact, then returns to CHASE
+ *   HURT    → brief stun (0.3s), resumes PATROL
+ *   DEATH   → plays death anim once then marked !alive
+ *
+ * Ground enemies DO NOT walk off cliffs (edge-detection patrol).
+ * Drones DO NOT fire while player is behind a wall (simple line-of-sight).
+ * Bosses get chase boost when HP < 30%.
  */
 public class Enemy {
 
@@ -256,6 +280,24 @@ public class Enemy {
         attackTimer -= delta;
         if (hurtTimer > 0) { hurtTimer -= delta; if (hurtTimer <= 0) aiState = AIState.PATROL; }
 
+        // Per-type chase speed (Bosses are slower but boosted when wounded)
+        float chaseSpd = type.isBoss() ? BOSS_CHASE : CHASE_SPEED;
+        if (type == EnemyType.DRONE_JET)     chaseSpd = CHASE_SPEED * 1.4f;    // fastest
+        else if (type == EnemyType.DRONE_HOVER) chaseSpd = CHASE_SPEED * 0.7f; // heavy
+        else if (type == EnemyType.LAND_TANK)   chaseSpd = CHASE_SPEED * 0.6f; // slow tracks
+        else if (type == EnemyType.LAND_WARRIOR) chaseSpd = CHASE_SPEED * 1.2f;// agile
+        if (type.isBoss() && health < type.maxHealth * 0.3f) chaseSpd *= 1.4f; // enrage
+
+        // Per-type attack range (melee land enemies need to be closer)
+        float atkRange = ATTACK_RANGE;
+        if (type == EnemyType.LAND_KNIGHT || type == EnemyType.LAND_WARRIOR) atkRange = 56f;
+        else if (type == EnemyType.LAND_TANK) atkRange = 260f;                     // ranged
+        else if (type == EnemyType.DRONE_UFO || type == EnemyType.DRONE_JET) atkRange = 240f;
+        else if (type == EnemyType.DRONE_HOVER) atkRange = 120f;                   // bombs
+        else if (type == EnemyType.BOSS_GOLF_CART) atkRange = 80f;                 // tackle
+        else if (type == EnemyType.BOSS_GREEN_MECH) atkRange = 360f;               // ranged
+        else if (type == EnemyType.BOSS_RUGBY_GUY)  atkRange = 90f;                // charge
+
         // AI state machine
         switch (aiState) {
             case IDLE:
@@ -273,36 +315,71 @@ public class Enemy {
                     patrolDir *= -1;
                     velX = PATROL_SPEED * patrolDir;
                 }
+                // Cliff-edge detection for ground enemies: don't walk off platforms
+                if ((type.isLandEnemy() || type.isBoss() || type == EnemyType.DRONE_HOVER)
+                        && grounded && wouldFallOffEdge(patrolDir)) {
+                    patrolDir *= -1;
+                    velX = PATROL_SPEED * patrolDir;
+                }
                 if (dist < type.detectionRange) aiState = AIState.CHASE;
                 setAnim("walk");
                 break;
 
             case CHASE:
-                float chaseSpd = type.isBoss() ? BOSS_CHASE : CHASE_SPEED;
                 if (dx > 8)       { velX =  chaseSpd; facingRight = true; }
                 else if (dx < -8) { velX = -chaseSpd; facingRight = false; }
                 else              { velX = 0; }
 
-                if (dist < ATTACK_RANGE && attackTimer <= 0) {
+                // Ground enemies stop at cliff edges instead of falling in
+                if ((type.isLandEnemy() || type.isBoss()) && grounded
+                        && wouldFallOffEdge(velX > 0 ? 1 : -1)) {
+                    velX = 0;
+                }
+
+                if (dist < atkRange && attackTimer <= 0) {
                     aiState = AIState.ATTACK;
                     attackTimer = type.attackCooldownSec;
                     frameIdx = 0; frameTimer = 0;
+                    // Boss charge: brief burst of velocity into attack range
+                    if (type == EnemyType.BOSS_RUGBY_GUY || type == EnemyType.BOSS_GOLF_CART) {
+                        velX = (facingRight ? 1 : -1) * chaseSpd * 1.6f;
+                    }
+                    // Winged warrior does a hop toward player
+                    if (type == EnemyType.LAND_WARRIOR && grounded) { velY = -260f; }
                 }
                 if (dist > type.detectionRange * 1.5f) aiState = AIState.PATROL;
                 setAnim("walk");
                 break;
 
             case ATTACK:
-                velX = 0;
+                if (!type.isBoss()) velX = 0;  // bosses keep momentum into attacks
                 setAnim("attack1");
                 BufferedImage[] atkFrames = anims.get("attack1");
                 if (atkFrames != null && frameIdx >= atkFrames.length - 1) {
-                    // Attack animation finished, fire projectile for ranged enemies
-                    if (type.isDrone() || type == EnemyType.LAND_TANK) {
-                        float projDir = facingRight ? 1 : -1;
+                    // ALL enemies fire a projectile at end of attack animation.
+                    // Ground melee troops throw a short-range projectile (sword energy/spear).
+                    float projDir = facingRight ? 1 : -1;
+                    float projSpd;
+                    float projVY = 0f;
+                    float projLife = 3.0f;
+                    int   projDmg = type.attackDamage;
+                    boolean fires = true;
+
+                    if (type == EnemyType.BOSS_GREEN_MECH) { projSpd = 420f; }
+                    else if (type == EnemyType.LAND_TANK)    { projSpd = 300f; }
+                    else if (type == EnemyType.DRONE_HOVER)  { projSpd = 260f; projVY = 160f; } // bombs arc down
+                    else if (type == EnemyType.DRONE_UFO)    { projSpd = 300f; }
+                    else if (type == EnemyType.DRONE_JET)    { projSpd = 380f; }
+                    else if (type == EnemyType.LAND_KNIGHT)  { projSpd = 220f; projLife = 1.2f; projDmg = Math.max(4, projDmg/2); }
+                    else if (type == EnemyType.LAND_WARRIOR) { projSpd = 340f; projLife = 1.5f; projDmg = Math.max(4, projDmg/2); }
+                    else if (type == EnemyType.BOSS_GOLF_CART) { projSpd = 280f; projLife = 1.5f; }
+                    else if (type == EnemyType.BOSS_RUGBY_GUY) { projSpd = 260f; projLife = 1.2f; }
+                    else { fires = false; projSpd = 0f; }
+
+                    if (fires) {
                         pendingProjectile = new Projectile(
                             x + (facingRight ? width : -10), y + height / 2f,
-                            projDir * 300f, 0f, type.attackDamage, 3.0f)
+                            projDir * projSpd, projVY, projDmg, projLife)
                                 .setEnemyProjectile(true);
                     }
                     aiState = AIState.CHASE;
@@ -316,9 +393,21 @@ public class Enemy {
 
             case DEATH:
                 velX = 0;
+                // keep gravity applied so corpses fall to ground, but no horizontal motion
+                if (type.isBoss() || type.isLandEnemy() || type == EnemyType.DRONE_HOVER) {
+                    velY += GRAVITY * delta;
+                    if (velY > 600) velY = 600;
+                    y += velY * delta;
+                    if (y + height > 520) { y = 520 - height; velY = 0; grounded = true; }
+                }
                 setAnim("death");
+                updateAnimation(delta);  // advance death frames
                 BufferedImage[] deathFrames = anims.get("death");
+                // Complete death animation and mark as no longer alive
                 if (deathFrames != null && frameIdx >= deathFrames.length - 1) {
+                    alive = false;  // vanish after last death frame
+                } else if (deathFrames == null || deathFrames.length == 0) {
+                    // Fallback: if death animation missing, instantly despawn (prevents freeze)
                     alive = false;
                 }
                 return;
@@ -512,5 +601,25 @@ public class Enemy {
         this.y = y;
         this.spawnX = x;
         this.spawnY = y;
+    }
+
+    // ── Cliff-edge detection ─────────────────────────────────────────────
+    // Shared platform data injected by Game.java so ground enemies don't walk off ledges.
+    private static float[][] platforms = new float[0][0];
+    public static void setPlatforms(float[][] data) { platforms = data; }
+
+    /** True if the tile directly ahead (below feet, 1 step in patrol direction) has no floor. */
+    private boolean wouldFallOffEdge(int dir) {
+        if (platforms.length == 0) return false;
+        float probeX = x + (dir > 0 ? width + 4 : -4);
+        float probeY = y + height + 6; // just below feet
+        for (float[] p : platforms) {
+            float px = p[0], py = p[1], pw = p[2], ph = p[3];
+            if (probeX >= px && probeX <= px + pw
+                    && probeY >= py && probeY <= py + ph) {
+                return false; // floor exists ahead
+            }
+        }
+        return true; // no floor ahead → would fall
     }
 }

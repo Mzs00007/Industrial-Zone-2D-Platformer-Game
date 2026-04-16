@@ -18,6 +18,14 @@ public interface LevelData {
 
     // ── world geometry  [x, y, width, height] ──
     float[][] getPlatforms();
+    
+    // ── platform types  0=normal, 1=one-way (passable from below), 2=moving ──
+    default int[] getPlatformTypes() { 
+        float[][] plats = getPlatforms();
+        int[] types = new int[plats.length];
+        for (int i = 0; i < types.length; i++) types[i] = 0;  // default: all normal
+        return types;
+    }
 
     // ── enemies  [x, y, typeId] ──
     float[][] getEnemySpawns();
