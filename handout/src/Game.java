@@ -281,6 +281,36 @@ public class Game extends GameCore {
     // Keys: A, D, W, Space, E, H, F, Shift (Shift missing → synthesized).
     private BufferedImage keyA, keyD, keyW, keySpace, keyE, keyH, keyF;
 
+    // Decorative props (crates / barrels / boxes) — purely visual, no
+    // collision. Scattered on ground to break up empty floor sections.
+    private BufferedImage propBarrelA, propBarrelTipped, propCrate, propBoxLight;
+
+    // Decor spawn tables: { propIdx, x, y, renderW, renderH }
+    //   propIdx: 0=barrelUpright, 1=barrelTipped, 2=crate, 3=boxLight
+    //   Placed ONLY on ground segments (avoiding pits 1900..2100 /
+    //   3100..3300 / 4400..4600 in L1, and the 4 pits in L2).
+    private static final float[][] DECOR_L1 = {
+        { 0,  320, 488, 28, 32 }, { 2,  360, 488, 32, 28 },
+        { 3,  780, 488, 34, 30 }, { 0, 1100, 488, 28, 32 },
+        { 1, 1250, 492, 32, 20 }, { 2, 1650, 488, 32, 28 },
+        { 3, 2250, 488, 34, 30 }, { 0, 2500, 488, 28, 32 },
+        { 1, 2800, 492, 32, 20 }, { 2, 3400, 488, 32, 28 },
+        { 0, 3600, 488, 28, 32 }, { 3, 3800, 488, 34, 30 },
+        { 2, 4750, 488, 32, 28 }, { 0, 4900, 488, 28, 32 },
+        { 1, 5100, 492, 32, 20 },
+    };
+
+    private static final float[][] DECOR_L2 = {
+        { 0,  250, 488, 28, 32 }, { 2,  500, 488, 32, 28 },
+        { 3,  700, 488, 34, 30 }, { 1, 1400, 492, 32, 20 },
+        { 0, 1750, 488, 28, 32 }, { 2, 2200, 488, 32, 28 },
+        { 3, 2550, 488, 34, 30 }, { 1, 2900, 492, 32, 20 },
+        { 0, 3350, 488, 28, 32 }, { 2, 3900, 488, 32, 28 },
+        { 3, 4400, 488, 34, 30 }, { 1, 4900, 492, 32, 20 },
+        { 0, 5400, 488, 28, 32 }, { 2, 5800, 488, 32, 28 },
+        { 3, 6100, 488, 34, 30 },
+    };
+
     // =========================================================================
     //  WEAPON ASSETS  — gun sprites for in-hand rendering and HUD slots
     // =========================================================================
@@ -632,6 +662,14 @@ public class Game extends GameCore {
         keyE     = tryLoad(KEY_DIR + "Key_E_Letter_InteractOrUseObject_ActionTutorial.png");
         keyH     = tryLoad(KEY_DIR + "Key_H_Letter_HealOrHelp_CombatAction.png");
         keyF     = tryLoad(KEY_DIR + "Key_F_Letter_ActionOrFireWeapon_CombatAction.png");
+
+        // DECORATIVE PROPS — scattered on ground to add visual variety
+        // without affecting gameplay (no collision, pure sprite draw).
+        final String PROP_DIR = "Resources/industrial-zone/1 Tiles/Industrial_zone_level_1/3 Objects/";
+        propBarrelA       = tryLoad(PROP_DIR + "Prop_Barrel_UprightRedMetal_StandardLabel_FloorDecorOrPushable_VariantA.png");
+        propBarrelTipped  = tryLoad(PROP_DIR + "Prop_Barrel_SmallDamagedTipped_RedWithSpill_FloorHazardDeco_DamagedVariant.png");
+        propCrate         = tryLoad(PROP_DIR + "Prop_Crate_DarkWoodSealed_SmallSquare_FloorStackable_StandardCrateA.png");
+        propBoxLight      = tryLoad(PROP_DIR + "Prop_Box_CardboardLight_MediumLighter_FloorStackable_CardboardVariantD.png");
 
         // CHARACTER IDLE SPRITE SHEETS
         loadCharIdleFrames();
@@ -1533,6 +1571,8 @@ public class Game extends GameCore {
 
         drawBackground(g, W, H);
         drawPlatforms(g, W, H);
+        drawCliffWarnings(g, W, H);
+        drawDecorProps(g, W, H);
 
         // ── Ladder zones (drawn behind entities using real PNG assets) ──
         float[][] ladders = activeLevel.getLadderZones();
@@ -1707,6 +1747,10 @@ public class Game extends GameCore {
         // ── Controls strip (top-right) — shows key icons so the player can
         //    always see what every action key does without opening a menu. ──
         renderControlsStrip(g, W);
+
+        // ── Boss health banner (top-center) — shown only when a boss is
+        //    alive and reasonably close to the player. ──
+        renderBossHealthBar(g, W);
 
         // ── Enhanced HUD Renderer (modern multi-panel display) ──
         if (enhancedHUDRenderer != null) {
@@ -1916,6 +1960,91 @@ public class Game extends GameCore {
     }
 
     // -------------------------------------------------------------------------
+    //  Decorative props — static sprites drawn on the ground layer to break
+    //  up long empty stretches. No collision, no animation, no score value.
+    // -------------------------------------------------------------------------
+    private void drawDecorProps(Graphics2D g, int W, int H) {
+        float[][] decor = (currentLevel == 2) ? DECOR_L2 : DECOR_L1;
+        BufferedImage[] imgs = { propBarrelA, propBarrelTipped, propCrate, propBoxLight };
+        for (float[] d : decor) {
+            int idx = (int) d[0];
+            if (idx < 0 || idx >= imgs.length || imgs[idx] == null) continue;
+            int sx = (int)(d[1] - cameraX);
+            int sy = (int)(d[2] - cameraY);
+            int sw = (int)  d[3];
+            int sh = (int)  d[4];
+            if (sx + sw < 0 || sx > W) continue;
+            g.drawImage(imgs[idx], sx, sy, sw, sh, null);
+        }
+    }
+
+    // -------------------------------------------------------------------------
+    //  Cliff warnings — dark pit gradient + yellow/black chevron stripes at
+    //  the edges of gaps in the ground. Detected automatically by scanning
+    //  platforms at ground level (y ≈ 520) for horizontal gaps.
+    // -------------------------------------------------------------------------
+    private void drawCliffWarnings(Graphics2D g, int W, int H) {
+        float[][] platforms = activeLevel.getPlatforms();
+        if (platforms == null || platforms.length == 0) return;
+
+        // Collect ground-level platforms only (y == 520 ± small tolerance).
+        java.util.List<float[]> ground = new java.util.ArrayList<>();
+        for (float[] p : platforms) {
+            if (Math.abs(p[1] - 520f) < 4f) ground.add(p);
+        }
+        ground.sort((a, b) -> Float.compare(a[0], b[0]));
+
+        java.awt.Stroke origStroke = g.getStroke();
+        for (int i = 0; i < ground.size() - 1; i++) {
+            float[] a = ground.get(i);
+            float[] b = ground.get(i + 1);
+            float gapStart = a[0] + a[2];       // right edge of left segment
+            float gapEnd   = b[0];              // left edge of right segment
+            if (gapEnd - gapStart < 40f) continue;   // not a real pit
+
+            int sx = (int)(gapStart - cameraX);
+            int ex = (int)(gapEnd   - cameraX);
+            if (ex < 0 || sx > W) continue;          // off-screen
+
+            int pitY = (int)(520 - cameraY);
+            int pitH = Math.max(80, H - pitY);
+
+            // Dark pit gradient — opaque at top, fading to transparent black
+            java.awt.GradientPaint grad = new java.awt.GradientPaint(
+                0, pitY,              new Color(0, 0, 0, 210),
+                0, pitY + pitH,       new Color(10, 0, 20, 40));
+            g.setPaint(grad);
+            g.fillRect(sx, pitY, ex - sx, pitH);
+
+            // Chevron warning stripes on both pit edges (32 px wide strip)
+            drawPitChevrons(g, sx - 4, pitY - 18, 32, 12);
+            drawPitChevrons(g, ex - 28, pitY - 18, 32, 12);
+
+            // Red inner shadow on the cliff face so the drop reads clearly
+            g.setColor(new Color(60, 5, 10, 180));
+            g.setStroke(new java.awt.BasicStroke(3f));
+            g.drawLine(sx, pitY, sx, pitY + 40);
+            g.drawLine(ex, pitY, ex, pitY + 40);
+        }
+        g.setStroke(origStroke);
+    }
+
+    private void drawPitChevrons(Graphics2D g, int x, int y, int w, int h) {
+        // Yellow-black diagonal stripe bar (classic hazard marker).
+        int bands = 4;
+        int bandW = w / bands;
+        for (int i = 0; i < bands; i++) {
+            boolean yellow = (i & 1) == 0;
+            g.setColor(yellow ? new Color(240, 200, 40, 220) : new Color(20, 20, 20, 220));
+            int[] xs = { x + i * bandW,            x + (i + 1) * bandW,
+                         x + (i + 1) * bandW - 4,  x + i * bandW - 4 };
+            int[] ys = { y,                        y,
+                         y + h,                    y + h };
+            g.fillPolygon(xs, ys, 4);
+        }
+    }
+
+    // -------------------------------------------------------------------------
     //  Controls strip — key-icon legend in the top-right of gameplay HUD.
     //  Uses the real Key_*.png assets so the visuals match the tutorial set.
     // -------------------------------------------------------------------------
@@ -1965,6 +2094,74 @@ public class Game extends GameCore {
             g.drawString(labels[i], cx + (w - labelW) / 2, y0 + keyPx + 10);
             cx += w + gap;
         }
+    }
+
+    // -------------------------------------------------------------------------
+    //  Boss health banner — only drawn while a boss is alive within ~900px
+    //  of the player. Large red bar spanning most of the top of the screen.
+    // -------------------------------------------------------------------------
+    private void renderBossHealthBar(Graphics2D g, int W) {
+        if (player == null) return;
+        Enemy activeBoss = null;
+        float bestDist = Float.MAX_VALUE;
+        for (Enemy e : enemies) {
+            if (!e.isAlive() || !e.getType().isBoss()) continue;
+            float dx = e.getX() - player.getX();
+            float dy = e.getY() - player.getY();
+            float d  = (float) Math.sqrt(dx * dx + dy * dy);
+            if (d < 900f && d < bestDist) { activeBoss = e; bestDist = d; }
+        }
+        if (activeBoss == null) return;
+
+        int barW = Math.min(720, W - 200);
+        int barH = 22;
+        int bx = (W - barW) / 2;
+        int by = 18;
+
+        // Backdrop
+        g.setColor(new Color(6, 0, 0, 220));
+        g.fillRoundRect(bx - 8, by - 22, barW + 16, barH + 40, 10, 10);
+        g.setColor(new Color(180, 40, 40, 200));
+        g.drawRoundRect(bx - 8, by - 22, barW + 16, barH + 40, 10, 10);
+
+        // Boss name + "BOSS" tag
+        g.setFont(hudFont.deriveFont(Font.BOLD, 14f));
+        g.setColor(new Color(255, 220, 220));
+        String name = activeBoss.getType().prefix.toUpperCase();
+        g.drawString("BOSS — " + name, bx + 4, by - 4);
+
+        // Empty bar frame
+        g.setColor(new Color(20, 0, 0));
+        g.fillRoundRect(bx, by, barW, barH, 6, 6);
+
+        // Fill
+        int maxHp = activeBoss.getType().maxHealth;
+        float pct = Math.max(0f, Math.min(1f, activeBoss.getHealth() / (float) maxHp));
+        int fillW = (int)(barW * pct);
+        java.awt.GradientPaint redGrad = new java.awt.GradientPaint(
+            bx, by, new Color(255, 80, 80),
+            bx, by + barH, new Color(160, 20, 20));
+        g.setPaint(redGrad);
+        g.fillRoundRect(bx, by, fillW, barH, 6, 6);
+
+        // Pulsing white edge when enraged (< 30% HP)
+        if (pct < 0.30f) {
+            float pulse = (float) (0.4 + 0.4 * Math.sin(System.currentTimeMillis() / 80.0));
+            g.setColor(new Color(1f, 1f, 1f, pulse));
+            g.setStroke(new java.awt.BasicStroke(2.5f));
+            g.drawRoundRect(bx, by, barW, barH, 6, 6);
+            g.setStroke(new java.awt.BasicStroke(1f));
+        } else {
+            g.setColor(new Color(255, 180, 180, 180));
+            g.drawRoundRect(bx, by, barW, barH, 6, 6);
+        }
+
+        // Numeric HP
+        g.setColor(new Color(255, 240, 240));
+        g.setFont(hudFont.deriveFont(Font.BOLD, 12f));
+        String hpTxt = activeBoss.getHealth() + " / " + maxHp;
+        int hpW = g.getFontMetrics().stringWidth(hpTxt);
+        g.drawString(hpTxt, bx + barW - hpW - 8, by + 16);
     }
 
     // -------------------------------------------------------------------------
@@ -2630,17 +2827,20 @@ public class Game extends GameCore {
     }
 
     // ---- PAUSE OVERLAY ----
+    // Two-column layout:
+    //   left  — menu buttons (unchanged click regions, just repositioned)
+    //   right — run stats + key legend, so the player sees progress at a glance
     private void drawPauseOverlay(Graphics2D g, int W, int H) {
         // Dark dim
-        g.setColor(new Color(0, 0, 0, 160));
+        g.setColor(new Color(0, 0, 0, 180));
         g.fillRect(0, 0, W, H);
 
-        int panW = 380, panH = 360;
+        int panW = 720, panH = 420;
         int panX = (W - panW) / 2, panY = (H - panH) / 2;
         drawPanel(g, panX, panY, panW, panH);
 
         // Title
-        g.setFont(hudFont.deriveFont(Font.BOLD, 30f));
+        g.setFont(hudFont.deriveFont(Font.BOLD, 34f));
         g.setColor(new Color(0, 220, 255));
         String title = "PAUSED";
         g.drawString(title, panX + (panW - g.getFontMetrics().stringWidth(title)) / 2, panY + 52);
@@ -2649,20 +2849,75 @@ public class Game extends GameCore {
         if (frmDivider != null)
             g.drawImage(frmDivider, panX + 20, panY + 60, panW - 40, 5, null);
 
-        // Pause menu options
+        // ── Left column: menu buttons ──
         String[] pauseItems = { "RESUME", "SETTINGS", "CONTROLS", "QUIT TO MENU" };
-        int btnW = 280, btnH = 46;
+        int btnW = 260, btnH = 46;
+        int leftX = panX + 30;
         for (int i = 0; i < pauseItems.length; i++) {
-            int bx = panX + (panW - btnW) / 2;
-            int by = panY + 82 + i * 60;
+            int bx = leftX;
+            int by = panY + 90 + i * 60;
             boolean hov = isInside(mouseX, mouseY, bx, by, btnW, btnH)
                           || i == pauseMenuIndex;
             drawButton(g, bx, by, btnW, btnH, pauseItems[i], hov ? 1 : 0);
         }
 
+        // ── Right column: run stats ──
+        int rightX = panX + panW - 340;
+        int rightY = panY + 90;
+        g.setColor(new Color(4, 10, 22, 190));
+        g.fillRoundRect(rightX, rightY, 310, 180, 10, 10);
+        g.setColor(new Color(80, 170, 230, 180));
+        g.drawRoundRect(rightX, rightY, 310, 180, 10, 10);
+
+        g.setFont(hudFont.deriveFont(Font.BOLD, 14f));
+        g.setColor(new Color(120, 220, 255));
+        g.drawString("RUN STATS", rightX + 14, rightY + 22);
+
+        g.setFont(new Font("Consolas", Font.BOLD, 13));
+        long elapsedMs = (player != null) ? (System.currentTimeMillis() - startTime) : 0;
+        long secs = elapsedMs / 1000;
+        String timeStr = String.format("%02d:%02d", secs / 60, secs % 60);
+
+        int rowY = rightY + 50;
+        g.setColor(new Color(240, 240, 240)); g.drawString("TIME",       rightX + 20, rowY);
+        g.setColor(new Color(255, 220, 120)); g.drawString(timeStr,      rightX + 170, rowY);
+        g.setColor(new Color(240, 240, 240)); g.drawString("SCORE",      rightX + 20, rowY + 22);
+        g.setColor(new Color(255, 220, 120)); g.drawString(""+score,     rightX + 170, rowY + 22);
+        g.setColor(new Color(240, 240, 240)); g.drawString("KILLS",      rightX + 20, rowY + 44);
+        g.setColor(new Color(255, 120, 120)); g.drawString(""+gameOverEnemiesKilled, rightX + 170, rowY + 44);
+        g.setColor(new Color(240, 240, 240)); g.drawString("CARDS",      rightX + 20, rowY + 66);
+        g.setColor(new Color(120, 220, 255));
+        g.drawString((player != null ? player.getCards() : 0) + " / " + cardsExpected,
+                     rightX + 170, rowY + 66);
+        g.setColor(new Color(240, 240, 240)); g.drawString("BOXES",      rightX + 20, rowY + 88);
+        g.setColor(new Color(255, 200, 80));
+        g.drawString(chestsOpened + " / " + chestCount, rightX + 170, rowY + 88);
+        g.setColor(new Color(240, 240, 240)); g.drawString("CHECKPTS",   rightX + 20, rowY + 110);
+        g.setColor(new Color(140, 255, 160));
+        g.drawString(Math.max(0, lastCheckpointIdx + 1) + " / " + checkpointCount,
+                     rightX + 170, rowY + 110);
+
+        // ── Key-legend strip across the bottom ──
+        int kY = panY + panH - 72;
+        int kX = panX + 30;
+        BufferedImage[] imgs   = { keyA, keyD, keyW, keySpace, keyE, keyH, keyF };
+        String[]        labels = { "Move L", "Move R", "Climb", "Jump", "Use", "Heal", "Fire" };
+        int keyPx = 28, gap = 10;
+        int cx = kX;
+        g.setFont(new Font("Consolas", Font.BOLD, 11));
+        for (int i = 0; i < imgs.length; i++) {
+            int w = (imgs[i] == keySpace) ? (int)(keyPx * 1.6) : keyPx;
+            if (imgs[i] != null) g.drawImage(imgs[i], cx, kY, w, keyPx, null);
+            g.setColor(new Color(200, 230, 255));
+            int lw = g.getFontMetrics().stringWidth(labels[i]);
+            g.drawString(labels[i], cx + (w - lw) / 2, kY + keyPx + 12);
+            cx += w + gap;
+        }
+
         g.setFont(new Font("Arial", Font.PLAIN, 11));
         g.setColor(new Color(100, 110, 140));
-        g.drawString("ESC: Resume", panX + 10, panY + panH - 10);
+        g.drawString("ESC: Resume   •   Arrow keys: Navigate menu",
+                     panX + 10, panY + panH - 10);
     }
 
     // ---- SETTINGS OVERLAY ----
@@ -2958,11 +3213,12 @@ public class Game extends GameCore {
                 break;
             case PAUSE: {
                 int W = getWidth(), H = getHeight();
-                int panW = 380, panH = 360, panX = (W - panW) / 2, panY = (H - panH) / 2;
-                int btnW = 280, btnH = 46;
+                int panW = 720, panH = 420, panX = (W - panW) / 2, panY = (H - panH) / 2;
+                int btnW = 260, btnH = 46;
+                int leftX = panX + 30;
                 String[] items = { "RESUME", "SETTINGS", "CONTROLS", "QUIT TO MENU" };
                 for (int i = 0; i < items.length; i++) {
-                    int bx = panX + (panW - btnW) / 2, by = panY + 82 + i * 60;
+                    int bx = leftX, by = panY + 90 + i * 60;
                     if (isInside(x, y, bx, by, btnW, btnH)) {
                         activatePauseItem(i);
                         return;

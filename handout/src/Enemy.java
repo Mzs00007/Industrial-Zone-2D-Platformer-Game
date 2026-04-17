@@ -128,6 +128,13 @@ public class Enemy {
     private float hoverTime = 0;
     private int patrolDir = 1;
 
+    // Attack telegraph — brief pre-attack windup during which the enemy
+    // visibly flashes/charges. Gives the player a frame window to dodge.
+    private float telegraphTimer = 0f;
+    // Bosses fire a burst of projectiles when enraged (HP < 30%).
+    private int   bossBurstPending = 0;
+    private float bossBurstTimer   = 0f;
+
     // Pending enemy projectile (collected by Game each frame)
     private Projectile pendingProjectile = null;
 
@@ -280,6 +287,24 @@ public class Enemy {
         attackTimer -= delta;
         if (hurtTimer > 0) { hurtTimer -= delta; if (hurtTimer <= 0) aiState = AIState.PATROL; }
 
+        // Enraged-boss burst: fire queued follow-up projectiles on a short
+        // tick. Each shot fans vertically so the player has to move, not
+        // just stand still and trade.
+        if (bossBurstPending > 0 && pendingProjectile == null) {
+            bossBurstTimer -= delta;
+            if (bossBurstTimer <= 0f) {
+                float dir = facingRight ? 1 : -1;
+                // Alternate up/down fan on the 2 extra shots
+                float fanVY = (bossBurstPending == 2) ? -90f : 90f;
+                pendingProjectile = new Projectile(
+                    x + (facingRight ? width : -10), y + height / 2f,
+                    dir * 300f, fanVY, type.attackDamage, 1.6f)
+                        .setEnemyProjectile(true);
+                bossBurstPending--;
+                bossBurstTimer = 0.14f;
+            }
+        }
+
         // Per-type chase speed (Bosses are slower but boosted when wounded)
         float chaseSpd = type.isBoss() ? BOSS_CHASE : CHASE_SPEED;
         if (type == EnemyType.DRONE_JET)     chaseSpd = CHASE_SPEED * 1.4f;    // fastest
@@ -340,6 +365,9 @@ public class Enemy {
                     aiState = AIState.ATTACK;
                     attackTimer = type.attackCooldownSec;
                     frameIdx = 0; frameTimer = 0;
+                    // Bosses get a longer telegraph so the player can read
+                    // and dodge the wind-up; grunts get a shorter one.
+                    telegraphTimer = type.isBoss() ? 0.45f : 0.18f;
                     // Boss charge: brief burst of velocity into attack range
                     if (type == EnemyType.BOSS_RUGBY_GUY || type == EnemyType.BOSS_GOLF_CART) {
                         velX = (facingRight ? 1 : -1) * chaseSpd * 1.6f;
@@ -354,6 +382,11 @@ public class Enemy {
             case ATTACK:
                 if (!type.isBoss()) velX = 0;  // bosses keep momentum into attacks
                 setAnim("attack1");
+                // Count down the wind-up before allowing the projectile to fire.
+                if (telegraphTimer > 0) {
+                    telegraphTimer -= delta;
+                    break;
+                }
                 BufferedImage[] atkFrames = anims.get("attack1");
                 if (atkFrames != null && frameIdx >= atkFrames.length - 1) {
                     // ALL enemies fire a projectile at end of attack animation.
@@ -381,6 +414,12 @@ public class Enemy {
                             x + (facingRight ? width : -10), y + height / 2f,
                             projDir * projSpd, projVY, projDmg, projLife)
                                 .setEnemyProjectile(true);
+                        // Enrage: bosses under 30% HP queue two follow-up shots
+                        // that fan slightly up/down for a spread effect.
+                        if (type.isBoss() && health < type.maxHealth * 0.3f) {
+                            bossBurstPending = 2;
+                            bossBurstTimer   = 0.14f;
+                        }
                     }
                     aiState = AIState.CHASE;
                 }
